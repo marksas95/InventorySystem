@@ -1,4 +1,4 @@
-package com.trainee.inv.repository.category;
+package com.trainee.inv.repository.supplier;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,11 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Category {
+public class Supplier {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-
 	private String name;
 
 	public int getId() {
@@ -45,7 +45,7 @@ public class Category {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		Supplier other = (Supplier) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -56,7 +56,9 @@ public class Category {
 
 	@Override
 	public String toString() {
-		return "Category [id=" + id + ", name=" + name + "]";
+		return "Supplier [id=" + id + ", name=" + name + "]";
 	}
-
+	
+	
+	
 }
