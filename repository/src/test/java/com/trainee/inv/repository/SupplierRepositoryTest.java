@@ -1,5 +1,6 @@
 package com.trainee.inv.repository;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class SupplierRepositoryTest {
 	private SupplierRepository supplierRepository;
 
 	@Test
-//	@Ignore
+	@Ignore
 	public void createSupplierTest() {
 		
 		Supplier supplier = new Supplier();
@@ -26,6 +27,10 @@ public class SupplierRepositoryTest {
 		System.out.println(saveSupplier);
 		
 	}
-	
+	@Test
+	public void findByNameTest() {
+		Supplier findByNameSupplier = supplierRepository.findByName("supplier1");
+		System.out.println(findByNameSupplier);
+	}
 	
 }

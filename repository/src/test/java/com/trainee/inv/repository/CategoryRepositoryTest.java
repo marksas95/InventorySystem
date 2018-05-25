@@ -2,6 +2,7 @@ package com.trainee.inv.repository;
 
 
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,17 @@ public class CategoryRepositoryTest {
 	private CategoryRepository categoryRepository;
 	
 	@Test
+	@Ignore
 	public void createCategoryTest() {
 		Category category = new Category();
 		category.setName("admsin");
 		Category categorySave = categoryRepository.save(category);
 		System.out.println(categorySave);
+	}
+	@Test
+	public void findByNameTest() {
+		Category findByNameCategory = categoryRepository.findByName("admsin");
+		System.out.println(findByNameCategory);
 	}
 	
 }
