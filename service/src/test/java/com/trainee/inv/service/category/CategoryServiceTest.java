@@ -20,7 +20,7 @@ public class CategoryServiceTest {
 	private CategoryService categoryService;
 
 	@Test
-//	@Ignore
+	// @Ignore
 	public void crateTest() {
 
 		String name = "blossb";
@@ -31,7 +31,7 @@ public class CategoryServiceTest {
 	}
 
 	@Test
-    @Ignore
+	@Ignore
 	public void createCategoryWithInvalidNameTest() {
 		try {
 			Category createdCategory = categoryService.create("blob");
@@ -47,7 +47,7 @@ public class CategoryServiceTest {
 		Category category = categoryService.findByName("blosssssb");
 		Assert.notNull(category);
 	}
-	
+
 	@Test
 	@Ignore
 	public void findByNameThatIsNotInDatabaseTest() {
@@ -69,7 +69,7 @@ public class CategoryServiceTest {
 		categoryService.delete("nullss");
 		Assert.isNull(categoryService.findByName("nulls"));
 	}
-	
+
 	@Test
 	@Ignore
 	public void deleteThatHasInvalidNameTest() {
@@ -78,9 +78,9 @@ public class CategoryServiceTest {
 		} catch (IllegalArgumentException e) {
 			Assert.isTrue(e.getMessage().equals("No name in that category."));
 		}
-		
+
 	}
-	
+
 	@Test
 	@Ignore
 	public void findAllTest() {

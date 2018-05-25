@@ -41,7 +41,7 @@ public class CategoryServiceImpl implements CategoryService {
 		category.setName(name);
 		return categoryRepository.save(category);
 	}
-	
+
 	@Override
 	public void delete(String name) {
 		boolean nameExist = checkIfCategoryNameExist(name);
@@ -51,7 +51,6 @@ public class CategoryServiceImpl implements CategoryService {
 		Category category = categoryRepository.findByName(name);
 		categoryRepository.delete(category);
 	}
-
 
 	@Override
 	public List<Category> findAll() {

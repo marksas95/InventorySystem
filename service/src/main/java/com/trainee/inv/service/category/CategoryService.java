@@ -7,9 +7,13 @@ import com.trainee.inv.repository.category.Category;
 public interface CategoryService {
 
 	Category create(String name);
+
 	Category update(Category category, String name);
+
 	Category findByName(String name);
+
 	List<Category> findAll();
+
 	void delete(String name);
-	
+
 }
