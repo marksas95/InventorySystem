@@ -1,13 +1,13 @@
-package com.trainee.inv.service;
-
+package com.trainee.inv;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
+
 @SpringBootApplication
-public class Main {
+public class MainApplicationTest {
 	public static void main(String[] args) {
-		SpringApplication.run(Main.class, args);
+		SpringApplication.run(MainApplicationTest.class, args);
 	}
 }
