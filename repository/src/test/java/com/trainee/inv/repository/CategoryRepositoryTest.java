@@ -21,7 +21,7 @@ public class CategoryRepositoryTest {
 	@Test
 	public void createCategoryTest() {
 		Category category = new Category();
-		category.setName("admin");
+		category.setName("admsin");
 		Category categorySave = categoryRepository.save(category);
 		System.out.println(categorySave);
 	}

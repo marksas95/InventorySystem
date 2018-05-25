@@ -1,4 +1,4 @@
-package com.trainee.inv.service;
+package com.trainee.inv;
 
 
 import org.springframework.boot.SpringApplication;

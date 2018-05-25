@@ -6,4 +6,12 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>resource</artifactId>
+  
+  <dependencies>
+  	<dependency>
+  		<groupId>trainee</groupId>
+  		<artifactId>service</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>
