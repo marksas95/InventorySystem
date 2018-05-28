@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import com.trainee.inv.repository.product.Product;
 
@@ -13,6 +14,7 @@ public class GoodQuantityProduct {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	@OneToOne
 	private Product product;
 	private int quantity;
 
