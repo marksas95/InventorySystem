@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: service
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: Asus
+Built-By: Jigs
 Implementation-Vendor-Id: trainee
-Build-Jdk: 1.8.0_161
+Build-Jdk: 1.8.0_171
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
  ot-starter-parent/InventorySystem/service
 Created-By: Maven Integration for Eclipse
