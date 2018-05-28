@@ -1,4 +1,4 @@
-package com.trainee.inv.repository;
+package com.trainee.inv.repository.category;
 
 
 
@@ -20,7 +20,7 @@ public class CategoryRepositoryTest {
 	private CategoryRepository categoryRepository;
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void createCategoryTest() {
 		Category category = new Category();
 		category.setName("admsin");
@@ -28,6 +28,7 @@ public class CategoryRepositoryTest {
 		System.out.println(categorySave);
 	}
 	@Test
+	@Ignore
 	public void findByNameTest() {
 		Category findByNameCategory = categoryRepository.findByName("admsin");
 		System.out.println(findByNameCategory);

@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+import com.trainee.inv.repository.product.Product;
 
 @Entity
 public class Supplier {
@@ -12,7 +15,8 @@ public class Supplier {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private String name;
-
+	
+	
 	public int getId() {
 		return id;
 	}

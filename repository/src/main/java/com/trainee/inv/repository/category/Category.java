@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+import com.trainee.inv.repository.product.Product;
 
 @Entity
 public class Category {
@@ -13,9 +16,11 @@ public class Category {
 
 	private String name;
 
+	
 	public int getId() {
 		return id;
 	}
+
 
 	public void setId(int id) {
 		this.id = id;
@@ -29,6 +34,7 @@ public class Category {
 		this.name = name;
 	}
 
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -36,6 +42,7 @@ public class Category {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -54,9 +61,14 @@ public class Category {
 		return true;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Category [id=" + id + ", name=" + name + "]";
 	}
+
+
+
+
 
 }

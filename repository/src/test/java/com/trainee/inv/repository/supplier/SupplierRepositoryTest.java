@@ -1,4 +1,4 @@
-package com.trainee.inv.repository;
+package com.trainee.inv.repository.supplier;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -18,7 +18,7 @@ public class SupplierRepositoryTest {
 	private SupplierRepository supplierRepository;
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void createSupplierTest() {
 		
 		Supplier supplier = new Supplier();
