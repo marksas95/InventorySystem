@@ -14,6 +14,14 @@ class GoodQuantityProductServiceImpl implements GoodQuantityProductService{
 	
 	@Autowired
 	GoodQuantityRepository goodQuantityRepository;
+
+	public GoodQuantityProductServiceImpl() {
+		
+	}
+	
+	public GoodQuantityProductServiceImpl(GoodQuantityRepository goodQuantityRepository) {
+		this.goodQuantityRepository = goodQuantityRepository;
+	}
 	
 	@Override
 	public GoodQuantityProduct create(Product product, Warehouse warehouse, int quantity) {

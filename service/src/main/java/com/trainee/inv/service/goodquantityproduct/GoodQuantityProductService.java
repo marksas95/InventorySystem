@@ -1,4 +1,4 @@
-package com.trainee.inv.service.goodquantityproduct;
+ package com.trainee.inv.service.goodquantityproduct;
 
 import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
 import com.trainee.inv.repository.product.Product;

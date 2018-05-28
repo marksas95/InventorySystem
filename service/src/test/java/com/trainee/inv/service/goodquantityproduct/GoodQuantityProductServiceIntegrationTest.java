@@ -18,7 +18,7 @@ import com.trainee.inv.repository.warehouse.WarehouseRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class GoodQuantityProductServiceTest {
+public class GoodQuantityProductServiceIntegrationTest {
 	
 	
 	@Autowired
@@ -40,4 +40,6 @@ public class GoodQuantityProductServiceTest {
 		Assert.notNull(save, "Return object is null!");
 		System.out.println(save);
 	}
+	
+	
 }
