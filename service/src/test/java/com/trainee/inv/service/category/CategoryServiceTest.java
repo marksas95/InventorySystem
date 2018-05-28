@@ -21,7 +21,7 @@ public class CategoryServiceTest {
 
 	@Test
 	// @Ignore
-	public void crateTest() {
+	public void createTest() {
 
 		String name = "blossb";
 		Category createdCategory = categoryService.create(name);
