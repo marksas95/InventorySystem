@@ -20,7 +20,7 @@ public class CategoryServiceTest {
 	private CategoryService categoryService;
 
 	@Test
-	// @Ignore
+	 @Ignore
 	public void createTest() {
 
 		String name = "blossb";
@@ -82,9 +82,10 @@ public class CategoryServiceTest {
 	}
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void findAllTest() {
 		List<Category> list = categoryService.findAll();
 		Assert.notEmpty(list);
+		System.out.println(list);
 	}
 }
