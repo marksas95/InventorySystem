@@ -11,15 +11,15 @@ import com.trainee.inv.repository.warehouse.Warehouse;
 import com.trainee.inv.repository.warehouse.WarehouseRepository;
 
 @Service
-public class WarehouseServiceImpl implements WarehouseService{
+public class WarehouseServiceImpl implements WarehouseService {
 
 	@Autowired
 	private WarehouseRepository warehouseRepository;
 
 	@Override
 	public Warehouse create(Warehouse warehouse) {
-		boolean exist = checkIfWarehouseNameExist(warehouse.getName());
-		if(exist) {
+		boolean existsByName = warehouseRepository.existsByName(warehouse.getName());
+		if (existsByName) {
 			throw new IllegalArgumentException("Warehouse Name Already Exist.");
 		}
 		return warehouseRepository.save(warehouse);
@@ -27,8 +27,10 @@ public class WarehouseServiceImpl implements WarehouseService{
 
 	@Override
 	public Warehouse update(Warehouse warehouse) {
-		boolean exist = checkIfWarehouseNameExist(warehouse.getName());
-		if(exist) {
+		boolean existsByName = warehouseRepository.existsByName(warehouse.getName());
+		boolean existsByAddress = warehouseRepository.existsByAddress(warehouse.getAddress());
+		boolean existsByDescription = warehouseRepository.existsByDescription(warehouse.getDescription());
+		if (existsByName&&existsByAddress&&existsByDescription) {
 			throw new IllegalArgumentException("Warehouse Name Already added.");
 		}
 		return warehouseRepository.save(warehouse);
@@ -45,11 +47,10 @@ public class WarehouseServiceImpl implements WarehouseService{
 		return warehouseRepository.findAll();
 	}
 
-
 	@Override
 	public void delete(Warehouse warehouse) {
 		warehouseRepository.delete(warehouse);
-		
+
 	}
 
 	@Override
@@ -58,9 +59,6 @@ public class WarehouseServiceImpl implements WarehouseService{
 		Warehouse warehouse = optionalWarehouse.get();
 		return warehouse != null ? warehouse : null;
 	}
-	
-	private boolean checkIfWarehouseNameExist(String name) {
-		Warehouse warehouse = warehouseRepository.findByName(name);
-		return warehouse != null;
-	}
+
+
 }

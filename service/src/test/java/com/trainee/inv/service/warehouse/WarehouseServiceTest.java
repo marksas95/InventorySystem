@@ -3,6 +3,7 @@ package com.trainee.inv.service.warehouse;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,18 +27,52 @@ public class WarehouseServiceTest {
 	ProductService productService;
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void createTest() {
 		Warehouse warehouse = new Warehouse();
 		warehouse.setActive(true);
-		warehouse.setAddress("Iloilo Citys");
-		warehouse.setDescription("Tubigans");
-		warehouse.setName("marksas55");
-		List<GoodQuantityProduct> list = new ArrayList<>();
+		warehouse.setAddress("Jaro");
+		warehouse.setDescription("Tubigsan");
+		warehouse.setName("Jaro");
+		List<GoodQuantityProduct> list = new ArrayList<GoodQuantityProduct>();
 		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.findById(144);
+		GoodQuantityProduct goodQuantityProduct2 = goodQuantityProductService.findById(138);
 		list.add(goodQuantityProduct);
+		list.add(goodQuantityProduct2);
 		warehouse.setGoodQuantityProducts(list);
 		warehouseService.create(warehouse);
+	}
+	
+	@Test
+	@Ignore
+	public void updateTest() {
+		Warehouse warehouse = warehouseService.findById(146);
+		warehouse.setName("SteelTecssh");
+		warehouse.setAddress("Cebu Citsyss");
+		warehouse.setDescription("Stseel sSets");
+		List<GoodQuantityProduct> goodQuantityProducts = warehouse.getGoodQuantityProducts();
+		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.findById(144);
+		GoodQuantityProduct goodQuantityProduct2 = goodQuantityProductService.findById(138);
+		System.out.println(goodQuantityProduct);
+		System.out.println(goodQuantityProduct2);
+		goodQuantityProducts.add(goodQuantityProduct);
+
+		warehouse.setGoodQuantityProducts(goodQuantityProducts);
+		warehouseService.update(warehouse);
+	}
+	
+	@Test
+	@Ignore
+	public void deleteTest() {
+		Warehouse warehouse = warehouseService.findById(146);
+		warehouseService.delete(warehouse);
+	}
+	
+	@Test
+//	@Ignore
+	public void findById() {
+		Warehouse warehouse = warehouseService.findById(1);
+		System.out.println(warehouse);
 	}
 	
 }

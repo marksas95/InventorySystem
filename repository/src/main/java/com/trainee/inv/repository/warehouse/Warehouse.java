@@ -8,7 +8,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
 
@@ -24,7 +28,9 @@ public class Warehouse {
 	private String description;
 	private boolean isActive;
 	
-	@OneToMany(fetch=FetchType.EAGER)
+	@OneToMany(cascade= {CascadeType.MERGE},fetch=FetchType.EAGER)
+//	@Fetch(value = FetchMode.SUBSELECT)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<GoodQuantityProduct> goodQuantityProducts;
 
 	public String getDescription() {

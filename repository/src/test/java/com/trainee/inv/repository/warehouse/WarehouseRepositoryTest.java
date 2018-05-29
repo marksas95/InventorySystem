@@ -1,4 +1,4 @@
-package com.trainee.inv.service;
+package com.trainee.inv.repository.warehouse;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -9,14 +9,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class StockQuantityServiceFornTest {
+public class WarehouseRepositoryTest {
 
 	@Autowired
-	StockQuantityServiceForm stockQuantityServiceForm;
+	WarehouseRepository warehouseRepository;
 	
 	@Test
-//	@Ignore
-	public void stockInTest() {
-		stockQuantityServiceForm.stockIn(156, 144, 20);
+	@Ignore
+	public void createTest() {
+		
 	}
 }

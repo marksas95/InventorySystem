@@ -1,10 +1,16 @@
 package com.trainee.inv.repository.goodquantityproduct;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.trainee.inv.repository.product.Product;
 
@@ -14,7 +20,10 @@ public class GoodQuantityProduct {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	@OneToOne
+	
+	@ManyToOne(cascade= {CascadeType.MERGE},fetch=FetchType.EAGER)
+//	@Fetch(value = FetchMode.SUBSELECT)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private Product product;
 	private int quantity;
 
