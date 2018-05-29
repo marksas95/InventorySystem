@@ -1,5 +1,7 @@
 package com.trainee.inv.service.product;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Ignore;
@@ -122,4 +124,11 @@ public class ProductServiceTest {
 		Assert.notNull(findByNameProduct);
 	}
 
+	
+	public void filterByNameTest(){
+		List<Product> results = productService.findAll();
+		System.out.println(results);
+		
+	}
+	
 }
