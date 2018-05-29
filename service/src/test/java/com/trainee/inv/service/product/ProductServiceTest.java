@@ -36,7 +36,7 @@ public class ProductServiceTest {
 		Supplier supplier = supplierService.findByName("jigs");
 		Product product = new Product();
 
-		product.setName("adminsss");
+		product.setName("marksas");
 		product.setCategory(category);
 		product.setSupplier(supplier);
 		product.setDescription("Cannot be dsetermineds");

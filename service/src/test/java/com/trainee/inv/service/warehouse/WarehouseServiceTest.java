@@ -69,7 +69,7 @@ public class WarehouseServiceTest {
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void findById() {
 		Warehouse warehouse = warehouseService.findById(1);
 		System.out.println(warehouse);

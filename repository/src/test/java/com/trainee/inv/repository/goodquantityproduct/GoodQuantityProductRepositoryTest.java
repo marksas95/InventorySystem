@@ -25,7 +25,7 @@ public class GoodQuantityProductRepositoryTest {
 //	@Ignore
 	public void createTest() {
 		GoodQuantityProduct goodQuantityProduct = new GoodQuantityProduct();
-		Optional<Product> optional = productRepository.findById(134);
+		Optional<Product> optional = productRepository.findById(135);
 		Product product = optional.get();
 		goodQuantityProduct.setProduct(product);
 		goodQuantityProductRepository.save(goodQuantityProduct);
