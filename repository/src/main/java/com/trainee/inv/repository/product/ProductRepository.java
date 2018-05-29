@@ -12,5 +12,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	List<Product> findBySupplierId(int id);
 
+<<<<<<< HEAD
 	Product findByName(String name);
+=======
+//	Product findByName(String name);
+>>>>>>> branch 'master' of https://github.com/marksas95/InventorySystem.git
 }

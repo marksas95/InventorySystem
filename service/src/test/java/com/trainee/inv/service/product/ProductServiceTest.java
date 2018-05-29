@@ -1,11 +1,15 @@
 package com.trainee.inv.service.product;
 
+
+import java.util.List;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.Assert;
 
 import com.trainee.inv.repository.category.Category;
 import com.trainee.inv.repository.product.Product;
@@ -13,12 +17,14 @@ import com.trainee.inv.repository.supplier.Supplier;
 import com.trainee.inv.service.category.CategoryService;
 import com.trainee.inv.service.supplier.SupplierService;
 
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ProductServiceTest {
 
 	@Autowired
 	private ProductService productService;
+
 	@Autowired
 	private CategoryService categoryService;
 	@Autowired
@@ -88,4 +94,19 @@ public class ProductServiceTest {
 		product.setVatable(false);
 		productService.update(product);
 	}
+
+	@Test
+	@Ignore
+	public void findAllProductsTest() {
+		List<Product> findProducts = productService.findAll();
+		Assert.notNull(findProducts);
+	}
+
+	@Test
+	@Ignore
+	public void findByName() {
+		Product findByNameProduct = productService.findByName("Howie");
+		Assert.notNull(findByNameProduct);
+	}
+
 }

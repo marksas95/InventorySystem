@@ -6,6 +6,7 @@ import com.trainee.inv.repository.product.Product;
 
 public interface ProductService {
 
+
 	Product create(Product product);
 
 	Product update(Product product);
@@ -19,5 +20,7 @@ public interface ProductService {
 	List<Product> searchByUnitOfMeasurement(String unitOfMeasurement,  boolean isActive);
 	
 	List<Product> searchByDescription(String decription,  boolean isActive);
+		
+	Product findByName(String name);
 
 }

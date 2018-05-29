@@ -1,8 +1,12 @@
 package com.trainee.inv.service.product;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+=======
+import java.util.List;
+>>>>>>> branch 'master' of https://github.com/marksas95/InventorySystem.git
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +18,7 @@ import com.trainee.inv.repository.product.ProductRepository;
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
+
 	ProductRepository productRepository;
 
 	@Override
@@ -89,6 +94,11 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 
-
+	@Override
+	public Product findByName(String name) {
+//		Product product = productRepository.findByName(name);
+//		return product != null ? product : null;
+		return null;
+	}
 
 }
