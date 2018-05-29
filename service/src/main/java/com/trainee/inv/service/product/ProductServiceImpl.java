@@ -80,14 +80,32 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> searchByUnitOfMeasurement(String unitOfMeasurement,  boolean isActive) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Product> list = findByIsActive(isActive);
+		List<Product> returnList = null;
+		for(Product o: list) {
+			if(o.getUnitOfMeasurement().contains(unitOfMeasurement)) {
+				if (returnList==null) {
+					returnList = new ArrayList<Product>();
+				}
+				returnList.add(o);
+			}
+		}
+		return returnList;
 	}
 
 	@Override
-	public List<Product> searchByDescription(String decription,  boolean isActive) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Product> searchByDescription(String description,  boolean isActive) {
+		List<Product> list = findByIsActive(isActive);
+		List<Product> returnList = null;
+		for(Product o: list) {
+			if(o.getDescription().contains(description)) {
+				if (returnList==null) {
+					returnList = new ArrayList<Product>();
+				}
+				returnList.add(o);
+			}
+		}
+		return returnList;
 	}
 
 

@@ -34,7 +34,7 @@ public class ProductServiceTest {
 		Supplier supplier = supplierService.findByName("jigs");
 		Product product = new Product();
 
-		product.setName("admin");
+		product.setName("adminsss");
 		product.setCategory(category);
 		product.setSupplier(supplier);
 		product.setDescription("Cannot be dsetermineds");
@@ -75,7 +75,11 @@ public class ProductServiceTest {
 	}
 
 	@Test
+<<<<<<< HEAD
 	// @Ignore
+=======
+	@Ignore
+>>>>>>> branch 'master' of https://github.com/marksas95/InventorySystem.git
 	public void updateProductTest() {
 
 		Product product = new Product();
@@ -90,7 +94,23 @@ public class ProductServiceTest {
 		product.setVatable(false);
 		productService.update(product);
 	}
+	
+	@Test
+	@Ignore
+	public void searchByItemCodeTest() {
+		List<Product> list = productService.searchByItemCode("0002222ss", true);
+		Assert.notNull(list);
+		System.out.println(list);
+	}
 
+	@Test
+//	@Ignore
+	public void searchByItemCodeFalseTest() {
+		List<Product> list = productService.searchByItemCode("wesfr", true);
+		Assert.isNull(list);;
+		System.out.println(list);
+	}
+	
 	@Test
 	@Ignore
 	public void findAllProductsTest() {

@@ -8,7 +8,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.util.Assert;
 
 import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
-import com.trainee.inv.repository.goodquantityproduct.GoodQuantityRepository;
+import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProductRepository;
 import com.trainee.inv.repository.product.Product;
 import com.trainee.inv.repository.warehouse.Warehouse;
 
@@ -17,7 +17,7 @@ public class GoodQuantityProductServiceUnitTest {
 	private GoodQuantityProductService goodQuantityProductService;
 
 	@Mock
-	private GoodQuantityRepository goodQuantityRepository;
+	private GoodQuantityProductRepository goodQuantityRepository;
 
 	Product product = new Product();
 	Warehouse warehouse = new Warehouse();
@@ -36,7 +36,7 @@ public class GoodQuantityProductServiceUnitTest {
 	public void createTest() {
 		Mockito.when(goodQuantityRepository.save(Mockito.any(GoodQuantityProduct.class)))
 				.thenReturn(getGoodQuantityProduct());
-		GoodQuantityProduct quantityProduct = goodQuantityProductService.create(product, warehouse, quantity);
+		GoodQuantityProduct quantityProduct = goodQuantityProductService.create(product, quantity);
 		Assert.notNull(quantityProduct, "Null");
 		Mockito.verify(goodQuantityRepository).save(Mockito.any(GoodQuantityProduct.class));
 		System.out.println(quantityProduct);

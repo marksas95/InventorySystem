@@ -1,12 +1,21 @@
- package com.trainee.inv.service.goodquantityproduct;
+package com.trainee.inv.service.goodquantityproduct;
+
+import java.util.List;
 
 import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
 import com.trainee.inv.repository.product.Product;
-import com.trainee.inv.repository.warehouse.Warehouse;
 
 public interface GoodQuantityProductService {
 
-	GoodQuantityProduct create(Product product, Warehouse warehouse, int quantity);
+	GoodQuantityProduct create(Product product, int quantity);
 
+	GoodQuantityProduct update(int goodQuantityProductId, int quantity);
 	
+	GoodQuantityProduct stockIn(int goodQuantityProductId, int quantity);
+	
+	GoodQuantityProduct stockOut(int goodQuantityProductId, int quantity);
+	
+	List<GoodQuantityProduct> findByProductId(int id);
+	
+	GoodQuantityProduct findById(int id);
 }
