@@ -31,14 +31,28 @@ public class GoodQuantityProductServiceIntegrationTest {
 	@Test
 	@Ignore
 	public void createTest() {
-		Optional<Product> findById = productRepository.findById(101);
+		Optional<Product> findById = productRepository.findById(137);
 		Product product = findById.get();
 		int quantity = 0;
-		Optional<Warehouse> id = warehouseRepository.findById(125);
-		Warehouse warehouse = id.get();
-		GoodQuantityProduct save = goodQuantityProductService.create(product,warehouse, quantity);
+		GoodQuantityProduct save = goodQuantityProductService.create(product, quantity);
 		Assert.notNull(save, "Return object is null!");
 		System.out.println(save);
+	}
+	
+	@Test
+	@Ignore
+	public void stockInTest() {
+		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.stockIn(138, 150);
+		Assert.isTrue(goodQuantityProduct.getQuantity() == 450);
+		System.out.println(goodQuantityProduct);
+	}
+	
+	@Test
+//	@Ignore
+	public void stockOutTest() {
+		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.stockOut(138, 350);
+		Assert.isTrue(goodQuantityProduct.getQuantity() == 100);
+		System.out.println(goodQuantityProduct);
 	}
 	
 	
