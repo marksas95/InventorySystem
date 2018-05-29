@@ -109,11 +109,19 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 
+	
+	//!!!!!!!!
 	@Override
 	public Product findByName(String name) {
 //		Product product = productRepository.findByName(name);
 //		return product != null ? product : null;
 		return null;
+	}
+
+	@Override
+	public Product findById(int id) {
+		Optional<Product> optionalProduct = productRepository.findById(id);
+		return optionalProduct.get();
 	}
 
 	

@@ -31,7 +31,7 @@ public class ProductServiceTest {
 	private SupplierService supplierService;
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void createProductTest() {
 		Category category = categoryService.findByName("blossb");
 		Supplier supplier = supplierService.findByName("jigs");
@@ -105,7 +105,7 @@ public class ProductServiceTest {
 	}
 
 	@Test
-//	@Ignore
+	@Ignore
 	public void searchByItemCodeFalseTest() {
 		List<Product> list = productService.searchByItemCode("wesfr", true);
 		Assert.isNull(list);;

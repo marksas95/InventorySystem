@@ -31,7 +31,7 @@ public class GoodQuantityProductServiceIntegrationTest {
 	@Test
 	@Ignore
 	public void createTest() {
-		Optional<Product> findById = productRepository.findById(137);
+		Optional<Product> findById = productRepository.findById(136);
 		Product product = findById.get();
 		int quantity = 0;
 		GoodQuantityProduct save = goodQuantityProductService.create(product, quantity);
@@ -48,7 +48,7 @@ public class GoodQuantityProductServiceIntegrationTest {
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void stockOutTest() {
 		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.stockOut(138, 350);
 		Assert.isTrue(goodQuantityProduct.getQuantity() == 100);

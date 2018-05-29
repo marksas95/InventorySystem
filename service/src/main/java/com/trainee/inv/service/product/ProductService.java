@@ -11,6 +11,8 @@ public interface ProductService {
 
 	Product update(Product product);
 	
+	Product findById(int id);
+	
 	List<Product> findByIsActive(boolean isActive);
 	
 	List<Product> findAll();
