@@ -1,4 +1,4 @@
-package com.trainee.inv.service.goodquantityproduct;
+	package com.trainee.inv.service.goodquantityproduct;
 
 import java.util.Optional;
 

@@ -31,10 +31,9 @@ public class Product {
 
 	@OneToOne
 	private Supplier supplier;
-	
+
 	private String name;
 
-	
 	public String getName() {
 		return name;
 	}
@@ -163,7 +162,5 @@ public class Product {
 				+ remarks + ", minimumStocks=" + minimumStocks + ", isVatable=" + isVatable + ", category=" + category
 				+ ", supplier=" + supplier + ", name=" + name + "]";
 	}
-	
-	
 
 }
