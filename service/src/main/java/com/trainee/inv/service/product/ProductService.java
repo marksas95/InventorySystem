@@ -6,8 +6,21 @@ import com.trainee.inv.repository.product.Product;
 
 public interface ProductService {
 
+
+	Product create(Product product);
+
+	Product update(Product product);
+	
+	List<Product> findByIsActive(boolean isActive);
+	
 	List<Product> findAll();
 	
+	List<Product> searchByItemCode(String itemCode,  boolean isActive);
+	
+	List<Product> searchByUnitOfMeasurement(String unitOfMeasurement,  boolean isActive);
+	
+	List<Product> searchByDescription(String decription,  boolean isActive);
+		
 	Product findByName(String name);
 
 }

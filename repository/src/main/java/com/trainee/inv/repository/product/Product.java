@@ -31,6 +31,17 @@ public class Product {
 
 	@OneToOne
 	private Supplier supplier;
+	
+	private String name;
+
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public int getId() {
 		return id;
@@ -121,27 +132,10 @@ public class Product {
 	}
 
 	@Override
-	public String toString() {
-		return "Product [id=" + id + ", itemCode=" + itemCode + ", description=" + description + ", unitOfMeasurement="
-				+ unitOfMeasurement + ", serialNumber=" + serialNumber + ", isActive=" + isActive + ", remarks="
-				+ remarks + ", minimumStocks=" + minimumStocks + ", isVatable=" + isVatable + ", category=" + category
-				+ ", supplier=" + supplier + "]";
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((category == null) ? 0 : category.hashCode());
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + (isActive ? 1231 : 1237);
-		result = prime * result + (isVatable ? 1231 : 1237);
-		result = prime * result + ((itemCode == null) ? 0 : itemCode.hashCode());
-		result = prime * result + minimumStocks;
-		result = prime * result + ((remarks == null) ? 0 : remarks.hashCode());
-		result = prime * result + ((serialNumber == null) ? 0 : serialNumber.hashCode());
-		result = prime * result + ((supplier == null) ? 0 : supplier.hashCode());
-		result = prime * result + ((unitOfMeasurement == null) ? 0 : unitOfMeasurement.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
@@ -154,47 +148,22 @@ public class Product {
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		if (category == null) {
-			if (other.category != null)
+		if (name == null) {
+			if (other.name != null)
 				return false;
-		} else if (!category.equals(other.category))
-			return false;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (isActive != other.isActive)
-			return false;
-		if (isVatable != other.isVatable)
-			return false;
-		if (itemCode == null) {
-			if (other.itemCode != null)
-				return false;
-		} else if (!itemCode.equals(other.itemCode))
-			return false;
-		if (minimumStocks != other.minimumStocks)
-			return false;
-		if (remarks == null) {
-			if (other.remarks != null)
-				return false;
-		} else if (!remarks.equals(other.remarks))
-			return false;
-		if (serialNumber == null) {
-			if (other.serialNumber != null)
-				return false;
-		} else if (!serialNumber.equals(other.serialNumber))
-			return false;
-		if (supplier == null) {
-			if (other.supplier != null)
-				return false;
-		} else if (!supplier.equals(other.supplier))
-			return false;
-		if (unitOfMeasurement == null) {
-			if (other.unitOfMeasurement != null)
-				return false;
-		} else if (!unitOfMeasurement.equals(other.unitOfMeasurement))
+		} else if (!name.equals(other.name))
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", itemCode=" + itemCode + ", description=" + description + ", unitOfMeasurement="
+				+ unitOfMeasurement + ", serialNumber=" + serialNumber + ", isActive=" + isActive + ", remarks="
+				+ remarks + ", minimumStocks=" + minimumStocks + ", isVatable=" + isVatable + ", category=" + category
+				+ ", supplier=" + supplier + ", name=" + name + "]";
+	}
+	
+	
+
 }

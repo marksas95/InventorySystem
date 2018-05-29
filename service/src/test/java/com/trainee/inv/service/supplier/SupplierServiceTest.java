@@ -20,9 +20,9 @@ public class SupplierServiceTest {
 	private SupplierService supplierService;
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void createTest() {
-		String name = "jigs";
+		String name = "jigssssssss";
 		Supplier supplierCreate = supplierService.create(name);
 		System.out.println(supplierCreate);
 		Assert.notNull(supplierCreate);
@@ -53,7 +53,7 @@ public class SupplierServiceTest {
 		System.out.println(supplier);
 	}
 	@Test
-//	@Ignore
+	@Ignore
 	public void deleteTest() {
 		supplierService.delete("holly");
 		Assert.isNull(supplierService.findByName("holly"));
