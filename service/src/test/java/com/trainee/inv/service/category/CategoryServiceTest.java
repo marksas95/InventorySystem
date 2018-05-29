@@ -23,7 +23,7 @@ public class CategoryServiceTest {
 	// @Ignore
 	public void createTest() {
 
-		String name = "blossb";
+		String name = "blossbss";
 		Category createdCategory = categoryService.create(name);
 		System.out.println(createdCategory);
 		Assert.notNull(createdCategory);
