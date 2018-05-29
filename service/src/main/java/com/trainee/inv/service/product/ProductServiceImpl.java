@@ -1,6 +1,5 @@
 package com.trainee.inv.service.product;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -48,8 +47,67 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> findAll() {
-		
+
 		return productRepository.findAll();
+	}
+
+	@Override
+	public List<Product> searchByItemCode(String itemCode, boolean isActive) {
+		List<Product> list = findByIsActive(isActive);
+		List<Product> returnList = null;
+		for (Product o : list) {
+			if (o.getItemCode().contains(itemCode)) {
+				if (returnList == null) {
+					returnList = new ArrayList<Product>();
+				}
+				returnList.add(o);
+			}
+		}
+		return returnList;
+	}
+
+	@Override
+	public List<Product> searchByUnitOfMeasurement(String unitOfMeasurement, boolean isActive) {
+		List<Product> list = findByIsActive(isActive);
+		List<Product> returnList = null;
+		for (Product o : list) {
+			if (o.getUnitOfMeasurement().contains(unitOfMeasurement)) {
+				if (returnList == null) {
+					returnList = new ArrayList<Product>();
+				}
+				returnList.add(o);
+			}
+		}
+		return returnList;
+	}
+
+	@Override
+	public List<Product> searchByDescription(String description, boolean isActive) {
+		List<Product> list = findByIsActive(isActive);
+		List<Product> returnList = null;
+		for (Product o : list) {
+			if (o.getDescription().contains(description)) {
+				if (returnList == null) {
+					returnList = new ArrayList<Product>();
+				}
+				returnList.add(o);
+			}
+		}
+		return returnList;
+	}
+
+
+	@Override
+	public Product findByName(String name) {
+		// Product product = productRepository.findByName(name);
+		// return product != null ? product : null;
+		return null;
+	}
+
+	@Override
+	public Product findById(int id) {
+		Optional<Product> optionalProduct = productRepository.findById(id);
+		return optionalProduct.get();
 	}
 	
 	private boolean checkIfProductIdExist(int id) {
@@ -63,66 +121,6 @@ public class ProductServiceImpl implements ProductService {
 		return product != null;
 	}
 
-	@Override
-	public List<Product> searchByItemCode(String itemCode, boolean isActive) {
-		List<Product> list = findByIsActive(isActive);
-		List<Product> returnList = null;
-		for(Product o: list) {
-			if(o.getItemCode().contains(itemCode)) {
-				if (returnList==null) {
-					returnList = new ArrayList<Product>();
-				}
-				returnList.add(o);
-			}
-		}
-		return returnList;
-	}
-
-	@Override
-	public List<Product> searchByUnitOfMeasurement(String unitOfMeasurement,  boolean isActive) {
-		List<Product> list = findByIsActive(isActive);
-		List<Product> returnList = null;
-		for(Product o: list) {
-			if(o.getUnitOfMeasurement().contains(unitOfMeasurement)) {
-				if (returnList==null) {
-					returnList = new ArrayList<Product>();
-				}
-				returnList.add(o);
-			}
-		}
-		return returnList;
-	}
-
-	@Override
-	public List<Product> searchByDescription(String description,  boolean isActive) {
-		List<Product> list = findByIsActive(isActive);
-		List<Product> returnList = null;
-		for(Product o: list) {
-			if(o.getDescription().contains(description)) {
-				if (returnList==null) {
-					returnList = new ArrayList<Product>();
-				}
-				returnList.add(o);
-			}
-		}
-		return returnList;
-	}
 
 
-	
-	//!!!!!!!!
-	@Override
-	public Product findByName(String name) {
-//		Product product = productRepository.findByName(name);
-//		return product != null ? product : null;
-		return null;
-	}
-
-	@Override
-	public Product findById(int id) {
-		Optional<Product> optionalProduct = productRepository.findById(id);
-		return optionalProduct.get();
-	}
-
-	
 }

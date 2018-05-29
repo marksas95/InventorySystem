@@ -1,6 +1,7 @@
 package com.trainee.inv.service.product;
 
-
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Ignore;
@@ -17,14 +18,12 @@ import com.trainee.inv.repository.supplier.Supplier;
 import com.trainee.inv.service.category.CategoryService;
 import com.trainee.inv.service.supplier.SupplierService;
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ProductServiceTest {
 
 	@Autowired
 	private ProductService productService;
-
 	@Autowired
 	private CategoryService categoryService;
 	@Autowired
@@ -46,22 +45,20 @@ public class ProductServiceTest {
 		product.setRemarks("wala langss");
 		product.setSerialNumber("0000000000000ss");
 		product.setActive(true);
-		
+
 		product.setUnitOfMeasurement("PCSss");
 		product.setVatable(false);
-		
+
 		Product createdProduct = productService.create(product);
 		System.out.println(createdProduct);
 	}
-	
-	
+
 	@Test
 	@Ignore
 	public void createProductThatAlreadyExistsTest() {
 		Category category = categoryService.findByName("blossb");
 		Supplier supplier = supplierService.findByName("jigs");
 		Product product = new Product();
-
 
 		product.setCategory(category);
 		product.setSupplier(supplier);
@@ -71,18 +68,18 @@ public class ProductServiceTest {
 		product.setRemarks("wala langs");
 		product.setSerialNumber("0000000000000s");
 		product.setActive(false);
-		
+
 		product.setUnitOfMeasurement("PCSs");
 		product.setVatable(false);
-		
+
 		Product createdProduct = productService.create(product);
 		System.out.println(createdProduct);
 	}
-	
+
 	@Test
 	@Ignore
 	public void updateProductTest() {
-		
+
 		Product product = new Product();
 		product.setId(134);
 		product.setName("www");
@@ -95,7 +92,7 @@ public class ProductServiceTest {
 		product.setVatable(false);
 		productService.update(product);
 	}
-	
+
 	@Test
 	@Ignore
 	public void searchByItemCodeTest() {
@@ -104,14 +101,13 @@ public class ProductServiceTest {
 		System.out.println(list);
 	}
 
-	@Test
-	@Ignore
 	public void searchByItemCodeFalseTest() {
 		List<Product> list = productService.searchByItemCode("wesfr", true);
-		Assert.isNull(list);;
+		Assert.isNull(list);
+		;
 		System.out.println(list);
 	}
-	
+
 	@Test
 	@Ignore
 	public void findAllProductsTest() {
@@ -126,4 +122,11 @@ public class ProductServiceTest {
 		Assert.notNull(findByNameProduct);
 	}
 
+	
+	public void filterByNameTest(){
+		List<Product> results = productService.findAll();
+		System.out.println(results);
+		
+	}
+	
 }

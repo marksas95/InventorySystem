@@ -64,5 +64,5 @@ public class SupplierServiceImpl implements SupplierService{
 		Supplier supplier = supplierRepository.findByName(name);
 		return supplier != null;
 	}
-	
+
 }
