@@ -32,21 +32,21 @@ public class ProductServiceTest {
 	@Test
 	@Ignore
 	public void createProductTest() {
-		Category category = categoryService.findByName("blossb");
-		Supplier supplier = supplierService.findByName("jigs");
+		Category category = categoryService.findByName("Clothing");
+		Supplier supplier = supplierService.findByName("Clothing1 Trading");
 		Product product = new Product();
 
-		product.setName("kksis");
+
+		product.setName("Dress");
 		product.setCategory(category);
 		product.setSupplier(supplier);
-		product.setDescription("deado");
-		product.setItemCode("0002222ss");
-		product.setMinimumStocks(20);
-		product.setRemarks("wala langss");
-		product.setSerialNumber("0000000000000ss");
+		product.setDescription("Sweet Dress");
+		product.setItemCode("Dress-001");
+		product.setMinimumStocks(15);
+		product.setRemarks("Strechable");
+		product.setSerialNumber("000002");
 		product.setActive(true);
-
-		product.setUnitOfMeasurement("PCSss");
+		product.setUnitOfMeasurement("PCS");
 		product.setVatable(false);
 
 		Product createdProduct = productService.create(product);
@@ -120,12 +120,14 @@ public class ProductServiceTest {
 		Product findByNameProduct = productService.findByName("Howie");
 		Assert.notNull(findByNameProduct);
 	}
+
 	@Test
 	@Ignore
 	public void filterByNameTest() {
 		List<Product> results = productService.findAll();
 		System.out.println(results);
 	}
+
 	@Test // working test
 	@Ignore
 	public void deleteTest() {

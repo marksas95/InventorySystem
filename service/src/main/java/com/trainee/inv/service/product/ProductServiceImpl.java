@@ -29,11 +29,11 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product update(Product product) {
-		boolean nameExist = checkIfProductNameExist(product.getName());
+//		boolean nameExist = checkIfProductNameExist(product.getName());
 		boolean idExist = checkIfProductIdExist(product.getId());
-		if (nameExist) {
-			throw new IllegalArgumentException("Product Name already added.");
-		}
+//		if (nameExist) {
+//			throw new IllegalArgumentException("Product Name already added.");
+//		}
 
 		if (!idExist) {
 			throw new IllegalArgumentException("Product Id must be in database.");

@@ -31,12 +31,12 @@ public class WarehouseServiceTest {
 	public void createTest() {
 		Warehouse warehouse = new Warehouse();
 		warehouse.setActive(true);
-		warehouse.setAddress("Jaro");
-		warehouse.setDescription("Tubigsan");
-		warehouse.setName("Jaro");
+		warehouse.setAddress("Cebu city");
+		warehouse.setDescription("kuma-kuma");
+		warehouse.setName("Cebu Warehouse");
 		List<GoodQuantityProduct> list = new ArrayList<GoodQuantityProduct>();
-		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.findById(144);
-		GoodQuantityProduct goodQuantityProduct2 = goodQuantityProductService.findById(138);
+		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.findById(11);
+		GoodQuantityProduct goodQuantityProduct2 = goodQuantityProductService.findById(12);
 		list.add(goodQuantityProduct);
 		list.add(goodQuantityProduct2);
 		warehouse.setGoodQuantityProducts(list);
@@ -44,15 +44,15 @@ public class WarehouseServiceTest {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void updateTest() {
-		Warehouse warehouse = warehouseService.findById(146);
-		warehouse.setName("SteelTecssh");
-		warehouse.setAddress("Cebu Citsyss");
-		warehouse.setDescription("Stseel sSets");
+		Warehouse warehouse = warehouseService.findById(10);
+//		warehouse.setName("SteelTecssh");
+//		warehouse.setAddress("Cebu Citsyss");
+//		warehouse.setDescription("Stseel sSets");
 		List<GoodQuantityProduct> goodQuantityProducts = warehouse.getGoodQuantityProducts();
-		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.findById(144);
-		GoodQuantityProduct goodQuantityProduct2 = goodQuantityProductService.findById(138);
+		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.findById(12);
+		GoodQuantityProduct goodQuantityProduct2 = goodQuantityProductService.findById(11);
 		System.out.println(goodQuantityProduct);
 		System.out.println(goodQuantityProduct2);
 		goodQuantityProducts.add(goodQuantityProduct);
