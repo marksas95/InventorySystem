@@ -22,7 +22,7 @@ public class SupplierServiceTest {
 	@Test
 //	@Ignore
 	public void createTest() {
-		String name = "jigssssssss";
+		String name = "Clothing1 Trading";
 		Supplier supplierCreate = supplierService.create(name);
 		System.out.println(supplierCreate);
 		Assert.notNull(supplierCreate);

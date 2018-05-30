@@ -27,12 +27,12 @@ public class WarehouseServiceImpl implements WarehouseService {
 
 	@Override
 	public Warehouse update(Warehouse warehouse) {
-		boolean existsByName = warehouseRepository.existsByName(warehouse.getName());
-		boolean existsByAddress = warehouseRepository.existsByAddress(warehouse.getAddress());
-		boolean existsByDescription = warehouseRepository.existsByDescription(warehouse.getDescription());
-		if (existsByName&&existsByAddress&&existsByDescription) {
-			throw new IllegalArgumentException("Warehouse Name Already added.");
-		}
+//		boolean existsByName = warehouseRepository.existsByName(warehouse.getName());
+//		boolean existsByAddress = warehouseRepository.existsByAddress(warehouse.getAddress());
+//		boolean existsByDescription = warehouseRepository.existsByDescription(warehouse.getDescription());
+//		if (existsByName&&existsByAddress&&existsByDescription) {
+//			throw new IllegalArgumentException("Warehouse Name Already added.");
+//		}
 		return warehouseRepository.save(warehouse);
 	}
 

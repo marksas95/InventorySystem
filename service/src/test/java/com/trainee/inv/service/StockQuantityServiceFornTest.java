@@ -15,8 +15,26 @@ public class StockQuantityServiceFornTest {
 	StockQuantityServiceForm stockQuantityServiceForm;
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void stockInTest() {
-		stockQuantityServiceForm.stockIn(156, 144, 20);
+		stockQuantityServiceForm.stockIn(10, 12, 500);
+	}
+	
+	@Test
+	@Ignore
+	public void stockOutTest() {
+		stockQuantityServiceForm.stockOut(10, 12, 300);
+	}
+	
+	@Test
+	@Ignore
+	public void transferStockTest() {
+		stockQuantityServiceForm.transferStocks(9, 10, 7, 11, 75);
+	}
+	
+	@Test
+//	@Ignore
+	public void reconcileProductTest() {
+		stockQuantityServiceForm.reconcileProduct(9, 7, 80);
 	}
 }
