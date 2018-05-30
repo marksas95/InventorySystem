@@ -27,6 +27,7 @@ public class Product {
 	private String remarks;
 	private int minimumStocks;
 	private boolean isVatable;
+
 	@ManyToOne
 	private Category category;
 
