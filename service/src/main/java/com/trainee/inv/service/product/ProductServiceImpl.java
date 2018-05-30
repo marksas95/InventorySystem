@@ -20,23 +20,24 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product create(Product product) {
-		boolean nameExist = checkIfProductNameExist(product.getName());
-		if (nameExist) {
-			throw new IllegalArgumentException("Product Name Already Exist");
+		boolean existsById = productRepository.existsById(product.getId());
+		boolean exsistsByItemCode = productRepository.exsistsByItemCode(product.getItemCode());
+		boolean exsistsBySerialNumber = productRepository.exsistsBySerialNumber(product.getSerialNumber());
+		if (existsById) {
+			throw new IllegalArgumentException("Invalid field id");
+		} else if (exsistsByItemCode) {
+			throw new IllegalArgumentException("Invalid field, ItemCode already exists.");
+		} else if (exsistsBySerialNumber) {
+			throw new IllegalArgumentException("Invalid field, SerialNumer already exists.");
 		}
 		return productRepository.save(product);
 	}
 
 	@Override
 	public Product update(Product product) {
-//		boolean nameExist = checkIfProductNameExist(product.getName());
-		boolean idExist = checkIfProductIdExist(product.getId());
-//		if (nameExist) {
-//			throw new IllegalArgumentException("Product Name already added.");
-//		}
-
-		if (!idExist) {
-			throw new IllegalArgumentException("Product Id must be in database.");
+		boolean existsById = productRepository.existsById(product.getId());
+		if (!existsById) {
+			throw new IllegalArgumentException("Invalid update field id not exists.");
 		}
 		return productRepository.save(product);
 	}
@@ -97,11 +98,10 @@ public class ProductServiceImpl implements ProductService {
 		return returnList;
 	}
 
-
 	@Override
 	public Product findByName(String name) {
-		 Product product = productRepository.findByName(name);
-		 return product != null ? product : null;
+		Product product = productRepository.findByName(name);
+		return product != null ? product : null;
 	}
 
 	@Override
@@ -109,22 +109,15 @@ public class ProductServiceImpl implements ProductService {
 		Optional<Product> optionalProduct = productRepository.findById(id);
 		return optionalProduct.get();
 	}
-	
-	private boolean checkIfProductIdExist(int id) {
-		Optional<Product> optionalObject = productRepository.findById(id);
-		Product product = optionalObject.get();
-		return product != null;
-	}
-
-	private boolean checkIfProductNameExist(String name) {
-		Product product = productRepository.findByName(name);
-		return product != null;
-	}
 
 	@Override
-	public void delete(Product product) {
-		productRepository.delete(product);
-		
+	public void delete(int id) {
+		boolean existsById = productRepository.existsById(id);
+		if (!existsById) {
+			throw new IllegalArgumentException("Invalid delete field id not exists.");
+		}
+		productRepository.deleteById(id);
+
 	}
 
 }

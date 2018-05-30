@@ -14,4 +14,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	Product findByName(String name);
 
+	boolean exsistsByItemCode(String itemCode);
+
+	boolean exsistsBySerialNumber(String serialNumber);
 }

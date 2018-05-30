@@ -1,6 +1,7 @@
 package com.trainee.inv.service.category;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,8 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public Category create(String name) {
-		boolean nameExist = checkIfCategoryNameExist(name);
-		if (nameExist) {
+		boolean existsByName = categoryRepository.existsByName(name);
+		if (existsByName) {
 			throw new IllegalArgumentException("Category Name Already Exists.");
 		}
 		Category category = new Category();
@@ -33,23 +34,24 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public Category update(Category category, String name) {
-		boolean nameExist = checkIfCategoryNameExist(name);
-		if (nameExist) {
+	public Category update(int id, String name) {
+		boolean existsById = categoryRepository.existsById(id);
+		if (!existsById) {
 			throw new IllegalArgumentException("Name already added.");
 		}
+		Optional<Category> optionalCategory = categoryRepository.findById(id);
+		Category category = optionalCategory.get();
 		category.setName(name);
 		return categoryRepository.save(category);
 	}
 
 	@Override
-	public void delete(String name) {
-		boolean nameExist = checkIfCategoryNameExist(name);
-		if (!nameExist) {
+	public void delete(int id) {
+		boolean existsById = categoryRepository.existsById(id);
+		if (!existsById) {
 			throw new IllegalArgumentException("No name in that category.");
 		}
-		Category category = categoryRepository.findByName(name);
-		categoryRepository.delete(category);
+		categoryRepository.deleteById(id);
 	}
 
 	@Override
@@ -57,8 +59,9 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryRepository.findAll();
 	}
 
-	private boolean checkIfCategoryNameExist(String name) {
-		Category category = categoryRepository.findByName(name);
-		return category != null;
+	@Override
+	public Category findById(int id) {
+		Optional<Category> optionalCategory = categoryRepository.findById(id);
+		return optionalCategory.get();
 	}
 }

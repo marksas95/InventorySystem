@@ -58,15 +58,14 @@ public class CategoryServiceTest {
 	@Test
 	@Ignore
 	public void updateTest() {
-		Category category = categoryService.findByName("admsin");
-		Category updatedCategory = categoryService.update(category, "nullss");
+		Category updatedCategory = categoryService.update(1, "nullss");
 		Assert.isTrue(updatedCategory.getName().equals("nullss"));
 	}
 
 	@Test
 	@Ignore
 	public void deleteTest() {
-		categoryService.delete("nullss");
+		categoryService.delete(1);
 		Assert.isNull(categoryService.findByName("nulls"));
 	}
 
@@ -74,7 +73,7 @@ public class CategoryServiceTest {
 	@Ignore
 	public void deleteThatHasInvalidNameTest() {
 		try {
-			categoryService.delete("blob");
+			categoryService.delete(1);
 		} catch (IllegalArgumentException e) {
 			Assert.isTrue(e.getMessage().equals("No name in that category."));
 		}

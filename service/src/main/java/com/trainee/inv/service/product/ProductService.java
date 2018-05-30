@@ -25,6 +25,6 @@ public interface ProductService {
 		
 	Product findByName(String name);
 	
-	void delete(Product product);
+	void delete(int id);
 
 }

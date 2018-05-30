@@ -131,9 +131,7 @@ public class ProductServiceTest {
 	@Test // working test
 	@Ignore
 	public void deleteTest() {
-		Product product = productService.findById(1);
-		productService.delete(product);
-		System.out.println(product);
+		productService.delete(1);
 	}
 
 }

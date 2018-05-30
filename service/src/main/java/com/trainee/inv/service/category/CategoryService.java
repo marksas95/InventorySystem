@@ -8,12 +8,16 @@ public interface CategoryService {
 
 	Category create(String name);
 
-	Category update(Category category, String name);
+	Category update(int id, String name);
 
 	Category findByName(String name);
+	
+	Category findById(int id);
 
 	List<Category> findAll();
 
-	void delete(String name);
+	void delete(int id);
+	
+	
 
 }

@@ -6,7 +6,7 @@ import com.trainee.inv.repository.supplier.Supplier;
 
 public interface SupplierService {
 
-	Supplier update(Supplier supplier, String name);
+	Supplier update(int id, String name);
 
 	Supplier create(String name);
 
@@ -14,6 +14,6 @@ public interface SupplierService {
 	
 	List<Supplier> findAll();
 	
-	void delete (String name);
+	void delete (int id);
 	
 }

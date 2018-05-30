@@ -1,4 +1,4 @@
-package com.trainee.inv.resource.category;
+package com.trainee.inv.resources.category;
 
 import java.util.List;
 
@@ -44,12 +44,18 @@ public class CategoryResource {
 	
 	@PostMapping("/update")
 	public Category updateCategory(@RequestBody UpdateCategoryForm updateCategoryForm){
-		return categoryService.update(updateCategoryForm.getCategory(), updateCategoryForm.getName());
+		return categoryService.update(updateCategoryForm.getId(), updateCategoryForm.getName());
 	}
 	
+//
+//	@PostMapping("/update")
+//	public Category updateCategory(@RequestBody UpdateCategoryForm updateCategoryForm){
+//		return categoryService.update(updateCategoryForm.getCategory(), updateCategoryForm.getName());
+//	}
+	
 	@DeleteMapping("/delete")
-	public void delete(@RequestParam(name = "name",required = true) String name) {
-		categoryService.delete(name);
+	public void delete(@RequestParam(value = "id",required = true) int id) {
+		categoryService.delete(id);
 		
 	}
 }

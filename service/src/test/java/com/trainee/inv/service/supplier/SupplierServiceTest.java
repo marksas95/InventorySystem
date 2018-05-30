@@ -47,15 +47,14 @@ public class SupplierServiceTest {
 	@Test
 	@Ignore
 	public void updateTest() {
-		Supplier supplier = supplierService.findByName("jigs");
-		Supplier updatedService = supplierService.update(supplier, "holly");
+		Supplier updatedService = supplierService.update(2, "holly");
 		Assert.isTrue(updatedService.getName().equals("holly"));
-		System.out.println(supplier);
+		System.out.println(updatedService);
 	}
 	@Test
 	@Ignore
 	public void deleteTest() {
-		supplierService.delete("holly");
+		supplierService.delete(1);
 		Assert.isNull(supplierService.findByName("holly"));
 		
 	}
