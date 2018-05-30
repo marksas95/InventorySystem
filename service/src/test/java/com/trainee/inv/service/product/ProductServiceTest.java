@@ -30,16 +30,16 @@ public class ProductServiceTest {
 	private SupplierService supplierService;
 
 	@Test
-//	@Ignore
+	@Ignore
 	public void createProductTest() {
 		Category category = categoryService.findByName("blossb");
 		Supplier supplier = supplierService.findByName("jigs");
 		Product product = new Product();
 
-		product.setName("marksas");
+		product.setName("Silvia");
 		product.setCategory(category);
 		product.setSupplier(supplier);
-		product.setDescription("Cannot be dsetermineds");
+		product.setDescription("deado");
 		product.setItemCode("0002222ss");
 		product.setMinimumStocks(20);
 		product.setRemarks("wala langss");
@@ -121,12 +121,18 @@ public class ProductServiceTest {
 		Product findByNameProduct = productService.findByName("Howie");
 		Assert.notNull(findByNameProduct);
 	}
-
-	
-	public void filterByNameTest(){
+	@Test
+	@Ignore
+	public void filterByNameTest() {
 		List<Product> results = productService.findAll();
 		System.out.println(results);
-		
 	}
-	
+	@Test // working test
+	@Ignore
+	public void deleteTest() {
+		Product product = productService.findById(1);
+		productService.delete(product);
+		System.out.println(product);
+	}
+
 }

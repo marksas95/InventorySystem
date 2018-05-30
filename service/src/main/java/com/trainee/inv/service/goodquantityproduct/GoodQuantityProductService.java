@@ -18,4 +18,6 @@ public interface GoodQuantityProductService {
 	List<GoodQuantityProduct> findByProductId(int id);
 	
 	GoodQuantityProduct findById(int id);
+	
+	void delete(GoodQuantityProduct goodQuantityProduct);
 }
