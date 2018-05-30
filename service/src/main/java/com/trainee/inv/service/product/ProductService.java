@@ -24,5 +24,7 @@ public interface ProductService {
 	List<Product> searchByDescription(String decription,  boolean isActive);
 		
 	Product findByName(String name);
+	
+	void delete(Product product);
 
 }

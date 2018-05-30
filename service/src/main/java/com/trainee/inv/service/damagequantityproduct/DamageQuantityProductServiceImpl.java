@@ -59,7 +59,8 @@ public class DamageQuantityProductServiceImpl implements DamageQuantityProductSe
 
 	@Override
 	public DamageQuantityProduct findById(int id) {
-		return null;
+		Optional<DamageQuantityProduct> findById = damageQuantityRepository.findById(id);
+		return findById.get();
 	}
 
 

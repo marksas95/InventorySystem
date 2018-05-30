@@ -30,7 +30,7 @@ public class ProductServiceTest {
 	private SupplierService supplierService;
 
 	@Test
-//	@Ignore
+	@Ignore
 	public void createProductTest() {
 		Category category = categoryService.findByName("Clothing");
 		Supplier supplier = supplierService.findByName("Clothing1 Trading");
@@ -45,7 +45,6 @@ public class ProductServiceTest {
 		product.setRemarks("Strechable");
 		product.setSerialNumber("000002");
 		product.setActive(true);
-
 		product.setUnitOfMeasurement("PCS");
 		product.setVatable(false);
 
@@ -122,11 +121,19 @@ public class ProductServiceTest {
 		Assert.notNull(findByNameProduct);
 	}
 
-	
-	public void filterByNameTest(){
+	@Test
+	@Ignore
+	public void filterByNameTest() {
 		List<Product> results = productService.findAll();
 		System.out.println(results);
-		
 	}
-	
+
+	@Test // working test
+	@Ignore
+	public void deleteTest() {
+		Product product = productService.findById(1);
+		productService.delete(product);
+		System.out.println(product);
+	}
+
 }

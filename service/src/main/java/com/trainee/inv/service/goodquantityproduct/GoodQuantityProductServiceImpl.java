@@ -70,4 +70,9 @@ class GoodQuantityProductServiceImpl implements GoodQuantityProductService{
 		return optional.get();
 	}
 
+	@Override
+	public void delete(GoodQuantityProduct goodQuantityProduct) {
+		goodQuantityRepository.delete(goodQuantityProduct);
+	}
+
 }

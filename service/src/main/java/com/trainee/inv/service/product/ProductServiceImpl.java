@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.trainee.inv.repository.product.Product;
 import com.trainee.inv.repository.product.ProductRepository;
+import com.trainee.inv.repository.supplier.Supplier;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -99,9 +100,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product findByName(String name) {
-		// Product product = productRepository.findByName(name);
-		// return product != null ? product : null;
-		return null;
+		 Product product = productRepository.findByName(name);
+		 return product != null ? product : null;
 	}
 
 	@Override
@@ -121,6 +121,10 @@ public class ProductServiceImpl implements ProductService {
 		return product != null;
 	}
 
-
+	@Override
+	public void delete(Product product) {
+		productRepository.delete(product);
+		
+	}
 
 }
