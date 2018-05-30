@@ -18,4 +18,6 @@ public interface DamageQuantityProductService {
 	List<DamageQuantityProduct> findByProductId(int id);
 	
 	DamageQuantityProduct findById(int id);
+	
+	void delete(DamageQuantityProduct damageQuantityProduct);
 }
