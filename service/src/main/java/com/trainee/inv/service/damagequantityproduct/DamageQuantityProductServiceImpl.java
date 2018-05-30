@@ -63,5 +63,13 @@ public class DamageQuantityProductServiceImpl implements DamageQuantityProductSe
 		return findById.get();
 	}
 
+	@Override
+	public void delete(DamageQuantityProduct damageQuantityProduct) {
+		damageQuantityRepository.delete(damageQuantityProduct);
+		
+	}
+
+	
+
 
 }

@@ -36,6 +36,7 @@ public class ProductServiceTest {
 		Supplier supplier = supplierService.findByName("Clothing1 Trading");
 		Product product = new Product();
 
+
 		product.setName("Dress");
 		product.setCategory(category);
 		product.setSupplier(supplier);
@@ -103,12 +104,11 @@ public class ProductServiceTest {
 	public void searchByItemCodeFalseTest() {
 		List<Product> list = productService.searchByItemCode("wesfr", true);
 		Assert.isNull(list);
-		;
 		System.out.println(list);
 	}
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void findAllProductsTest() {
 		List<Product> findProducts = productService.findAll();
 		Assert.notNull(findProducts);
