@@ -37,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public Category update(int id, String name) {
 		boolean existsById = categoryRepository.existsById(id);
 		if (!existsById) {
-			throw new IllegalArgumentException("Name already added.");
+			throw new IllegalArgumentException("Id must be in database.");
 		}
 		Optional<Category> optionalCategory = categoryRepository.findById(id);
 		Category category = optionalCategory.get();
@@ -49,7 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public void delete(int id) {
 		boolean existsById = categoryRepository.existsById(id);
 		if (!existsById) {
-			throw new IllegalArgumentException("No name in that category.");
+			throw new IllegalArgumentException("No id in that category.");
 		}
 		categoryRepository.deleteById(id);
 	}

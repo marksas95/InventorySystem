@@ -12,6 +12,8 @@ public interface SupplierService {
 
 	Supplier findByName(String name);
 	
+	Supplier findById(int id);
+	
 	List<Supplier> findAll();
 	
 	void delete (int id);

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.trainee.inv.repository.category.Category;
 import com.trainee.inv.repository.supplier.Supplier;
 import com.trainee.inv.repository.supplier.SupplierRepository;
 
@@ -17,7 +18,7 @@ public class SupplierServiceImpl implements SupplierService {
 	@Override
 	public Supplier update(int id, String name) {
 		boolean existsByName = supplierRepository.existsByName(name);
-		if (existsByName) {
+		if (!existsByName) {
 			throw new IllegalArgumentException("Supplier Name Already Exist");
 		}
 		Optional<Supplier> optionalSupplier = supplierRepository.findById(id);
@@ -55,6 +56,12 @@ public class SupplierServiceImpl implements SupplierService {
 			throw new IllegalArgumentException("cannot find id");
 		}
 		supplierRepository.deleteById(id);
+	}
+
+	@Override
+	public Supplier findById(int id) {
+		Optional<Supplier> optional = supplierRepository.findById(id);
+		return optional.get();
 	}
 
 }

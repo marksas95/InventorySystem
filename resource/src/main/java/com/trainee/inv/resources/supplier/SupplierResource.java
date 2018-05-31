@@ -3,6 +3,7 @@ package com.trainee.inv.resources.supplier;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,13 +34,25 @@ public class SupplierResource {
 	}
 	
 	@PostMapping("/update")
-	public Supplier updateSupplier(@RequestBody UpdateSupplierForm updateSupplierForm){
-		return supplierService.update(updateSupplierForm.getId(),updateSupplierForm.getName());
+	public Supplier updateSupplier(@RequestParam(name = "id",required = true) Integer id,
+			   @RequestParam(required = true) String name){
+		return supplierService.update(id,name);
 	}
 	
 	@GetMapping("/findByName")
-	public Supplier findByname(@RequestParam(name = "name", required = true)String name) {
+	public Supplier findByName(@RequestParam(name = "name", required = true)String name) {
 		return supplierService.findByName(name);
+	}
+	
+	@GetMapping("/findById")
+	public Supplier findById(@RequestParam(name = "id", required = true) int id) {
+		return supplierService.findById(id);
+	}
+	
+	@DeleteMapping("/delete")
+	public void delete(@RequestParam(value = "id",required = true) int id) {
+		supplierService.delete(id);
+		
 	}
 	
 }
