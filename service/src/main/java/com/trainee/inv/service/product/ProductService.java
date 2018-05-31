@@ -29,4 +29,8 @@ public interface ProductService {
 	
 	List<Product> sortByName();
 	
+	List<Product> sortByItemCode();
+	
+	List<Product> sortByDescription();
+	
 }
