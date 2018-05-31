@@ -64,8 +64,7 @@ public class WarehouseServiceTest {
 	@Test
 	@Ignore
 	public void deleteTest() {
-		Warehouse warehouse = warehouseService.findById(146);
-		warehouseService.delete(warehouse);
+		warehouseService.delete(146);
 	}
 	
 	@Test

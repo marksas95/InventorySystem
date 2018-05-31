@@ -20,6 +20,6 @@ public interface WarehouseService {
 
 	List<Warehouse> findAll();
 	
-	void delete(Warehouse warehouse);
+	void delete(int id);
 
 }

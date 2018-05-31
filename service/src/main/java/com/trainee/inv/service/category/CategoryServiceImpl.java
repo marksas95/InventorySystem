@@ -38,6 +38,8 @@ public class CategoryServiceImpl implements CategoryService {
 		boolean existsById = categoryRepository.existsById(id);
 		if (!existsById) {
 			throw new IllegalArgumentException("Id must be in database.");
+		} else if(categoryRepository.existsByName(name)) {
+			throw new IllegalArgumentException("Category Name Already Exists.");
 		}
 		Optional<Category> optionalCategory = categoryRepository.findById(id);
 		Category category = optionalCategory.get();

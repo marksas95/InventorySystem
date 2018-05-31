@@ -48,8 +48,8 @@ public class WarehouseServiceImpl implements WarehouseService {
 	}
 
 	@Override
-	public void delete(Warehouse warehouse) {
-		warehouseRepository.delete(warehouse);
+	public void delete(int id) {
+		warehouseRepository.deleteById(id);
 
 	}
 
