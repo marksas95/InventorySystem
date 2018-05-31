@@ -21,8 +21,8 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product create(Product product) {
 		boolean existsById = productRepository.existsById(product.getId());
-		boolean exsistsByItemCode = productRepository.exsistsByItemCode(product.getItemCode());
-		boolean exsistsBySerialNumber = productRepository.exsistsBySerialNumber(product.getSerialNumber());
+		boolean exsistsByItemCode = productRepository.existsByItemCode(product.getItemCode());
+		boolean exsistsBySerialNumber = productRepository.existsBySerialNumber(product.getSerialNumber());
 		if (existsById) {
 			throw new IllegalArgumentException("Invalid field id");
 		} else if (exsistsByItemCode) {

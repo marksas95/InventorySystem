@@ -58,7 +58,7 @@ public class CategoryServiceTest {
 	@Test
 	@Ignore
 	public void updateTest() {
-		Category updatedCategory = categoryService.update(1, "nullss");
+		Category updatedCategory = categoryService.update(5, "Jewelry");
 		Assert.isTrue(updatedCategory.getName().equals("nullss"));
 	}
 

@@ -8,15 +8,16 @@ import org.springframework.stereotype.Service;
 
 import com.trainee.inv.repository.supplier.Supplier;
 import com.trainee.inv.repository.supplier.SupplierRepository;
+
 @Service
-public class SupplierServiceImpl implements SupplierService{
+public class SupplierServiceImpl implements SupplierService {
 	@Autowired
 	private SupplierRepository supplierRepository;
-	
+
 	@Override
 	public Supplier update(int id, String name) {
 		boolean existsByName = supplierRepository.existsByName(name);
-		if(existsByName) {
+		if (existsByName) {
 			throw new IllegalArgumentException("Supplier Name Already Exist");
 		}
 		Optional<Supplier> optionalSupplier = supplierRepository.findById(id);
@@ -28,7 +29,7 @@ public class SupplierServiceImpl implements SupplierService{
 	@Override
 	public Supplier create(String name) {
 		boolean existsByName = supplierRepository.existsByName(name);
-		if(existsByName) {
+		if (existsByName) {
 			throw new IllegalArgumentException("Supplier Name Already Exist");
 		}
 		Supplier supplier = new Supplier();
@@ -39,7 +40,7 @@ public class SupplierServiceImpl implements SupplierService{
 	@Override
 	public Supplier findByName(String name) {
 		Supplier supplier = supplierRepository.findByName(name);
-		return supplier!= null ? supplier : null;
+		return supplier != null ? supplier : null;
 	}
 
 	@Override
@@ -50,7 +51,7 @@ public class SupplierServiceImpl implements SupplierService{
 	@Override
 	public void delete(int id) {
 		boolean existsById = supplierRepository.existsById(id);
-		if(!existsById) {
+		if (!existsById) {
 			throw new IllegalArgumentException("cannot find id");
 		}
 		supplierRepository.deleteById(id);
