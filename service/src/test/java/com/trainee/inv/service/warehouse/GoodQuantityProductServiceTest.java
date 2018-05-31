@@ -17,7 +17,7 @@ import com.trainee.inv.service.product.ProductService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class WarehouseServiceTest {
+public class GoodQuantityProductServiceTest {
 
 	@Autowired
 	WarehouseService warehouseService;

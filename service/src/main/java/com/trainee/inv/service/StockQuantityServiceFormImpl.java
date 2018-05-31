@@ -34,7 +34,7 @@ public class StockQuantityServiceFormImpl implements StockQuantityServiceForm{
 			if(o.getId()==goodQuantityProductId) {
 				int initialQuantity = o.getQuantity();
 				initialQuantity += quantity;
-				GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.update(o.getId(), initialQuantity);
+				GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.updateQuantity(o.getId(), initialQuantity);
 				break;
 			}
 		}
@@ -49,7 +49,7 @@ public class StockQuantityServiceFormImpl implements StockQuantityServiceForm{
 			if(o.getId()==goodQuantityProductId) {
 				int initialQuantity = o.getQuantity();
 				initialQuantity -= quantity;
-				GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.update(o.getId(), initialQuantity);
+				GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.updateQuantity(o.getId(), initialQuantity);
 				break;
 			}
 		}
@@ -74,7 +74,7 @@ public class StockQuantityServiceFormImpl implements StockQuantityServiceForm{
 				reconcileProduct.setWarehouse(warehouse);
 				reconcileProduct.setPhysicalCount(physicalQuantity);
 				reconcileProduct.setSystemCount(systemQuantity);
-				GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.update(o.getId(), physicalQuantity);
+				GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.updateQuantity(o.getId(), physicalQuantity);
 				ReconcileProduct newReconcileProduct = reconcileProductService.create(reconcileProduct);
 				break;
 			}

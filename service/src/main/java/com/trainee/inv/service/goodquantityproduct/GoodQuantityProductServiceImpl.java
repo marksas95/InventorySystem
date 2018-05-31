@@ -35,9 +35,11 @@ class GoodQuantityProductServiceImpl implements GoodQuantityProductService{
 		return goodQuantityRepository.save(goodQuantityProduct);
 		
 	}
+	
+	
 
 	@Override
-	public GoodQuantityProduct update(int goodQuantityProductId, int quantity) {
+	public GoodQuantityProduct updateQuantity(int goodQuantityProductId, int quantity) {
 		GoodQuantityProduct goodQuantityProduct = findById(goodQuantityProductId);
 		goodQuantityProduct.setQuantity(quantity);
 		return goodQuantityRepository.save(goodQuantityProduct);
@@ -48,7 +50,7 @@ class GoodQuantityProductServiceImpl implements GoodQuantityProductService{
 		GoodQuantityProduct goodQuantityProduct = findById(goodQuantityProductId);
 		int initialQuantity = goodQuantityProduct.getQuantity();
 		initialQuantity += quantity;
-		return update(goodQuantityProductId, initialQuantity);
+		return updateQuantity(goodQuantityProductId, initialQuantity);
 	}
 
 	@Override
@@ -56,7 +58,7 @@ class GoodQuantityProductServiceImpl implements GoodQuantityProductService{
 		GoodQuantityProduct goodQuantityProduct = findById(goodQuantityProductId);
 		int initialQuantity = goodQuantityProduct.getQuantity();
 		initialQuantity -= quantity;
-		return update(goodQuantityProductId, initialQuantity);
+		return updateQuantity(goodQuantityProductId, initialQuantity);
 	}
 
 	@Override
@@ -71,8 +73,13 @@ class GoodQuantityProductServiceImpl implements GoodQuantityProductService{
 	}
 
 	@Override
-	public void delete(GoodQuantityProduct goodQuantityProduct) {
-		goodQuantityRepository.delete(goodQuantityProduct);
+	public void delete(int id) {
+		goodQuantityRepository.deleteById(id);
+	}
+
+	@Override
+	public List<GoodQuantityProduct> findAll() {
+		return goodQuantityRepository.findAll();
 	}
 
 }
