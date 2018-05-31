@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.trainee.inv.repository.damagequantityproduct.DamageQuantityProduct;
 import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
 import com.trainee.inv.repository.reconcileproduct.ReconcileProduct;
 import com.trainee.inv.repository.warehouse.Warehouse;
+import com.trainee.inv.service.damagequantityproduct.DamageQuantityProductService;
 import com.trainee.inv.service.goodquantityproduct.GoodQuantityProductService;
 import com.trainee.inv.service.product.ProductService;
 import com.trainee.inv.service.reconcileproduct.ReconcileProductService;
@@ -22,6 +24,8 @@ public class StockQuantityServiceImpl implements StockQuantityService{
 	ProductService productService;
 	@Autowired
 	GoodQuantityProductService goodQuantityProductService;
+	@Autowired
+	DamageQuantityProductService damageQuantityProductService;
 	@Autowired
 	ReconcileProductService reconcileProductService;
 	
@@ -81,4 +85,35 @@ public class StockQuantityServiceImpl implements StockQuantityService{
 		}
 	}
 
+	@Override
+	public void stockInDamageQuantityProduct(int warehouseId, int damageQuantityProductId, int quantity) {
+		Warehouse warehouse = warehouseService.findById(warehouseId);
+		DamageQuantityProduct damageQuantityProduct = damageQuantityProductService.findById(damageQuantityProductId);
+		List<DamageQuantityProduct> damageQuantityProducts = warehouse.getDamageQuantityProduct();
+		for(DamageQuantityProduct o :damageQuantityProducts) {
+			if(o.getId()==damageQuantityProductId) {
+				int initialQuantity = o.getQuantity();
+				initialQuantity += quantity;
+				GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.updateQuantity(o.getId(), initialQuantity);
+				break;
+			}
+		}
+	}
+
+	@Override
+	public void stockOutDamageQuantityProduct(int warehouseId, int damageQuantityProductId, int quantity) {
+		Warehouse warehouse = warehouseService.findById(warehouseId);
+		DamageQuantityProduct damageQuantityProduct = damageQuantityProductService.findById(damageQuantityProductId);
+		List<DamageQuantityProduct> damageQuantityProducts = warehouse.getDamageQuantityProduct();
+		for(DamageQuantityProduct o :damageQuantityProducts) {
+			if(o.getId()==damageQuantityProductId) {
+				int initialQuantity = o.getQuantity();
+				initialQuantity -= quantity;
+				GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.updateQuantity(o.getId(), initialQuantity);
+				break;
+			}
+		}
+	}
 }
+
+

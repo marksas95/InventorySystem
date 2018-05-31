@@ -29,6 +29,20 @@ public class StockQuantityResource {
 		stockQuantityService.stockOutGoodQuantityProduct(warehouseId, goodQuantityProductId, quantity);
 	}
 
+	@PostMapping("/stockInDamageQuantityProduct")
+	public void stockInDamageQuantityProduct(@RequestParam(name = "warehouseId", required = true) int warehouseId,
+			@RequestParam(name = "damageQuantityProductId", required = true) int damageQuantityProductId,
+			@RequestParam(name = "quantity", required = true) int quantity) {
+		stockQuantityService.stockInDamageQuantityProduct(warehouseId, damageQuantityProductId, quantity);
+	}
+
+	@PostMapping("/stockOutDamageQuantityProduct")
+	public void stockOutDamageQuantityProduct(@RequestParam(name = "warehouseId", required = true) int warehouseId,
+			@RequestParam(name = "damageQuantityProductId", required = true) int damageQuantityProductId,
+			@RequestParam(name = "quantity", required = true) int quantity) {
+		stockQuantityService.stockOutDamageQuantityProduct(warehouseId, damageQuantityProductId, quantity);
+	}
+	
 	@PostMapping("/transferStocks")
 	public void transferStocks(@RequestParam(name = "warehouseIdFrom", required = true) int warehouseIdFrom,
 			@RequestParam(name = "warehouseIdTo", required = true) int warehouseIdTo,
