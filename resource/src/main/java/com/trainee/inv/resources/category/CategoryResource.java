@@ -43,10 +43,16 @@ public class CategoryResource {
 	}
 	
 	@PostMapping("/update")
-	public Category updateCategory(@RequestBody UpdateCategoryForm updateCategoryForm){
-		return categoryService.update(updateCategoryForm.getId(), updateCategoryForm.getName());
+	public Category updateCategory(@RequestParam(name = "id",required = true) Integer id,
+								   @RequestParam(required = true) String name){
+		return categoryService.update(id, name);
 	}
 	
+//	@PostMapping("/update")
+//	public Category updateCategory(@RequestBody UpdateCategoryForm updateCategoryForm){
+//		return categoryService.update(updateCategoryForm.getId(), updateCategoryForm.getName());
+//	}
+//	
 //
 //	@PostMapping("/update")
 //	public Category updateCategory(@RequestBody UpdateCategoryForm updateCategoryForm){
