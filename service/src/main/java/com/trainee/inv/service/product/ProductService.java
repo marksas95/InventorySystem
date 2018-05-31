@@ -26,5 +26,7 @@ public interface ProductService {
 	Product findByName(String name);
 	
 	void delete(int id);
-
+	
+	List<Product> sortByName();
+	
 }

@@ -1,6 +1,8 @@
 package com.trainee.inv.service.product;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Service;
 import com.trainee.inv.repository.product.Product;
 import com.trainee.inv.repository.product.ProductRepository;
 import com.trainee.inv.repository.supplier.Supplier;
+
+import javassist.expr.NewArray;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -119,5 +123,13 @@ public class ProductServiceImpl implements ProductService {
 		productRepository.deleteById(id);
 
 	}
+	
+	@Override
+	public List<Product> sortByName(){
+		List<Product> products = productRepository.findAll();
+		Collections.sort(products);
+		return products;
+	}
 
+		
 }

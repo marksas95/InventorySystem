@@ -29,6 +29,15 @@ public class ProductServiceTest {
 	@Autowired
 	private SupplierService supplierService;
 
+	
+	@Test
+//	@Ignore
+	public void sortByName() {
+		List<Product> products = productService.sortByName();
+		System.out.println(products);
+	}
+	
+	
 	@Test
 	@Ignore
 	public void createProductTest() {
@@ -108,7 +117,7 @@ public class ProductServiceTest {
 	}
 
 	@Test
-//	@Ignore
+	@Ignore
 	public void findAllProductsTest() {
 		List<Product> findProducts = productService.findAll();
 		Assert.notNull(findProducts);
