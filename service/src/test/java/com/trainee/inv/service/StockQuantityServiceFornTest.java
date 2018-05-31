@@ -12,18 +12,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class StockQuantityServiceFornTest {
 
 	@Autowired
-	StockQuantityServiceForm stockQuantityServiceForm;
+	StockQuantityService stockQuantityServiceForm;
 	
 	@Test
 	@Ignore
 	public void stockInTest() {
-		stockQuantityServiceForm.stockIn(10, 12, 500);
+		stockQuantityServiceForm.stockInGoodQuantityProduct(10, 12, 500);
 	}
 	
 	@Test
 	@Ignore
 	public void stockOutTest() {
-		stockQuantityServiceForm.stockOut(10, 12, 300);
+		stockQuantityServiceForm.stockOutGoodQuantityProduct(10, 12, 300);
 	}
 	
 	@Test

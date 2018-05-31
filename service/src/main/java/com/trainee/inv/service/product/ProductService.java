@@ -21,7 +21,7 @@ public interface ProductService {
 	
 	List<Product> searchByUnitOfMeasurement(String unitOfMeasurement,  boolean isActive);
 	
-	List<Product> searchByDescription(String decription,  boolean isActive);
+	List<Product> searchByDescription(String description,  boolean isActive);
 		
 	Product findByName(String name);
 	

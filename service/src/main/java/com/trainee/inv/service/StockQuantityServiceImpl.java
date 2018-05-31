@@ -14,7 +14,7 @@ import com.trainee.inv.service.reconcileproduct.ReconcileProductService;
 import com.trainee.inv.service.warehouse.WarehouseService;
 
 @Service
-public class StockQuantityServiceFormImpl implements StockQuantityServiceForm{
+public class StockQuantityServiceImpl implements StockQuantityService{
 
 	@Autowired
 	WarehouseService warehouseService;
@@ -26,7 +26,7 @@ public class StockQuantityServiceFormImpl implements StockQuantityServiceForm{
 	ReconcileProductService reconcileProductService;
 	
 	@Override
-	public void stockIn(int warehouseId, int goodQuantityProductId, int quantity) {
+	public void stockInGoodQuantityProduct(int warehouseId, int goodQuantityProductId, int quantity) {
 		Warehouse warehouse = warehouseService.findById(warehouseId);
 		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.findById(goodQuantityProductId);
 		List<GoodQuantityProduct> goodQuantityProducts = warehouse.getGoodQuantityProducts();
@@ -41,7 +41,7 @@ public class StockQuantityServiceFormImpl implements StockQuantityServiceForm{
 	}
 
 	@Override
-	public void stockOut(int warehouseId, int goodQuantityProductId, int quantity) {
+	public void stockOutGoodQuantityProduct(int warehouseId, int goodQuantityProductId, int quantity) {
 		Warehouse warehouse = warehouseService.findById(warehouseId);
 		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.findById(goodQuantityProductId);
 		List<GoodQuantityProduct> goodQuantityProducts = warehouse.getGoodQuantityProducts();
@@ -57,8 +57,8 @@ public class StockQuantityServiceFormImpl implements StockQuantityServiceForm{
 	
 	@Override
 	public void transferStocks(int warehouseIdFrom, int warehouseIdTo, int goodQuantityProductIdFrom, int goodQuantityProductIdTo, int quantity) {
-		stockOut(warehouseIdFrom, goodQuantityProductIdFrom, quantity);
-		stockIn(warehouseIdTo, goodQuantityProductIdTo, quantity);
+		stockOutGoodQuantityProduct(warehouseIdFrom, goodQuantityProductIdFrom, quantity);
+		stockInGoodQuantityProduct(warehouseIdTo, goodQuantityProductIdTo, quantity);
 	}
 
 	@Override

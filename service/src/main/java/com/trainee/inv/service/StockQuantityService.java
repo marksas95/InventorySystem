@@ -1,10 +1,10 @@
 package com.trainee.inv.service;
 
-public interface StockQuantityServiceForm {
+public interface StockQuantityService {
 
-	void stockIn(int warehouseId,int goodQuantityProductId, int quantity);
+	void stockInGoodQuantityProduct(int warehouseId,int goodQuantityProductId, int quantity);
 
-	void stockOut(int warehouseId,int goodQuantityProductId, int quantity);
+	void stockOutGoodQuantityProduct(int warehouseId,int goodQuantityProductId, int quantity);
 	
 	void transferStocks(int warehouseIdFrom, int warehouseIdTo, int goodQuantityProductIdFrom, int goodQuantityProductIdTo, int quantity);
 
