@@ -1,11 +1,15 @@
 package com.trainee.inv.resources;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
 import com.trainee.inv.service.StockQuantityService;
 
 @RestController
@@ -57,5 +61,10 @@ public class StockQuantityResource {
 			@RequestParam(name = "goodQuantityProductId", required = true) int goodQuantityProductId,
 			@RequestParam(name = "quantity", required = true) int physicalQuantity) {
 		stockQuantityService.reconcileProduct(warehouseId, goodQuantityProductId, physicalQuantity);
+	}
+	
+	@GetMapping("/getAllThatReachedMinimumStocks")
+	public List<GoodQuantityProduct> findByGoodQuantityProductThatReachedMinimumStocks(){
+		return stockQuantityService.findByGoodQuantityProductThatReachedMinimumStocks();
 	}
 }

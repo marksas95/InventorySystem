@@ -1,5 +1,6 @@
 package com.trainee.inv.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,5 +144,24 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 				break;
 			}
 		}
+	}
+
+
+	@Override
+	public List<GoodQuantityProduct> findByGoodQuantityProductThatReachedMinimumStocks() {
+		List<Warehouse> warehouses = warehouseService.findAll();
+		List<GoodQuantityProduct> goodQuantityProductsThatReachedMinimumStocks = null;
+		for(Warehouse o:warehouses) {
+			List<GoodQuantityProduct> goodQuantityProducts = o.getGoodQuantityProducts();
+			for(GoodQuantityProduct u:goodQuantityProducts) {
+				if(u.getQuantity()<u.getProduct().getMinimumStocks()) {
+					if(goodQuantityProductsThatReachedMinimumStocks == null) {
+						goodQuantityProductsThatReachedMinimumStocks = new ArrayList<>();
+					}
+					goodQuantityProductsThatReachedMinimumStocks.add(u);
+				}
+			}
+		}
+		return goodQuantityProductsThatReachedMinimumStocks;
 	}
 }

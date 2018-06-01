@@ -1,5 +1,9 @@
 package com.trainee.inv.service;
 
+import java.util.List;
+
+import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
+
 public interface StockQuantityService {
 
 	void stockInGoodQuantityProduct(int warehouseId,int goodQuantityProductId, int quantity);
@@ -13,4 +17,6 @@ public interface StockQuantityService {
 	void transferStocks(int warehouseIdFrom, int warehouseIdTo, int goodQuantityProductIdFrom, int goodQuantityProductIdTo, int quantity);
 
 	void reconcileProduct(int warehouseId, int goodQuantityProductId, int physicalQuantity);
+	
+	List<GoodQuantityProduct> findByGoodQuantityProductThatReachedMinimumStocks();
 }

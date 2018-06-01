@@ -28,12 +28,12 @@ public class StatusResource {
 	}
 
 	@PostMapping("/setWarehouseToActive")
-	public Warehouse setWarehouseToActive(@RequestParam(name = "productId", required = true) int warehouseId) {
+	public Warehouse setWarehouseToActive(@RequestParam(name = "warehouseId", required = true) int warehouseId) {
 		return statusServiceForm.setWarehouseToActive(warehouseId);
 	}
 
 	@PostMapping("/setWarehouseToInActive")
-	public Warehouse setWarehouseToInActive(@RequestParam(name = "productId", required = true) int warehouseId) {
+	public Warehouse setWarehouseToInActive(@RequestParam(name = "warehouseId", required = true) int warehouseId) {
 		return statusServiceForm.setWarehouseToInActive(warehouseId);
 	}
 }

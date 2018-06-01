@@ -31,7 +31,7 @@ public class ProductServiceTest {
 
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void sortByName() {
 		List<Product> products = productService.sortByName();
 		System.out.println(products);
@@ -39,21 +39,21 @@ public class ProductServiceTest {
 	
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void createProductTest() {
-		Category category = categoryService.findByName("Clothing");
-		Supplier supplier = supplierService.findByName("Clothing1 Trading");
+		Category category = categoryService.findByName("Electronics");
+//		Supplier supplier = supplierService.findByName("Clothing1 Trading");
 		Product product = new Product();
 
 
-		product.setName("Dress");
+		product.setName("Laptop");
 		product.setCategory(category);
-		product.setSupplier(supplier);
-		product.setDescription("Sweet Dress");
-		product.setItemCode("Dress-001");
+//		product.setSupplier(supplier);
+		product.setDescription("i7 Gaming Laptop");
+		product.setItemCode("laptop-001");
 		product.setMinimumStocks(15);
-		product.setRemarks("Strechable");
-		product.setSerialNumber("000002");
+		product.setRemarks("brand new");
+		product.setSerialNumber("0001");
 		product.setActive(true);
 		product.setUnitOfMeasurement("PCS");
 		product.setVatable(false);
