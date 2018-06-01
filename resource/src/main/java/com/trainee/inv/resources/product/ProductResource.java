@@ -22,6 +22,21 @@ public class ProductResource {
 	@Autowired
 	private ProductService productService;
 
+	@GetMapping ("/sortByMinimumStock")
+	public List<Product> sortMinimumStock(){
+		return productService.sortByMinimumStock();
+	}
+	
+	@GetMapping ("/sortByItemCode")
+	public List<Product> sortItemCode(){
+		return productService.sortByItemCode();
+	}
+	
+	@GetMapping ("/sortByDescription")
+	public List<Product> sortDescription(){
+		return productService.sortByDescription();
+	}
+
 	@GetMapping("/list")
 	public List<Product> findAll() {
 		return productService.findAll();
@@ -42,22 +57,22 @@ public class ProductResource {
 	public Product updateProduct(@RequestBody Product product) {
 		return productService.update(product);
 	}
-	
+
 	@GetMapping("/findById")
 	public Product findById(@RequestParam(name = "id", required = true) int id) {
 		return productService.findById(id);
 	}
-	
+
 	@GetMapping("/findByCategoryId")
 	public List<Product> findByCategoryId(@RequestParam(name = "id", required = true) int id) {
 		return productService.findByCategoryId(id);
 	}
-	
+
 	@GetMapping("/findBySupplierId")
 	public List<Product> findBySupplierId(@RequestParam(name = "id", required = true) int id) {
 		return productService.findBySupplierId(id);
 	}
-	
+
 	@GetMapping("/findByName")
 	public Product findByName(@RequestParam(name = "name", required = true) String name) {
 		return productService.findByName(name);
@@ -69,21 +84,28 @@ public class ProductResource {
 	}
 
 	@GetMapping("/searchByItemCode")
-	public List<Product> searchByItemCode(@RequestParam(name = "itemCode",required = true) String itemCode,
-										  @RequestParam(required = true) boolean isActive) {
+	public List<Product> searchByItemCode(@RequestParam(name = "itemCode", required = true) String itemCode,
+			@RequestParam(required = true) boolean isActive) {
 		return productService.searchByItemCode(itemCode, isActive);
 	}
-	
+
 	@GetMapping("/searchByDescription")
-	public List<Product> searchByDescription(@RequestParam(name = "description",required = true) String description,
-										  @RequestParam(required = true) boolean isActive) {
+	public List<Product> searchByDescription(@RequestParam(name = "description", required = true) String description,
+			@RequestParam(required = true) boolean isActive) {
 		return productService.searchByDescription(description, isActive);
 	}
-	
+
 	@GetMapping("/searchByUnitOfMeasurement")
-	public List<Product> unitOfMeasurement(@RequestParam(name = "unitOfMeasurements",required = true) String unitOfMeasurement,
-										  @RequestParam(required = true) boolean isActive) {
+	public List<Product> unitOfMeasurement(
+			@RequestParam(name = "unitOfMeasurements", required = true) String unitOfMeasurement,
+			@RequestParam(required = true) boolean isActive) {
 		return productService.searchByUnitOfMeasurement(unitOfMeasurement, isActive);
 	}
 
+	@GetMapping("/sortByName")
+	public List<Product> sortName() {
+		return productService.sortByName();
+	}
+	
+	
 }

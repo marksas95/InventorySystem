@@ -1,8 +1,8 @@
 package com.trainee.inv.service.product;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,9 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.trainee.inv.repository.product.Product;
 import com.trainee.inv.repository.product.ProductRepository;
-import com.trainee.inv.repository.supplier.Supplier;
-
-import javassist.expr.NewArray;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -132,6 +129,33 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public List<Product> sortByItemCode() {
+		List<Product> products = productRepository.findAll();
+		Collections.sort(products, new Comparator<Product>() {
+
+			@Override
+			public int compare(Product o, Product n) {
+				// TODO Auto-generated method stub
+				return o.getItemCode().compareTo(n.getItemCode());
+			}
+		});
+		return products;
+	}
+
+	@Override
+	public List<Product> sortByDescription() {
+		List<Product> products = productRepository.findAll();
+		Collections.sort(products, new Comparator<Product>() {
+
+			@Override
+			public int compare(Product o, Product n) {
+				// TODO Auto-generated method stub
+				return o.getDescription().compareTo(n.getDescription());
+			}
+		});
+		return products;
+	}
+
 	public List<Product> findByCategoryId(int id) {
 		return productRepository.findByCategoryId(id);
 	}
@@ -139,6 +163,22 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> findBySupplierId(int id) {
 		return productRepository.findBySupplierId(id);
+
+	}
+
+	@Override
+	public List<Product> sortByMinimumStock() {
+		List<Product>products = productRepository.findAll();
+		Collections.sort(products, new Comparator<Product>() {
+
+			@Override
+			public int compare(Product o1, Product o2) {
+				// TODO Auto-generated method stub
+				return o1.getMinimumStocks() - o2.getMinimumStocks();
+			}
+			
+		});
+		return products;
 	}
 
 		
