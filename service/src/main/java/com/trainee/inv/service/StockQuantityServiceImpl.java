@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.trainee.inv.repository.damagequantityproduct.DamageQuantityProduct;
 import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
+import com.trainee.inv.repository.product.Product;
 import com.trainee.inv.repository.reconcileproduct.ReconcileProduct;
 import com.trainee.inv.repository.warehouse.Warehouse;
 import com.trainee.inv.service.damagequantityproduct.DamageQuantityProductService;
@@ -31,47 +32,64 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 	ReconcileProductService reconcileProductService;
 
 	@Override
-	public void stockInGoodQuantityProduct(int warehouseId, int goodQuantityProductId, int quantity) {
-		Warehouse warehouse = warehouseService.findById(warehouseId);
-		if (!warehouse.isActive()) {
-			throw new IllegalArgumentException("Invalid warehouse because it is inactive");
-		}
-		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.findById(goodQuantityProductId);
-		if (!goodQuantityProduct.getProduct().isActive()) {
-			throw new IllegalArgumentException("Invalid product because it is inactive");
-		}
+	public void stockInGoodQuantityProduct(int warehouseId, int productId, int quantity) {
+		Warehouse warehouse = checkIfWarehouseAndProductIstActive(warehouseId, productId);
 		List<GoodQuantityProduct> goodQuantityProducts = warehouse.getGoodQuantityProducts();
-		for (GoodQuantityProduct o : goodQuantityProducts) {
-			if (o.getId() == goodQuantityProductId) {
-				int initialQuantity = o.getQuantity();
-				initialQuantity += quantity;
+		List<GoodQuantityProduct> goodQuantityProductsWithProductId = goodQuantityProductService.findByProductId(productId);
+		Integer value = null;
+		for(GoodQuantityProduct o : goodQuantityProductsWithProductId) {
+			if(goodQuantityProducts.contains(o)) {
+				value = o.getQuantity();
+				value += quantity;
 				GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.updateQuantity(o.getId(),
-						initialQuantity);
+						value);
 				break;
 			}
+		}
+		if (value == null) {
+			Product product = productService.findById(productId);
+			GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.create(product, quantity);
 		}
 	}
 
 
 	@Override
-	public void stockOutGoodQuantityProduct(int warehouseId, int goodQuantityProductId, int quantity) {
-		Warehouse warehouse = warehouseService.findById(warehouseId);
-		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.findById(goodQuantityProductId);
-		if (!warehouse.isActive()) {
-			throw new IllegalArgumentException("Invalid warehouse because it is inactive");
-		} if (!goodQuantityProduct.getProduct().isActive()) {
-			throw new IllegalArgumentException("Invalid product because it is inactive");
-		}
+	public void stockOutGoodQuantityProduct(int warehouseId, int productId, int quantity) {
+		Warehouse warehouse = checkIfWarehouseAndProductIstActive(warehouseId, productId);
 		List<GoodQuantityProduct> goodQuantityProducts = warehouse.getGoodQuantityProducts();
-		for (GoodQuantityProduct o : goodQuantityProducts) {
-			if (o.getId() == goodQuantityProductId) {
-				int initialQuantity = o.getQuantity();
-				initialQuantity -= quantity;
+		List<GoodQuantityProduct> goodQuantityProductsWithProductId = goodQuantityProductService.findByProductId(productId);
+		Integer value = null;
+		for(GoodQuantityProduct o : goodQuantityProductsWithProductId) {
+			if(goodQuantityProducts.contains(o)) {
+				value = o.getQuantity();
+				value += quantity;
+				checkIfQuantityIsValid(quantity, value);
 				GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.updateQuantity(o.getId(),
-						initialQuantity);
+						value);
 				break;
 			}
 		}
+		if (value == null) {
+			throw new IllegalArgumentException("Invalid product no stocks in designated warehouse");
+		}
+	}
+
+	private void checkIfQuantityIsValid(int quantity, int initialQuantity) {
+		if(initialQuantity<quantity) {
+			throw new IllegalArgumentException("Invalid quantity, it must be lower than current quantity.");
+		}
+	}
+
+
+	private Warehouse checkIfWarehouseAndProductIstActive(int warehouseId, int productId) {
+		Warehouse warehouse = warehouseService.findById(warehouseId);
+		Product product = productService.findById(productId);
+		if (!warehouse.isActive()) {
+			throw new IllegalArgumentException("Invalid warehouse because it is inactive");
+		} if (!product.isActive()) {
+			throw new IllegalArgumentException("Invalid product because it is inactive");
+		}
+		return warehouse;
 	}
 
 	@Override
@@ -103,8 +121,8 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 	}
 
 	@Override
-	public void stockInDamageQuantityProduct(int warehouseId, int damageQuantityProductId, int quantity) {
-		Warehouse warehouse = warehouseService.findById(warehouseId);
+	public void stockInDamageQuantityProduct(int warehouseIdFrom, int warehouseIdTo, int damageQuantityProductId, int quantity) {
+		Warehouse warehouse = warehouseService.findById(warehouseIdFrom);
 		if (!warehouse.isActive()) {
 			throw new IllegalArgumentException("Invalid warehouse because it is inactive");
 		}
@@ -164,4 +182,21 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 		}
 		return goodQuantityProductsThatReachedMinimumStocks;
 	}
+
+
+//	@Override
+//	public void stockOutGoodQuantityProduct(int warehouseId, int goodQuantityProductId, int quantity) {
+//		Warehouse warehouse = checkIfWarehouseAndProductIstActive(warehouseId, goodQuantityProductId);
+//		List<GoodQuantityProduct> goodQuantityProducts = warehouse.getGoodQuantityProducts();
+//		for (GoodQuantityProduct o : goodQuantityProducts) {
+//			if (o.getId() == goodQuantityProductId) {
+//				int initialQuantity = o.getQuantity();
+//				checkIfQuantityIsValid(quantity, initialQuantity);
+//				initialQuantity -= quantity;
+//				GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.updateQuantity(o.getId(),
+//						initialQuantity);
+//				break;
+//			}
+//		}
+//	}
 }
