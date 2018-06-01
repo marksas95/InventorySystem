@@ -26,8 +26,8 @@ public class ReconcileProductServiceTest {
 //	@Ignore
 	public void createTest() {
 	 ReconcileProduct reconcileProduct = new ReconcileProduct();	
-	 reconcileProduct.setGoodQuantityProduct(goodQuantityProductService.findById(11));
-	 reconcileProduct.setWarehouse(warehouseService.findById(13));
+	 reconcileProduct.setGoodQuantityProduct(goodQuantityProductService.findById(1));
+	 reconcileProduct.setWarehouse(warehouseService.findById(20));
 	 reconcileProduct.setPhysicalCount(100);
 	 reconcileProduct.setSystemCount(101);
 	 reconcileProductService.create(reconcileProduct);

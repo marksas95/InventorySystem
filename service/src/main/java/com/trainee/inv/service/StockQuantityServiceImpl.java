@@ -1,6 +1,8 @@
 package com.trainee.inv.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.trainee.inv.repository.damagequantityproduct.DamageQuantityProduct;
 import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
 import com.trainee.inv.repository.product.Product;
+import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProductRepository;
 import com.trainee.inv.repository.reconcileproduct.ReconcileProduct;
 import com.trainee.inv.repository.warehouse.Warehouse;
 import com.trainee.inv.service.damagequantityproduct.DamageQuantityProductService;
@@ -30,6 +33,8 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 	DamageQuantityProductService damageQuantityProductService;
 	@Autowired
 	ReconcileProductService reconcileProductService;
+	@Autowired
+	GoodQuantityProductRepository goodProductRepo;
 
 	@Override
 	public void stockInGoodQuantityProduct(int warehouseId, int productId, int quantity) {
@@ -51,7 +56,6 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 			GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.create(product, quantity);
 		}
 	}
-
 
 	@Override
 	public void stockOutGoodQuantityProduct(int warehouseId, int productId, int quantity) {
@@ -164,16 +168,15 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 		}
 	}
 
-
 	@Override
 	public List<GoodQuantityProduct> findByGoodQuantityProductThatReachedMinimumStocks() {
 		List<Warehouse> warehouses = warehouseService.findAll();
 		List<GoodQuantityProduct> goodQuantityProductsThatReachedMinimumStocks = null;
-		for(Warehouse o:warehouses) {
+		for (Warehouse o : warehouses) {
 			List<GoodQuantityProduct> goodQuantityProducts = o.getGoodQuantityProducts();
-			for(GoodQuantityProduct u:goodQuantityProducts) {
-				if(u.getQuantity()<u.getProduct().getMinimumStocks()) {
-					if(goodQuantityProductsThatReachedMinimumStocks == null) {
+			for (GoodQuantityProduct u : goodQuantityProducts) {
+				if (u.getQuantity() < u.getProduct().getMinimumStocks()) {
+					if (goodQuantityProductsThatReachedMinimumStocks == null) {
 						goodQuantityProductsThatReachedMinimumStocks = new ArrayList<>();
 					}
 					goodQuantityProductsThatReachedMinimumStocks.add(u);
@@ -184,6 +187,21 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 	}
 
 
+	@Override
+	public List<GoodQuantityProduct> sortMinimumStockByProductDescription() {
+		List<GoodQuantityProduct> sortMinimumByProductDescription = findByGoodQuantityProductThatReachedMinimumStocks();
+		Collections.sort(sortMinimumByProductDescription, new Comparator<GoodQuantityProduct>() {
+
+			@Override
+			public int compare(GoodQuantityProduct o1, GoodQuantityProduct o2) {
+				// TODO Auto-generated method stub
+				return o1.getProduct().getDescription().compareTo(o2.getProduct().getDescription());
+			}
+
+		});
+		return sortMinimumByProductDescription;
+	}
+	
 //	@Override
 //	public void stockOutGoodQuantityProduct(int warehouseId, int goodQuantityProductId, int quantity) {
 //		Warehouse warehouse = checkIfWarehouseAndProductIstActive(warehouseId, goodQuantityProductId);
@@ -199,4 +217,7 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 //			}
 //		}
 //	}
+
+	
+
 }
