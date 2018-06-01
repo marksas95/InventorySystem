@@ -10,7 +10,7 @@ public interface StockQuantityService {
 
 	void stockOutGoodQuantityProduct(int warehouseId,int goodQuantityProductId, int quantity);
 	
-	void stockInDamageQuantityProduct(int warehouseIdFrom, int warehouseIdTo, int damageQuantityProductId, int quantity);
+	void stockInDamageQuantityProduct(int warehouseIdFrom, int warehouseIdTo, int productId, int quantity);
 
 	void stockOutDamageQuantityProduct(int warehouseId,int goodQuantityProductId, int quantity);
 	
