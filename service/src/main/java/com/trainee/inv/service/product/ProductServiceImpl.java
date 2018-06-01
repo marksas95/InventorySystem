@@ -166,5 +166,20 @@ public class ProductServiceImpl implements ProductService {
 
 	}
 
+	@Override
+	public List<Product> sortByMinimumStock() {
+		List<Product>products = productRepository.findAll();
+		Collections.sort(products, new Comparator<Product>() {
+
+			@Override
+			public int compare(Product o1, Product o2) {
+				// TODO Auto-generated method stub
+				return o1.getMinimumStocks() - o2.getMinimumStocks();
+			}
+			
+		});
+		return products;
+	}
+
 		
 }

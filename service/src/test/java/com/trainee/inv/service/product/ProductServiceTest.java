@@ -31,6 +31,13 @@ public class ProductServiceTest {
 
 	
 	@Test
+	public void sortByMinimumStock() {
+		List<Product> products = productService.sortByMinimumStock();
+		System.out.println(products);
+	}
+	
+	@Test
+	@Ignore
 	public void sortByDescription() {
 		List<Product>products = productService.sortByDescription();
 		System.out.println(products);
