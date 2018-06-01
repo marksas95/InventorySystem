@@ -8,12 +8,14 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.trainee.inv.repository.damagequantityproduct.DamageQuantityProduct;
 import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
 
 @Entity
@@ -28,10 +30,23 @@ public class Warehouse {
 	private String description;
 	private boolean isActive;
 	
-	@OneToMany(cascade= {CascadeType.MERGE},fetch=FetchType.EAGER)
-//	@Fetch(value = FetchMode.SUBSELECT)
+	@OneToMany(cascade= {CascadeType.MERGE},fetch=FetchType.LAZY)
+	@Fetch(value = FetchMode.SUBSELECT)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<GoodQuantityProduct> goodQuantityProducts;
+	
+	@OneToMany(cascade= {CascadeType.MERGE},fetch=FetchType.LAZY)
+	@Fetch(value = FetchMode.SUBSELECT)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<DamageQuantityProduct> damageQuantityProduct;
+
+	public List<DamageQuantityProduct> getDamageQuantityProduct() {
+		return damageQuantityProduct;
+	}
+
+	public void setDamageQuantityProduct(List<DamageQuantityProduct> damageQuantityProduct) {
+		this.damageQuantityProduct = damageQuantityProduct;
+	}
 
 	public String getDescription() {
 		return description;
@@ -113,9 +128,11 @@ public class Warehouse {
 
 	@Override
 	public String toString() {
-		return "Warehouse [id=" + id + ", name=" + name + ", address=" + address + ", isActive=" + isActive
-				+ ", goodQuantityProducts=" + goodQuantityProducts + "]";
+		return "Warehouse [id=" + id + ", name=" + name + ", address=" + address + ", description=" + description
+				+ ", isActive=" + isActive + ", goodQuantityProducts=" + goodQuantityProducts
+				+ ", damageQuantityProduct=" + damageQuantityProduct + "]";
 	}
+
 
 	
 

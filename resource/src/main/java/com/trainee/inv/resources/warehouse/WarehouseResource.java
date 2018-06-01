@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.trainee.inv.repository.product.Product;
 import com.trainee.inv.repository.warehouse.Warehouse;
 import com.trainee.inv.service.warehouse.WarehouseService;
 
@@ -52,5 +53,23 @@ public class WarehouseResource {
 	public void delete(@RequestParam(value = "id",required = true) int id) {
 		warehouseService.delete(id);
 		
+	}
+	
+	@GetMapping("/searchByName")
+	public List<Warehouse> searchByName(@RequestParam(name = "name",required = true) String name,
+										  @RequestParam(required = true) boolean isActive) {
+		return warehouseService.searchByName(name, isActive);
+	}
+	
+	@GetMapping("/searchByAddress")
+	public List<Warehouse> searchByAddress(@RequestParam(name = "address",required = true) String address,
+										  @RequestParam(required = true) boolean isActive) {
+		return warehouseService.searchByAddress(address, isActive);
+	}
+	
+	@GetMapping("/searchByDescription")
+	public List<Warehouse> searchByDescription(@RequestParam(name = "description",required = true) String description,
+										  @RequestParam(required = true) boolean isActive) {
+		return warehouseService.searchByDescription(description, isActive);
 	}
 }

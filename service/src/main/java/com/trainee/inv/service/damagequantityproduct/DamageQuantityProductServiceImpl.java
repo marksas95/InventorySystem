@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.trainee.inv.repository.damagequantityproduct.DamageQuantityProduct;
 import com.trainee.inv.repository.damagequantityproduct.DamageQuantityProductRepository;
+import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
 import com.trainee.inv.repository.product.Product;
 
 @Service
@@ -29,8 +30,9 @@ public class DamageQuantityProductServiceImpl implements DamageQuantityProductSe
 	}
 
 	@Override
-	public DamageQuantityProduct update(int damageProductQuantityId, int quantity) {
-		DamageQuantityProduct damageQuantityProduct = findById(damageProductQuantityId);
+	public DamageQuantityProduct updateQuantity(int damageQuantityProductId, int quantity) {
+		Optional<DamageQuantityProduct> optional = damageQuantityRepository.findById(damageQuantityProductId);
+		DamageQuantityProduct damageQuantityProduct = optional.get();
 		damageQuantityProduct.setQuantity(quantity);
 		return damageQuantityRepository.save(damageQuantityProduct);
 	}
@@ -40,7 +42,7 @@ public class DamageQuantityProductServiceImpl implements DamageQuantityProductSe
 		DamageQuantityProduct damageQuantityProduct = findById(damageProductQuantityId);
 		int initialQuantity = damageQuantityProduct.getQuantity();
 		initialQuantity += quantity;
-		return update(damageProductQuantityId, initialQuantity);
+		return updateQuantity(damageProductQuantityId, initialQuantity);
 	}
 
 	@Override
@@ -48,7 +50,7 @@ public class DamageQuantityProductServiceImpl implements DamageQuantityProductSe
 		DamageQuantityProduct damageQuantityProduct = findById(damageProductQuantityId);
 		int initialQuantity = damageQuantityProduct.getQuantity();
 		initialQuantity -= quantity;
-		return update(damageProductQuantityId, initialQuantity);
+		return updateQuantity(damageProductQuantityId, initialQuantity);
 	}
 
 	@Override
@@ -63,9 +65,15 @@ public class DamageQuantityProductServiceImpl implements DamageQuantityProductSe
 		return findById.get();
 	}
 
+
 	@Override
-	public void delete(DamageQuantityProduct damageQuantityProduct) {
-		damageQuantityRepository.delete(damageQuantityProduct);
+	public List<DamageQuantityProduct> findAll() {
+		return damageQuantityRepository.findAll();
+	}
+
+	@Override
+	public void delete(int id) {
+		damageQuantityRepository.deleteById(id);
 		
 	}
 

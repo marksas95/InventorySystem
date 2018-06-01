@@ -1,5 +1,6 @@
 package com.trainee.inv.service.warehouse;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
+import com.trainee.inv.repository.product.Product;
 import com.trainee.inv.repository.warehouse.Warehouse;
 import com.trainee.inv.repository.warehouse.WarehouseRepository;
 
@@ -62,6 +64,59 @@ public class WarehouseServiceImpl implements WarehouseService {
 		Warehouse warehouse = optionalWarehouse.get();
 		return warehouse != null ? warehouse : null;
 	}
+
+	@Override
+	public List<Warehouse> searchByName(String name, boolean isActive) {
+		List<Warehouse> list = findByIsActive(isActive);
+		List<Warehouse> returnList = null;
+		for (Warehouse o : list) {
+			if (o.getDescription().contains(name)) {
+				if (returnList == null) {
+					returnList = new ArrayList<Warehouse>();
+				}
+				returnList.add(o);
+			}
+		}
+		return returnList;
+	}
+
+	@Override
+	public List<Warehouse> searchByAddress(String address, boolean isActive) {
+		List<Warehouse> list = findByIsActive(isActive);
+		List<Warehouse> returnList = null;
+		for (Warehouse o : list) {
+			if (o.getDescription().contains(address)) {
+				if (returnList == null) {
+					returnList = new ArrayList<Warehouse>();
+				}
+				returnList.add(o);
+			}
+		}
+		return returnList;
+	}
+
+	@Override
+	public List<Warehouse> searchByDescription(String description, boolean isActive) {
+		List<Warehouse> list = findByIsActive(isActive);
+		List<Warehouse> returnList = null;
+		for (Warehouse o : list) {
+			if (o.getDescription().contains(description)) {
+				if (returnList == null) {
+					returnList = new ArrayList<Warehouse>();
+				}
+				returnList.add(o);
+			}
+		}
+		return returnList;
+	}
+
+	@Override
+	public List<Warehouse> findByIsActive(boolean isActive) {
+		return warehouseRepository.findByIsActive(isActive);
+		
+	}
+
+
 
 
 }

@@ -1,10 +1,16 @@
 package com.trainee.inv.repository.damagequantityproduct;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.trainee.inv.repository.product.Product;
 
@@ -16,7 +22,9 @@ public class DamageQuantityProduct {
 	private int id;
 	private int quantity;
 	
-	@OneToOne
+	@ManyToOne(cascade= {CascadeType.MERGE},fetch=FetchType.EAGER)
+//	@Fetch(value = FetchMode.SUBSELECT)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private Product product;
 
 	public Product getProduct() {
@@ -72,5 +80,7 @@ public class DamageQuantityProduct {
 	public String toString() {
 		return "DamageQuantityProduct [id=" + id + ", quantity=" + quantity + ", product=" + product + "]";
 	}
+
+	
 
 }

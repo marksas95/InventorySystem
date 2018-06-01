@@ -9,7 +9,7 @@ public interface DamageQuantityProductService {
 	
 	DamageQuantityProduct create(Product product, int quantity);
 	
-	DamageQuantityProduct update(int damageProductQuantityId, int quantity);
+	DamageQuantityProduct updateQuantity(int damageProductQuantityId, int quantity);
 	
 	DamageQuantityProduct stockIn(int damageProductQuantityId, int quantity);
 	
@@ -19,5 +19,7 @@ public interface DamageQuantityProductService {
 	
 	DamageQuantityProduct findById(int id);
 	
-	void delete(DamageQuantityProduct damageQuantityProduct);
+	List<DamageQuantityProduct> findAll();
+	
+	void delete(int id);
 }

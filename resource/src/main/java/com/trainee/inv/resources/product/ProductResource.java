@@ -48,6 +48,16 @@ public class ProductResource {
 		return productService.findById(id);
 	}
 	
+	@GetMapping("/findByCategoryId")
+	public List<Product> findByCategoryId(@RequestParam(name = "id", required = true) int id) {
+		return productService.findByCategoryId(id);
+	}
+	
+	@GetMapping("/findBySupplierId")
+	public List<Product> findBySupplierId(@RequestParam(name = "id", required = true) int id) {
+		return productService.findBySupplierId(id);
+	}
+	
 	@GetMapping("/findByName")
 	public Product findByName(@RequestParam(name = "name", required = true) String name) {
 		return productService.findByName(name);
