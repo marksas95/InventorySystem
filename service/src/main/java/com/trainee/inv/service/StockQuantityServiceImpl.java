@@ -134,16 +134,21 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 		}
 		
 		stockOutGoodQuantityProduct(warehouseIdFrom, productId, quantity);
-
+		Integer value = null;
 		List<DamageQuantityProduct> damageQuantityProducts = warehouseTo.getDamageQuantityProduct();
 		for (DamageQuantityProduct o : damageQuantityProducts) {
 			if (o.getId() == productId) {
-				int initialQuantity = o.getQuantity();
-				initialQuantity += quantity;
+				value = o.getQuantity();
+				value += quantity;
+				checkIfQuantityIsValid(quantity, value);
 				DamageQuantityProduct newDamageQuantityProduct = damageQuantityProductService.updateQuantity(o.getId(),
-						initialQuantity);
+						value);
 				break;
 			}
+		}
+		if (value == null) {
+			Product product = productService.findById(productId);
+			DamageQuantityProduct newDamageQuantityProduct = damageQuantityProductService.create(product, quantity);
 		}
 	}
 

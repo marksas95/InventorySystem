@@ -34,10 +34,11 @@ public class StockQuantityResource {
 	}
 
 	@PostMapping("/stockInDamageQuantityProduct")
-	public void stockInDamageQuantityProduct(@RequestParam(name = "warehouseId", required = true) int warehouseId,
-			@RequestParam(name = "damageQuantityProductId", required = true) int damageQuantityProductId,
+	public void stockInDamageQuantityProduct(@RequestParam(name = "warehouseIdFrom", required = true) int warehouseIdFrom,
+			@RequestParam(name = "warehouseIdTo", required = true) int warehouseIdTo,
+			@RequestParam(name = "productId", required = true) int productId,
 			@RequestParam(name = "quantity", required = true) int quantity) {
-//		stockQuantityService.stockInDamageQuantityProduct(warehouseId, damageQuantityProductId, quantity);
+		stockQuantityService.stockInDamageQuantityProduct(warehouseIdFrom, warehouseIdTo, productId, quantity);;
 	}
 
 	@PostMapping("/stockOutDamageQuantityProduct")
