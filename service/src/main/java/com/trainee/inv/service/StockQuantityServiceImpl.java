@@ -132,7 +132,7 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 		if (!warehouseTo.isActive()) {
 			throw new IllegalArgumentException("Invalid warehouseTo because it is inactive");
 		}
-
+		
 		stockOutGoodQuantityProduct(warehouseIdFrom, productId, quantity);
 
 		List<DamageQuantityProduct> damageQuantityProducts = warehouseTo.getDamageQuantityProduct();
@@ -161,6 +161,7 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 		for (DamageQuantityProduct o : damageQuantityProducts) {
 			if (o.getId() == damageQuantityProductId) {
 				int initialQuantity = o.getQuantity();
+				checkIfQuantityIsValid(quantity, initialQuantity);
 				initialQuantity -= quantity;
 				GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.updateQuantity(o.getId(),
 						initialQuantity);
