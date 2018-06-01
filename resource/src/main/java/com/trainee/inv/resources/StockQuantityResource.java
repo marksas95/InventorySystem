@@ -21,23 +21,24 @@ public class StockQuantityResource {
 
 	@PostMapping("/stockInGoodQuantityProduct")
 	public void stockInGoodQuantityProduct(@RequestParam(name = "warehouseId", required = true) int warehouseId,
-			@RequestParam(name = "goodQuantityProductId", required = true) int goodQuantityProductId,
+			@RequestParam(name = "productId", required = true) int goodQuantityProductId,
 			@RequestParam(name = "quantity", required = true) int quantity) {
 		stockQuantityService.stockInGoodQuantityProduct(warehouseId, goodQuantityProductId, quantity);
 	}
 
 	@PostMapping("/stockOutGoodQuantityProduct")
 	public void stockOutGoodQuantityProduct(@RequestParam(name = "warehouseId", required = true) int warehouseId,
-			@RequestParam(name = "goodQuantityProductId", required = true) int goodQuantityProductId,
+			@RequestParam(name = "productId", required = true) int goodQuantityProductId,
 			@RequestParam(name = "quantity", required = true) int quantity) {
 		stockQuantityService.stockOutGoodQuantityProduct(warehouseId, goodQuantityProductId, quantity);
 	}
 
 	@PostMapping("/stockInDamageQuantityProduct")
-	public void stockInDamageQuantityProduct(@RequestParam(name = "warehouseId", required = true) int warehouseId,
-			@RequestParam(name = "damageQuantityProductId", required = true) int damageQuantityProductId,
+	public void stockInDamageQuantityProduct(@RequestParam(name = "warehouseIdFrom", required = true) int warehouseIdFrom,
+			@RequestParam(name = "warehouseIdTo", required = true) int warehouseIdTo,
+			@RequestParam(name = "productId", required = true) int productId,
 			@RequestParam(name = "quantity", required = true) int quantity) {
-//		stockQuantityService.stockInDamageQuantityProduct(warehouseId, damageQuantityProductId, quantity);
+		stockQuantityService.stockInDamageQuantityProduct(warehouseIdFrom, warehouseIdTo, productId, quantity);;
 	}
 
 	@PostMapping("/stockOutDamageQuantityProduct")

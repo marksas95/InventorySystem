@@ -37,6 +37,12 @@ public class StockQuantityServiceFornTest {
 	}
 	
 	@Test
+//	@Ignore
+	public void stockInDamageQuantityProduct() {
+		stockQuantityServiceForm.stockInDamageQuantityProduct(13, 14, 4, 60);
+	}
+	
+	@Test
 	@Ignore
 	public void reconcileProductTest() {
 		stockQuantityServiceForm.reconcileProduct(9, 7, 80);
