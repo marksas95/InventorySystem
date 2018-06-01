@@ -52,9 +52,11 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 				break;
 			}
 		}
-		if (value == null) {
+		if (value == null||goodQuantityProducts == null) {
 			Product product = productService.findById(productId);
 			GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.create(product, quantity);
+			goodQuantityProducts.add(newGoodQuantityProduct);
+			warehouseService.update(warehouse);
 		}
 	}
 
@@ -68,7 +70,7 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 		for (GoodQuantityProduct o : goodQuantityProductsWithProductId) {
 			if (goodQuantityProducts.contains(o)) {
 				value = o.getQuantity();
-				value += quantity;
+				value -= quantity;
 				checkIfQuantityIsValid(quantity, value);
 				GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.updateQuantity(o.getId(),
 						value);
@@ -134,10 +136,11 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 		}
 		
 		stockOutGoodQuantityProduct(warehouseIdFrom, productId, quantity);
+		
 		Integer value = null;
 		List<DamageQuantityProduct> damageQuantityProducts = warehouseTo.getDamageQuantityProduct();
 		for (DamageQuantityProduct o : damageQuantityProducts) {
-			if (o.getId() == productId) {
+			if (o.getProduct().getId() == productId) {
 				value = o.getQuantity();
 				value += quantity;
 				checkIfQuantityIsValid(quantity, value);
@@ -146,9 +149,13 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 				break;
 			}
 		}
-		if (value == null) {
+		if (value == null||damageQuantityProducts==null) {
 			Product product = productService.findById(productId);
 			DamageQuantityProduct newDamageQuantityProduct = damageQuantityProductService.create(product, quantity);
+			damageQuantityProducts.add(newDamageQuantityProduct);
+			// Apply warehouse service a add damageproduct and goodproduct
+			warehouseTo.setDamageQuantityProduct(damageQuantityProducts);
+			warehouseService.update(warehouseTo);
 		}
 	}
 

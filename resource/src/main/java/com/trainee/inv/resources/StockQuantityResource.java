@@ -21,14 +21,14 @@ public class StockQuantityResource {
 
 	@PostMapping("/stockInGoodQuantityProduct")
 	public void stockInGoodQuantityProduct(@RequestParam(name = "warehouseId", required = true) int warehouseId,
-			@RequestParam(name = "goodQuantityProductId", required = true) int goodQuantityProductId,
+			@RequestParam(name = "productId", required = true) int goodQuantityProductId,
 			@RequestParam(name = "quantity", required = true) int quantity) {
 		stockQuantityService.stockInGoodQuantityProduct(warehouseId, goodQuantityProductId, quantity);
 	}
 
 	@PostMapping("/stockOutGoodQuantityProduct")
 	public void stockOutGoodQuantityProduct(@RequestParam(name = "warehouseId", required = true) int warehouseId,
-			@RequestParam(name = "goodQuantityProductId", required = true) int goodQuantityProductId,
+			@RequestParam(name = "productId", required = true) int goodQuantityProductId,
 			@RequestParam(name = "quantity", required = true) int quantity) {
 		stockQuantityService.stockOutGoodQuantityProduct(warehouseId, goodQuantityProductId, quantity);
 	}
