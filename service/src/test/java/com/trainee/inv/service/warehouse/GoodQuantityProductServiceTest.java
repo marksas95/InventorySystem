@@ -33,9 +33,9 @@ public class GoodQuantityProductServiceTest {
 		warehouse.setActive(true);
 		warehouse.setAddress("Iloilo city");
 		warehouse.setDescription("bagsak presyo");
-		warehouse.setName("Lazada");
+		warehouse.setName("LIon");
 		List<GoodQuantityProduct> list = new ArrayList<GoodQuantityProduct>();
-		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.findById(11);
+		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.findById(1);
 //		GoodQuantityProduct goodQuantityProduct2 = goodQuantityProductService.findById(12);
 		list.add(goodQuantityProduct);
 //		list.add(goodQuantityProduct2);

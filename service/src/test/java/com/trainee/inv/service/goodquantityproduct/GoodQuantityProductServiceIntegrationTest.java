@@ -31,7 +31,7 @@ public class GoodQuantityProductServiceIntegrationTest {
 	@Test
 //	@Ignore
 	public void createTest() {
-		Optional<Product> findById = productRepository.findById(4);
+		Optional<Product> findById = productRepository.findById(2);
 		Product product = findById.get();
 		int quantity = 100;
 		GoodQuantityProduct save = goodQuantityProductService.create(product, 0);

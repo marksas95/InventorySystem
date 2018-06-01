@@ -19,4 +19,6 @@ public interface StockQuantityService {
 	void reconcileProduct(int warehouseId, int goodQuantityProductId, int physicalQuantity);
 	
 	List<GoodQuantityProduct> findByGoodQuantityProductThatReachedMinimumStocks();
+	
+	List<GoodQuantityProduct> sortMinimumStockByProductDescription();
 }
