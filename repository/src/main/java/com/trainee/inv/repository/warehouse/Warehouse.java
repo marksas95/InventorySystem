@@ -17,6 +17,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import com.trainee.inv.repository.damagequantityproduct.DamageQuantityProduct;
 import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
+import com.trainee.inv.repository.product.Product;
 
 @Entity
 public class Warehouse {
@@ -38,14 +39,14 @@ public class Warehouse {
 	@OneToMany(cascade= {CascadeType.MERGE},fetch=FetchType.LAZY)
 	@Fetch(value = FetchMode.SUBSELECT)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<DamageQuantityProduct> damageQuantityProduct;
+	private List<DamageQuantityProduct> damageQuantityProducts;
 
-	public List<DamageQuantityProduct> getDamageQuantityProduct() {
-		return damageQuantityProduct;
+	public List<DamageQuantityProduct> getDamageQuantityProducts() {
+		return damageQuantityProducts;
 	}
 
-	public void setDamageQuantityProduct(List<DamageQuantityProduct> damageQuantityProduct) {
-		this.damageQuantityProduct = damageQuantityProduct;
+	public void setDamageQuantityProducts(List<DamageQuantityProduct> damageQuantityProduct) {
+		this.damageQuantityProducts = damageQuantityProduct;
 	}
 
 	public String getDescription() {
@@ -97,7 +98,6 @@ public class Warehouse {
 	}
 
 
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -130,7 +130,7 @@ public class Warehouse {
 	public String toString() {
 		return "Warehouse [id=" + id + ", name=" + name + ", address=" + address + ", description=" + description
 				+ ", isActive=" + isActive + ", goodQuantityProducts=" + goodQuantityProducts
-				+ ", damageQuantityProduct=" + damageQuantityProduct + "]";
+				+ ", damageQuantityProduct=" + damageQuantityProducts + "]";
 	}
 
 
