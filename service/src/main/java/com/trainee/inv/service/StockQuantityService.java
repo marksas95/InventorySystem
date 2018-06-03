@@ -6,19 +6,19 @@ import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
 
 public interface StockQuantityService {
 
-	void stockInGoodQuantityProduct(int warehouseId,int ProductId, int quantity);
+	void stockInGoodQuantityProduct(int warehouseId, int productId, int quantity);
 
-	void stockOutGoodQuantityProduct(int warehouseId,int goodQuantityProductId, int quantity);
-	
+	void stockOutGoodQuantityProduct(int warehouseId, int productId, int quantity);
+
 	void stockInDamageQuantityProduct(int warehouseIdFrom, int warehouseIdTo, int productId, int quantity);
 
-	void stockOutDamageQuantityProduct(int warehouseId,int goodQuantityProductId, int quantity);
-	
-	void transferStocks(int warehouseIdFrom, int warehouseIdTo, int goodQuantityProductIdFrom, int goodQuantityProductIdTo, int quantity);
+	void stockOutDamageQuantityProduct(int warehouseId, int productId, int quantity);
 
-	void reconcileProduct(int warehouseId, int goodQuantityProductId, int physicalQuantity);
-	
+	void transferStocks(int warehouseIdFrom, int warehouseIdTo,int productId, int quantity);
+
+	void reconcileProduct(int warehouseId, int productId, int physicalQuantity);
+
 	List<GoodQuantityProduct> findByGoodQuantityProductThatReachedMinimumStocks();
-	
+
 	List<GoodQuantityProduct> sortMinimumStockByProductDescription();
 }
