@@ -31,6 +31,7 @@ public class ProductServiceTest {
 
 	
 	@Test
+	@Ignore
 	public void sortByMinimumStock() {
 		List<Product> products = productService.sortByMinimumStock();
 		System.out.println(products);
@@ -61,22 +62,22 @@ public class ProductServiceTest {
 	@Test
 //	@Ignore
 	public void createProductTest() {
-		Category category = categoryService.findByName("Electronics");
+		Category category = categoryService.findByName("Food");
 //		Supplier supplier = supplierService.findByName("Clothing1 Trading");
 		Product product = new Product();
 
 
-		product.setName("Laptop");
+		product.setName("Power bar");
 		product.setCategory(category);
 //		product.setSupplier(supplier);
-		product.setDescription("i7 Gaming Laptop");
-		product.setItemCode("laptop-001");
+		product.setDescription("energy bar");
+		product.setItemCode("nut-224");
 		product.setMinimumStocks(15);
 		product.setRemarks("brand new");
-		product.setSerialNumber("0001");
+		product.setSerialNumber("02341");
 		product.setActive(true);
-		product.setUnitOfMeasurement("PCS");
-		product.setVatable(false);
+		product.setUnitOfMeasurement("mg");
+		product.setVatable(true);
 
 		Product createdProduct = productService.create(product);
 		System.out.println(createdProduct);

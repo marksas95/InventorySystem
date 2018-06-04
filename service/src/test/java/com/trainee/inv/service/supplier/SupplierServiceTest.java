@@ -20,13 +20,23 @@ public class SupplierServiceTest {
 	private SupplierService supplierService;
 
 	@Test
-//	@Ignore
+	@Ignore
 	public void createTest() {
 		String name = "Clothing1 Trading";
 		Supplier supplierCreate = supplierService.create(name);
 		System.out.println(supplierCreate);
 		Assert.notNull(supplierCreate);
 		Assert.isTrue(supplierCreate.getName().equals(name));
+	}
+	
+	@Test
+	public void createSupplierAlreadyExist() {
+		try {
+			Supplier supplier = supplierService.create("King");
+			System.out.println(supplier);
+		} catch (IllegalArgumentException e) {
+			Assert.isTrue(e.getMessage().equals("Supplier Name Already Exist"));
+		}
 	}
 
 	@Test
