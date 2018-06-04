@@ -17,11 +17,11 @@ public class SupplierServiceImpl implements SupplierService {
 
 	@Override
 	public Supplier update(int id, String name) {
-		boolean existsByName = supplierRepository.existsByName(name);
-		if (existsByName) {
-			throw new IllegalArgumentException("Supplier Name Already Exist");
-		}  else if (supplierRepository.existsById(id)){
-			throw new IllegalArgumentException("Id must be in database.");
+		boolean existsById = supplierRepository.existsById(id);
+		if (!existsById) {
+			throw new IllegalArgumentException("Id must be in database");
+		}  else if (supplierRepository.existsByName(name)){
+			throw new IllegalArgumentException("Supplier Name Already Exists");
 		}
 		Optional<Supplier> optionalSupplier = supplierRepository.findById(id);
 		Supplier supplier = optionalSupplier.get();

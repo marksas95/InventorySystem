@@ -20,7 +20,7 @@ public class CategoryServiceTest {
 	private CategoryService categoryService;
 
 	@Test
-//	 @Ignore
+	 @Ignore
 	public void createTest() {
 
 		String name = "Food";
@@ -44,10 +44,12 @@ public class CategoryServiceTest {
 	@Test
 	@Ignore
 	public void findByNameTest() {
-		Category category = categoryService.findByName("blosssssb");
+		Category category = categoryService.findByName("Underwear");
 		Assert.notNull(category);
 	}
 
+	
+	
 	@Test
 	@Ignore
 	public void findByNameThatIsNotInDatabaseTest() {
@@ -56,10 +58,10 @@ public class CategoryServiceTest {
 	}
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void updateTest() {
-		Category updatedCategory = categoryService.update(5, "Jewelry");
-		Assert.isTrue(updatedCategory.getName().equals("nullss"));
+		Category updatedCategory = categoryService.update(5, "Shirt");
+		Assert.isTrue(updatedCategory.getName().equals("Shirt"));
 	}
 
 	@Test
@@ -75,7 +77,7 @@ public class CategoryServiceTest {
 		try {
 			categoryService.delete(1);
 		} catch (IllegalArgumentException e) {
-			Assert.isTrue(e.getMessage().equals("No name in that category."));
+			Assert.isTrue(e.getMessage().equals("No id in that category."));
 		}
 
 	}
