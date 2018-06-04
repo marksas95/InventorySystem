@@ -25,13 +25,12 @@ public class ReconcileProduct {
 	@ManyToOne
 	private GoodQuantityProduct goodQuantityProduct;
 
-	private int physicalCount;
-	private int systemCount;
-
 	@ManyToOne
 	private Warehouse warehouse;
 
 	private String remarks;
+	private int physicalCount;
+	private int systemCount;
 
 	public String getRemarks() {
 		return remarks;

@@ -19,6 +19,7 @@ public class Product implements Comparable<Product> {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
+	private String name;
 	private String itemCode;
 	private String description;
 	private String unitOfMeasurement;
@@ -34,7 +35,7 @@ public class Product implements Comparable<Product> {
 	@ManyToOne
 	private Supplier supplier;
 
-	private String name;
+	
 
 	public String getName() {
 		return name;
