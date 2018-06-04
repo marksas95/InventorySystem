@@ -51,17 +51,16 @@ public class StockQuantityResource {
 	@PostMapping("/transferStocks")
 	public void transferStocks(@RequestParam(name = "warehouseIdFrom", required = true) int warehouseIdFrom,
 			@RequestParam(name = "warehouseIdTo", required = true) int warehouseIdTo,
-			@RequestParam(name = "goodQuantityProductIdFrom", required = true) int goodQuantityProductIdFrom,
-			@RequestParam(name = "goodQuantityProductIdTo", required = true) int goodQuantityProductIdTo,
+			@RequestParam(name = "goodQuantityProductIdFrom", required = true) int productId,
 			@RequestParam(name = "quantity", required = true) int quantity) {
-		stockQuantityService.transferStocks(warehouseIdFrom, warehouseIdTo, goodQuantityProductIdFrom, goodQuantityProductIdTo, quantity);
+		stockQuantityService.transferStocks(warehouseIdFrom, warehouseIdTo, productId, quantity);;
 	}
 	
 	@PostMapping("/reconcileProduct")
 	public void reconcileProduct(@RequestParam(name = "warehouseId", required = true) int warehouseId,
-			@RequestParam(name = "goodQuantityProductId", required = true) int goodQuantityProductId,
+			@RequestParam(name = "productId", required = true) int productId,
 			@RequestParam(name = "quantity", required = true) int physicalQuantity) {
-		stockQuantityService.reconcileProduct(warehouseId, goodQuantityProductId, physicalQuantity);
+		stockQuantityService.reconcileProduct(warehouseId, productId, physicalQuantity);
 	}
 	
 	@GetMapping("/getAllThatReachedMinimumStocks")

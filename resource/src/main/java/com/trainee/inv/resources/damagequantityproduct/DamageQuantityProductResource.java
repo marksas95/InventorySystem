@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.trainee.inv.repository.damagequantityproduct.DamageQuantityProduct;
-import com.trainee.inv.resources.goodquantityproduct.CreateGoodQuantityProductForm;
 import com.trainee.inv.service.damagequantityproduct.DamageQuantityProductService;
 
 @RestController
@@ -24,10 +23,10 @@ public class DamageQuantityProductResource {
 
 	@PostMapping("/create")
 	public DamageQuantityProduct createGoodQuantityProduct(
-			@RequestBody CreateGoodQuantityProductForm createGoodQuantityProductForm) {
+			@RequestBody CreateDamageQuantityProductForm createDamageQuantityProductForm) {
 
-		return damageQuantityProductService.create(createGoodQuantityProductForm.getProduct(),
-				createGoodQuantityProductForm.getQuantity());
+		return damageQuantityProductService.create(createDamageQuantityProductForm.getProduct(),
+				createDamageQuantityProductForm.getQuantity());
 	}
 
 	@PostMapping("/updateQuantity")

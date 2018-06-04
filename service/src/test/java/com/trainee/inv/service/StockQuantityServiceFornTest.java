@@ -33,7 +33,9 @@ public class StockQuantityServiceFornTest {
 	@Test
 //	@Ignore
 	public void transferStockTest() {
-		stockQuantityServiceForm.transferStocks(20, 23, 1, 21, 23);
+
+		stockQuantityServiceForm.transferStocks(9, 10, 7, 75);
+
 	}
 	
 	@Test
