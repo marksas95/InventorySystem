@@ -1,6 +1,7 @@
 package com.trainee.inv.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -8,33 +9,54 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.Assert;
 
 import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
+import com.trainee.inv.repository.warehouse.Warehouse;
+import com.trainee.inv.service.goodquantityproduct.GoodQuantityProductService;
+import com.trainee.inv.service.warehouse.WarehouseService;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class StockQuantityServiceFornTest {
 
 	@Autowired
-	StockQuantityService stockQuantityServiceForm;
+	private StockQuantityService stockQuantityServiceForm;
+	@Autowired
+	private GoodQuantityProductService goodQuantityProductService;
+	@Autowired
+	private WarehouseService warehouseService;
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void stockInTest() {
-		stockQuantityServiceForm.stockInGoodQuantityProduct(13, 4, 600);
+		int warehouseId = 14;
+		int productId = 4;
+		int quantity = 500;
+		Warehouse warehouse1 = warehouseService.findById(warehouseId);
+		Optional<GoodQuantityProduct> optional1 = warehouse1.getGoodQuantityProducts().stream().filter(w -> w.getProduct().getId()==productId).findFirst();
+		int quantity1 = optional1.get().getQuantity();
+		
+		stockQuantityServiceForm.stockInGoodQuantityProduct(warehouseId, productId, quantity);
+		Warehouse warehouse = warehouseService.findById(warehouseId);
+		Optional<GoodQuantityProduct> optional2 = warehouse.getGoodQuantityProducts().stream().filter(w -> w.getProduct().getId()==productId).findFirst();
+		
+
+		Assert.isTrue((quantity1+quantity)==optional2.get().getQuantity());
 	}
 	
 	@Test
 	@Ignore
 	public void stockOutTest() {
-		stockQuantityServiceForm.stockOutGoodQuantityProduct(13, 4, 300);
+		stockQuantityServiceForm.stockOutGoodQuantityProduct(14, 4, 300);
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void transferStockTest() {
 
-		stockQuantityServiceForm.transferStocks(13,14, 4, 500);
+		stockQuantityServiceForm.transferStocks(13,14, 4, 50);
 
 	}
 	
