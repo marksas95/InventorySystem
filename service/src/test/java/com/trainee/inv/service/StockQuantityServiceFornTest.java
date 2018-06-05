@@ -42,7 +42,6 @@ public class StockQuantityServiceFornTest {
 		Warehouse warehouse = warehouseService.findById(warehouseId);
 		Optional<GoodQuantityProduct> optional2 = warehouse.getGoodQuantityProducts().stream().filter(w -> w.getProduct().getId()==productId).findFirst();
 		
-
 		Assert.isTrue((quantity1+quantity)==optional2.get().getQuantity());
 	}
 	
