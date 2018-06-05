@@ -63,7 +63,7 @@ public class SupplierServiceTest {
 		
 	}
 	@Test
-//	@Ignore
+	@Ignore
 	public void updateTest() {
 		Supplier updatedService = supplierService.update(7, "Worthwhile");
 		Assert.isTrue(updatedService.getName().equals("Worthwhile"));
@@ -71,12 +71,12 @@ public class SupplierServiceTest {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void supplierNameExistUpdateTest() {
 		try {
 			Supplier update = supplierService.update(7, "Worthwhile");
 		} catch (IllegalArgumentException e) {
-			Assert.isTrue(e.getMessage().equals("Supplier Name Already Exist"));
+			Assert.isTrue(e.getMessage().equals("Supplier Name Already Exists"));
 		}
 		
 	}
