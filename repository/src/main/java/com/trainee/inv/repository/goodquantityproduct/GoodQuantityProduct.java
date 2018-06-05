@@ -51,11 +51,12 @@ public class GoodQuantityProduct {
 		this.quantity = quantity;
 	}
 
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((product == null) ? 0 : product.hashCode());
+		result = prime * result + id;
 		return result;
 	}
 
@@ -68,10 +69,7 @@ public class GoodQuantityProduct {
 		if (getClass() != obj.getClass())
 			return false;
 		GoodQuantityProduct other = (GoodQuantityProduct) obj;
-		if (product == null) {
-			if (other.product != null)
-				return false;
-		} else if (!product.equals(other.product))
+		if (id != other.id)
 			return false;
 		return true;
 	}
