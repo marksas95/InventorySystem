@@ -21,20 +21,20 @@ public class StockQuantityServiceFornTest {
 	@Test
 	@Ignore
 	public void stockInTest() {
-		stockQuantityServiceForm.stockInGoodQuantityProduct(10, 12, 500);
+		stockQuantityServiceForm.stockInGoodQuantityProduct(13, 4, 600);
 	}
 	
 	@Test
 	@Ignore
 	public void stockOutTest() {
-		stockQuantityServiceForm.stockOutGoodQuantityProduct(10, 12, 300);
+		stockQuantityServiceForm.stockOutGoodQuantityProduct(13, 4, 300);
 	}
 	
 	@Test
 //	@Ignore
 	public void transferStockTest() {
 
-		stockQuantityServiceForm.transferStocks(9, 10, 7, 75);
+		stockQuantityServiceForm.transferStocks(13,14, 4, 500);
 
 	}
 	
@@ -51,6 +51,7 @@ public class StockQuantityServiceFornTest {
 	}
 	
 	@Test
+	@Ignore
 	public void sortMinimumStockByDescription() {
 		List<GoodQuantityProduct> sortMinimumStockByProductDescription = stockQuantityServiceForm.sortMinimumStockByProductDescription();
 		System.out.println(sortMinimumStockByProductDescription);

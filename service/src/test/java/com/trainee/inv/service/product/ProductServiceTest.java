@@ -29,6 +29,82 @@ public class ProductServiceTest {
 	@Autowired
 	private SupplierService supplierService;
 
+	@Test
+	@Ignore
+	public void createProductTest() {
+		Category category = categoryService.findByName("Electronics");
+//		Supplier supplier = supplierService.findByName("Clothing1 Trading");
+		Product product = new Product();
+
+
+		product.setName("Laptop");
+		product.setCategory(category);
+//		product.setSupplier(supplier);
+		product.setDescription("i7 Gaming Laptop");
+		product.setItemCode("000");
+		product.setMinimumStocks(15);
+		product.setRemarks("brand new");
+		product.setSerialNumber("111");
+		product.setActive(true);
+		product.setUnitOfMeasurement("PCS");
+		product.setVatable(false);
+
+		Product createdProduct = productService.create(product);
+		Assert.isTrue(createdProduct.getId()!=0);
+		System.out.println(createdProduct);
+	}
+
+	@Test
+	@Ignore
+	public void createProductTestWithExsistingItemCode() {
+		Category category = categoryService.findByName("Electronics");
+//		Supplier supplier = supplierService.findByName("Clothing1 Trading");
+		Product product = new Product();
+
+
+		product.setName("Laptop");
+		product.setCategory(category);
+//		product.setSupplier(supplier);
+		product.setDescription("i7 Gaming Laptop");
+		product.setItemCode("000");
+		product.setMinimumStocks(15);
+		product.setRemarks("brand new");
+		product.setSerialNumber("111");
+		product.setActive(true);
+		product.setUnitOfMeasurement("PCS");
+		product.setVatable(false);
+		try {
+			 Product createdProduct = productService.create(product);
+		} catch (IllegalArgumentException e) {
+			Assert.isTrue(e.getMessage().equals("Invalid field, ItemCode already exists."));
+		}
+	}
+	
+	@Test
+//	@Ignore
+	public void createProductTestWithExsistingSerialNumber() {
+		Category category = categoryService.findByName("Electronics");
+//		Supplier supplier = supplierService.findByName("Clothing1 Trading");
+		Product product = new Product();
+
+
+		product.setName("Laptop");
+		product.setCategory(category);
+//		product.setSupplier(supplier);
+		product.setDescription("i7 Gaming Laptop");
+		product.setItemCode("001");
+		product.setMinimumStocks(15);
+		product.setRemarks("brand new");
+		product.setSerialNumber("111");
+		product.setActive(true);
+		product.setUnitOfMeasurement("PCS");
+		product.setVatable(false);
+		try {
+			 Product createdProduct = productService.create(product);
+		} catch (IllegalArgumentException e) {
+			Assert.isTrue(e.getMessage().equals("Invalid field, SerialNumer already exists."));
+		}
+	}
 	
 	@Test
 	@Ignore
@@ -58,30 +134,6 @@ public class ProductServiceTest {
 		System.out.println(products);
 	}
 	
-	
-	@Test
-//	@Ignore
-	public void createProductTest() {
-		Category category = categoryService.findByName("Food");
-//		Supplier supplier = supplierService.findByName("Clothing1 Trading");
-		Product product = new Product();
-
-
-		product.setName("Power bar");
-		product.setCategory(category);
-//		product.setSupplier(supplier);
-		product.setDescription("energy bar");
-		product.setItemCode("nut-224");
-		product.setMinimumStocks(15);
-		product.setRemarks("brand new");
-		product.setSerialNumber("02341");
-		product.setActive(true);
-		product.setUnitOfMeasurement("mg");
-		product.setVatable(true);
-
-		Product createdProduct = productService.create(product);
-		System.out.println(createdProduct);
-	}
 
 	@Test
 	@Ignore

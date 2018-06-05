@@ -47,7 +47,7 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 			if (goodQuantityProducts.contains(o)) {
 				value = o.getQuantity();
 				value += quantity;
-				GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.updateQuantity(o.getId(),
+				GoodQuantityProduct product = goodQuantityProductService.updateQuantity(o.getId(),
 						value);
 				break;
 			}
@@ -72,7 +72,7 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 				value = o.getQuantity();
 				value -= quantity;
 				checkIfQuantityIsValid(quantity, value);
-				GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.updateQuantity(o.getId(),
+				GoodQuantityProduct product = goodQuantityProductService.updateQuantity(o.getId(),
 						value);
 				break;
 			}
