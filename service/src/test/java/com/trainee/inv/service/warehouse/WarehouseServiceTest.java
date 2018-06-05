@@ -29,17 +29,17 @@ public class WarehouseServiceTest {
 	ProductService productService;
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void createTest() {
 		Warehouse warehouse = new Warehouse();
 		warehouse.setActive(true);
-		warehouse.setAddress("Passi city");
-		warehouse.setDescription("bagsak presyo");
-		warehouse.setName("Blob");
+		warehouse.setAddress("Pavia");
+		warehouse.setDescription("Pavia warehouse");
+		warehouse.setName("Pavia Warehouse");
 		List<GoodQuantityProduct> list = new ArrayList<GoodQuantityProduct>();
-		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.findById(1);
+		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.findById(21);
 //		GoodQuantityProduct goodQuantityProduct2 = goodQuantityProductService.findById(12);
-//		list.add(goodQuantityProduct);
+		list.add(goodQuantityProduct);
 //		list.add(goodQuantityProduct2);
 		warehouse.setGoodQuantityProducts(list);
 		warehouseService.create(warehouse);
@@ -47,6 +47,7 @@ public class WarehouseServiceTest {
 	
 	
 	@Test 
+	@Ignore
 	public void createTestNameExists() {
 		Warehouse warehouse = new Warehouse();
 		warehouse.setName("LIon");

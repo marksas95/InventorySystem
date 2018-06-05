@@ -29,6 +29,17 @@ public class SupplierServiceTest {
 		Assert.notNull(supplierCreate);
 		Assert.isTrue(supplierCreate.getName().equals(name));
 	}
+	
+	@Test
+	@Ignore
+	public void createSupplierAlreadyExist() {
+		try {
+			Supplier supplier = supplierService.create("King");
+			System.out.println(supplier);
+		} catch (IllegalArgumentException e) {
+			Assert.isTrue(e.getMessage().equals("Supplier Name Already Exist"));
+		}
+	}
 
 	@Test
 	@Ignore
@@ -55,6 +66,13 @@ public class SupplierServiceTest {
 		Assert.isNull(supplierFindByName,"this is null.");
 
 	}
+	
+	@Test
+	@Ignore
+	public void failedFindByNameTest() {
+		Supplier supplier = supplierService.findByName("tta");
+		Assert.isNull(supplier);
+	}
 
 	@Test
 	@Ignore
@@ -65,19 +83,46 @@ public class SupplierServiceTest {
 	}
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void updateTest() {
-		Supplier updatedService = supplierService.update(2, "holly");
-		Assert.isTrue(updatedService.getName().equals("holly"));
+		Supplier updatedService = supplierService.update(7, "Worthwhile");
+		Assert.isTrue(updatedService.getName().equals("Worthwhile"));
 		System.out.println(updatedService);
 	}
 
+	
+	@Test
+	@Ignore
+	public void supplierNameExistUpdateTest() {
+		try {
+			Supplier update = supplierService.update(7, "Worthwhile");
+		} catch (IllegalArgumentException e) {
+			Assert.isTrue(e.getMessage().equals("Supplier Name Already Exist"));
+		}
+		
+	}
+	
 	@Test
 	@Ignore
 	public void deleteTest() {
 		supplierService.delete(1);
 		Assert.isNull(supplierService.findByName("holly"));
 
+		Assert.isNull(supplierService.findByName("Sexy"));
+		
+	}
+	
+	
+	@Test
+	@Ignore
+	public void failedDeleteTest() {
+		
+		try {
+			supplierService.delete(2);
+		} catch (IllegalArgumentException e) {
+			Assert.isTrue(e.getMessage().equals("cannot find id"));
+		}
+		
 	}
 
 }
