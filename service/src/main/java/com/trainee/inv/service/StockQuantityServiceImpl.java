@@ -45,10 +45,7 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 		Integer value = null;
 		for (GoodQuantityProduct o : goodQuantityProductsWithProductId) {
 			if (goodQuantityProducts.contains(o)) {
-				value = o.getQuantity();
-				value += quantity;
-				GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.updateQuantity(o.getId(),
-						value);
+				GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.stockIn(o.getId(), quantity);
 				break;
 			}
 		}
@@ -69,11 +66,7 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 		Integer value = null;
 		for (GoodQuantityProduct o : goodQuantityProductsWithProductId) {
 			if (goodQuantityProducts.contains(o)) {
-				value = o.getQuantity();
-				value -= quantity;
-				checkIfQuantityIsValid(quantity, value);
-				GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.updateQuantity(o.getId(),
-						value);
+				GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.stockOut(o.getId(), quantity);
 				break;
 			}
 		}

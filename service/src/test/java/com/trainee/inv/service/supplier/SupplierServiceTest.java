@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.Assert;
 
+import com.trainee.inv.repository.category.Category;
 import com.trainee.inv.repository.supplier.Supplier;
 
 @RunWith(SpringRunner.class)
@@ -20,9 +21,9 @@ public class SupplierServiceTest {
 	private SupplierService supplierService;
 
 	@Test
-//	@Ignore
+	@Ignore
 	public void createTest() {
-		String name = "Clothing1 Trading";
+		String name = "Lazada";
 		Supplier supplierCreate = supplierService.create(name);
 		System.out.println(supplierCreate);
 		Assert.notNull(supplierCreate);
@@ -31,10 +32,28 @@ public class SupplierServiceTest {
 
 	@Test
 	@Ignore
+	public void createCategoryWithInvalidNameTest() {
+		try {
+			Supplier supplier = supplierService.create("Lazada");
+			System.out.println(supplier);
+		} catch (IllegalArgumentException e) {
+			Assert.isTrue(e.getMessage().equals("Supplier Name Already Exist"));
+		}
+	}
+
+	@Test
+	@Ignore
 	public void findByNameTest() {
-		Supplier supplierFindByName = supplierService.findByName("jigs");
+		Supplier supplierFindByName = supplierService.findByName("Lazada");
 		Assert.notNull(supplierFindByName);
-		
+	}
+	
+	@Test
+	@Ignore
+	public void findByNameTestWithNoNameInDatabase() {
+		Supplier supplierFindByName = supplierService.findByName("Lazadasss");
+		Assert.isNull(supplierFindByName,"this is null.");
+
 	}
 
 	@Test
@@ -42,8 +61,9 @@ public class SupplierServiceTest {
 	public void findAllTest() {
 		List<Supplier> suppliers = supplierService.findAll();
 		Assert.notEmpty(suppliers);
-		
+
 	}
+
 	@Test
 	@Ignore
 	public void updateTest() {
@@ -51,12 +71,13 @@ public class SupplierServiceTest {
 		Assert.isTrue(updatedService.getName().equals("holly"));
 		System.out.println(updatedService);
 	}
+
 	@Test
 	@Ignore
 	public void deleteTest() {
 		supplierService.delete(1);
 		Assert.isNull(supplierService.findByName("holly"));
-		
+
 	}
-	
+
 }
