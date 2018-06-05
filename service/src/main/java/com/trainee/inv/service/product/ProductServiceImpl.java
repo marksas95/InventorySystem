@@ -22,13 +22,13 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product create(Product product) {
 		boolean existsById = productRepository.existsById(product.getId());
-		boolean exsistsByItemCode = productRepository.existsByItemCode(product.getItemCode());
-		boolean exsistsBySerialNumber = productRepository.existsBySerialNumber(product.getSerialNumber());
+		boolean existsByItemCode = productRepository.existsByItemCode(product.getItemCode());
+		boolean existsBySerialNumber = productRepository.existsBySerialNumber(product.getSerialNumber());
 		if (existsById) {
 			throw new IllegalArgumentException("Invalid field id");
-		} else if (exsistsByItemCode) {
+		} else if (existsByItemCode) {
 			throw new IllegalArgumentException("Invalid field, ItemCode already exists.");
-		} else if (exsistsBySerialNumber) {
+		} else if (existsBySerialNumber) {
 			throw new IllegalArgumentException("Invalid field, SerialNumer already exists.");
 		}
 		return productRepository.save(product);
@@ -124,7 +124,14 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> sortByName(){
 		List<Product> products = productRepository.findAll();
-		Collections.sort(products);
+		Collections.sort(products, new Comparator<Product>(){
+
+			@Override
+			public int compare(Product product1, Product product2) {
+				return product1.getName().compareTo(product2.getName());
+			}
+			
+		});
 		return products;
 	}
 
@@ -149,7 +156,6 @@ public class ProductServiceImpl implements ProductService {
 
 			@Override
 			public int compare(Product o, Product n) {
-				// TODO Auto-generated method stub
 				return o.getDescription().compareTo(n.getDescription());
 			}
 		});
@@ -174,7 +180,6 @@ public class ProductServiceImpl implements ProductService {
 
 			@Override
 			public int compare(Product o1, Product o2) {
-				// TODO Auto-generated method stub
 				return o1.getMinimumStocks() - o2.getMinimumStocks();
 			}
 			
