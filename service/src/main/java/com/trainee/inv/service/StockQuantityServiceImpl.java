@@ -131,6 +131,7 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 	@Override
 	public void stockInDamageQuantityProduct(int warehouseIdFrom, int warehouseIdTo, int productId, int quantity) {
 		Warehouse warehouseTo = warehouseService.findById(warehouseIdTo);
+		
 		if (!warehouseTo.isActive()) {
 			throw new IllegalArgumentException("Invalid warehouseTo because it is inactive");
 		}

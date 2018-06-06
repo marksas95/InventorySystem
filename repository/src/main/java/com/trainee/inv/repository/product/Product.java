@@ -131,11 +131,14 @@ public class Product{
 		this.supplier = supplier;
 	}
 
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((itemCode == null) ? 0 : itemCode.hashCode());
+		result = prime * result + ((serialNumber == null) ? 0 : serialNumber.hashCode());
 		return result;
 	}
 
@@ -148,10 +151,17 @@ public class Product{
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		if (name == null) {
-			if (other.name != null)
+		if (id != other.id)
+			return false;
+		if (itemCode == null) {
+			if (other.itemCode != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!itemCode.equals(other.itemCode))
+			return false;
+		if (serialNumber == null) {
+			if (other.serialNumber != null)
+				return false;
+		} else if (!serialNumber.equals(other.serialNumber))
 			return false;
 		return true;
 	}
