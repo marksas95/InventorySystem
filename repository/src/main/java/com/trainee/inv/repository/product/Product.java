@@ -35,8 +35,6 @@ public class Product{
 	@ManyToOne
 	private Supplier supplier;
 
-	
-
 	public String getName() {
 		return name;
 	}

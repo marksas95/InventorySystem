@@ -16,7 +16,6 @@ import com.trainee.inv.repository.product.ProductRepository;
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
-
 	ProductRepository productRepository;
 
 	@Override
@@ -58,6 +57,11 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> searchByItemCode(String itemCode, boolean isActive) {
 		List<Product> list = findByIsActive(isActive);
 		List<Product> returnList = null;
+		returnList = findAllProductsByItemCode(itemCode, list, returnList);
+		return returnList;
+	}
+
+	private List<Product> findAllProductsByItemCode(String itemCode, List<Product> list, List<Product> returnList) {
 		for (Product o : list) {
 			if (o.getItemCode().contains(itemCode)) {
 				if (returnList == null) {
@@ -120,17 +124,17 @@ public class ProductServiceImpl implements ProductService {
 		productRepository.deleteById(id);
 
 	}
-	
+
 	@Override
-	public List<Product> sortByName(){
+	public List<Product> sortByName() {
 		List<Product> products = productRepository.findAll();
-		Collections.sort(products, new Comparator<Product>(){
+		Collections.sort(products, new Comparator<Product>() {
 
 			@Override
 			public int compare(Product product1, Product product2) {
 				return product1.getName().compareTo(product2.getName());
 			}
-			
+
 		});
 		return products;
 	}
@@ -175,17 +179,16 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> sortByMinimumStock() {
-		List<Product>products = productRepository.findAll();
+		List<Product> products = productRepository.findAll();
 		Collections.sort(products, new Comparator<Product>() {
 
 			@Override
 			public int compare(Product o1, Product o2) {
 				return o1.getMinimumStocks() - o2.getMinimumStocks();
 			}
-			
+
 		});
 		return products;
 	}
 
-		
 }

@@ -70,6 +70,11 @@ public class WarehouseServiceImpl implements WarehouseService {
 	public List<Warehouse> searchByName(String name, boolean isActive) {
 		List<Warehouse> list = findByIsActive(isActive);
 		List<Warehouse> returnList = null;
+		returnList = findingAllWarehouses(name, list, returnList);
+		return returnList;
+	}
+
+	private List<Warehouse> findingAllWarehouses(String name, List<Warehouse> list, List<Warehouse> returnList) {
 		for (Warehouse o : list) {
 			if (o.getDescription().contains(name)) {
 				if (returnList == null) {
@@ -85,14 +90,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 	public List<Warehouse> searchByAddress(String address, boolean isActive) {
 		List<Warehouse> list = findByIsActive(isActive);
 		List<Warehouse> returnList = null;
-		for (Warehouse o : list) {
-			if (o.getDescription().contains(address)) {
-				if (returnList == null) {
-					returnList = new ArrayList<Warehouse>();
-				}
-				returnList.add(o);
-			}
-		}
+		returnList = findingAllWarehouses(address, list, returnList);
 		return returnList;
 	}
 
@@ -100,14 +98,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 	public List<Warehouse> searchByDescription(String description, boolean isActive) {
 		List<Warehouse> list = findByIsActive(isActive);
 		List<Warehouse> returnList = null;
-		for (Warehouse o : list) {
-			if (o.getDescription().contains(description)) {
-				if (returnList == null) {
-					returnList = new ArrayList<Warehouse>();
-				}
-				returnList.add(o);
-			}
-		}
+		returnList = findingAllWarehouses(description, list, returnList);
 		return returnList;
 	}
 

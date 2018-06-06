@@ -12,31 +12,26 @@ import com.trainee.inv.repository.product.Product;
 import com.trainee.inv.repository.warehouse.Warehouse;
 
 @Service
-class GoodQuantityProductServiceImpl implements GoodQuantityProductService{
+class GoodQuantityProductServiceImpl implements GoodQuantityProductService {
 
-	
 	@Autowired
 	GoodQuantityProductRepository goodQuantityRepository;
 
 	public GoodQuantityProductServiceImpl() {
-		
 	}
-	
+
 	public GoodQuantityProductServiceImpl(GoodQuantityProductRepository goodQuantityRepository) {
 		this.goodQuantityRepository = goodQuantityRepository;
 	}
-	
+
 	@Override
 	public GoodQuantityProduct create(Product product, int quantity) {
 		GoodQuantityProduct goodQuantityProduct = new GoodQuantityProduct();
 		goodQuantityProduct.setProduct(product);
 		goodQuantityProduct.setQuantity(quantity);
-		
 		return goodQuantityRepository.save(goodQuantityProduct);
-		
+
 	}
-	
-	
 
 	@Override
 	public GoodQuantityProduct updateQuantity(int goodQuantityProductId, int quantity) {
