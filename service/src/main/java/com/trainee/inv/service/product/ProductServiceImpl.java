@@ -77,6 +77,12 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> searchByUnitOfMeasurement(String unitOfMeasurement, boolean isActive) {
 		List<Product> list = findByIsActive(isActive);
 		List<Product> returnList = null;
+		returnList = findAllProductsByUnitOfMeasurement(unitOfMeasurement, list, returnList);
+		return returnList;
+	}
+
+	private List<Product> findAllProductsByUnitOfMeasurement(String unitOfMeasurement, List<Product> list,
+			List<Product> returnList) {
 		for (Product o : list) {
 			if (o.getUnitOfMeasurement().contains(unitOfMeasurement)) {
 				if (returnList == null) {
@@ -92,6 +98,12 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> searchByDescription(String description, boolean isActive) {
 		List<Product> list = findByIsActive(isActive);
 		List<Product> returnList = null;
+		returnList = findAllProductsByDescription(description, list, returnList);
+		return returnList;
+	}
+
+	private List<Product> findAllProductsByDescription(String description, List<Product> list,
+			List<Product> returnList) {
 		for (Product o : list) {
 			if (o.getDescription().contains(description)) {
 				if (returnList == null) {
