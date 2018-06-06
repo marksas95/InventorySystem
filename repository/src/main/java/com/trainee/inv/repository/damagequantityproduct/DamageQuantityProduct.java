@@ -22,7 +22,7 @@ public class DamageQuantityProduct {
 	private int id;
 	private int quantity;
 	
-	@ManyToOne(cascade= {CascadeType.MERGE},fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.EAGER)
 //	@Fetch(value = FetchMode.SUBSELECT)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Product product;

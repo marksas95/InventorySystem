@@ -36,8 +36,8 @@ public class Warehouse {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<GoodQuantityProduct> goodQuantityProducts;
 	
-	@OneToMany(cascade= {CascadeType.MERGE},fetch=FetchType.LAZY)
-	@Fetch(value = FetchMode.SUBSELECT)
+	@OneToMany(cascade= {CascadeType.MERGE},fetch=FetchType.EAGER)
+//	@Fetch(value = FetchMode.SUBSELECT)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<DamageQuantityProduct> damageQuantityProducts;
 
