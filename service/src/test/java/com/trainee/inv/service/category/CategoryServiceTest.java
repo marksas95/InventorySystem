@@ -34,7 +34,8 @@ public class CategoryServiceTest {
 	@Ignore
 	public void createCategoryWithInvalidNameTest() {
 		try {
-			Category createdCategory = categoryService.create("blob");
+			String name = "Food";
+			Category createdCategory = categoryService.create(name);
 			System.out.println(createdCategory);
 		} catch (IllegalArgumentException e) {
 			Assert.isTrue(e.getMessage().equals("Category Name Already Exists."));
@@ -44,8 +45,9 @@ public class CategoryServiceTest {
 	@Test
 	@Ignore
 	public void findByNameTest() {
-		Category category = categoryService.findByName("Underwear");
-		Assert.notNull(category);
+		String name = "Food";
+		Category category = categoryService.findByName(name);
+		Assert.isTrue(name.equals(category.getName()));
 	}
 
 	
@@ -53,29 +55,36 @@ public class CategoryServiceTest {
 	@Test
 	@Ignore
 	public void findByNameThatIsNotInDatabaseTest() {
-		Category category = categoryService.findByName("weeee");
+		String name = "weeee";
+		Category category = categoryService.findByName(name);
 		Assert.isNull(category);
 	}
 
 	@Test
 //	@Ignore
 	public void updateTest() {
-		Category updatedCategory = categoryService.update(5, "Shirt");
-		Assert.isTrue(updatedCategory.getName().equals("Shirt"));
+		String name = "Shirt";
+		int id = 5;
+		
+		Category oldCategory = categoryService.findById(id);
+		Category updatedCategory = categoryService.update(id, name);
+		Assert.isTrue(updatedCategory.getName().equals(name));
 	}
 
 	@Test
 	@Ignore
 	public void deleteTest() {
-		categoryService.delete(1);
-		Assert.isNull(categoryService.findByName("nulls"));
+		int id = 1;
+		categoryService.delete(id);
+		Assert.isNull(categoryService.findById(id));
 	}
 
 	@Test
 	@Ignore
 	public void deleteThatHasInvalidNameTest() {
 		try {
-			categoryService.delete(1);
+			int id = 100;
+			categoryService.delete(id);
 		} catch (IllegalArgumentException e) {
 			Assert.isTrue(e.getMessage().equals("No id in that category."));
 		}
