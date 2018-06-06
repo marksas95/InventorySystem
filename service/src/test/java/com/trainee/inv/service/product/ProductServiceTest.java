@@ -81,7 +81,7 @@ public class ProductServiceTest {
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void createProductTestWithExsistingSerialNumber() {
 		Category category = categoryService.findByName("Electronics");
 //		Supplier supplier = supplierService.findByName("Clothing1 Trading");
@@ -129,7 +129,7 @@ public class ProductServiceTest {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void sortByName() {
 		List<Product> products = productService.sortByName();
 		System.out.println(products);

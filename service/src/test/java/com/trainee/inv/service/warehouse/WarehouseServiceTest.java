@@ -29,15 +29,15 @@ public class WarehouseServiceTest {
 	ProductService productService;
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void createTest() {
 		Warehouse warehouse = new Warehouse();
 		warehouse.setActive(true);
-		warehouse.setAddress("Pavia");
-		warehouse.setDescription("Pavia warehouse");
-		warehouse.setName("Pavia Warehouse");
+		warehouse.setAddress("Lapaz");
+		warehouse.setDescription("Lapaz Old warehouse");
+		warehouse.setName("Lapaz Warehouse");
 		List<GoodQuantityProduct> list = new ArrayList<GoodQuantityProduct>();
-		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.findById(21);
+		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.findById(34);
 //		GoodQuantityProduct goodQuantityProduct2 = goodQuantityProductService.findById(12);
 		list.add(goodQuantityProduct);
 //		list.add(goodQuantityProduct2);
@@ -63,20 +63,20 @@ public class WarehouseServiceTest {
 	
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void updateTest() {
-		Warehouse warehouse = warehouseService.findById(10);
-//		warehouse.setName("SteelTecssh");
-//		warehouse.setAddress("Cebu Citsyss");
-//		warehouse.setDescription("Stseel sSets");
-		List<GoodQuantityProduct> goodQuantityProducts = warehouse.getGoodQuantityProducts();
-		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.findById(12);
-		GoodQuantityProduct goodQuantityProduct2 = goodQuantityProductService.findById(11);
-		System.out.println(goodQuantityProduct);
-		System.out.println(goodQuantityProduct2);
-		goodQuantityProducts.add(goodQuantityProduct);
+		Warehouse warehouse = warehouseService.findById(35);
+		warehouse.setName("Steel Tech Warehouse");
+		warehouse.setAddress("Cebu City");
+		warehouse.setDescription("Steel Set");
+//		List<GoodQuantityProduct> goodQuantityProducts = warehouse.getGoodQuantityProducts();
+//		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.findById(21);
+//		GoodQuantityProduct goodQuantityProduct2 = goodQuantityProductService.findById(11);
+//		System.out.println(goodQuantityProduct);
+//		System.out.println(goodQuantityProduct2);
+//		goodQuantityProducts.add(goodQuantityProduct);
 
-		warehouse.setGoodQuantityProducts(goodQuantityProducts);
+//		warehouse.setGoodQuantityProducts(goodQuantityProducts);
 		warehouseService.update(warehouse);
 	}
 	

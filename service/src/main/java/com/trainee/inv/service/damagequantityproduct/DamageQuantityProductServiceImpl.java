@@ -69,7 +69,10 @@ public class DamageQuantityProductServiceImpl implements DamageQuantityProductSe
 
 	@Override
 	public void delete(int id) {
-		
+		boolean existsById = damageQuantityRepository.existsById(id);
+		if(!existsById) {
+			throw new IllegalArgumentException("ID does not exist");
+		}
 		damageQuantityRepository.deleteById(id);
 		
 	}

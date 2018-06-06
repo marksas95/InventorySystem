@@ -31,10 +31,10 @@ public class GoodQuantityProductServiceIntegrationTest {
 	@Test
 //	@Ignore
 	public void createTest() {
-		Optional<Product> findById = productRepository.findById(2);
+		Optional<Product> findById = productRepository.findById(15);
 		Product product = findById.get();
-		int quantity = 100;
-		GoodQuantityProduct save = goodQuantityProductService.create(product, 0);
+		int quantity = 60;
+		GoodQuantityProduct save = goodQuantityProductService.create(product, quantity);
 		Assert.notNull(save, "Return object is null!");
 		System.out.println(save);
 	}
@@ -56,6 +56,7 @@ public class GoodQuantityProductServiceIntegrationTest {
 	}
 	
 	@Test
+	@Ignore
 	public void deleteTest() {
 		goodQuantityProductService.delete(1);
 	}
