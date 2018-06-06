@@ -18,7 +18,7 @@ public class SupplierRepositoryTest {
 	private SupplierRepository supplierRepository;
 
 	@Test
-//	@Ignore
+	@Ignore
 	public void createSupplierTest() {
 		
 		Supplier supplier = new Supplier();
@@ -29,7 +29,7 @@ public class SupplierRepositoryTest {
 	}
 	@Test
 	public void findByNameTest() {
-		Supplier findByNameSupplier = supplierRepository.findByName("supplier1");
+		Supplier findByNameSupplier = supplierRepository.findByName("Kingsoft");
 		System.out.println(findByNameSupplier);
 	}
 	

@@ -20,17 +20,17 @@ public class CategoryRepositoryTest {
 	private CategoryRepository categoryRepository;
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void createCategoryTest() {
 		Category category = new Category();
-		category.setName("admsin");
+		category.setName("Toy");
 		Category categorySave = categoryRepository.save(category);
 		System.out.println(categorySave);
 	}
 	@Test
-	@Ignore
+//	@Ignore
 	public void findByNameTest() {
-		Category findByNameCategory = categoryRepository.findByName("admsin");
+		Category findByNameCategory = categoryRepository.findByName("Food");
 		System.out.println(findByNameCategory);
 	}
 	

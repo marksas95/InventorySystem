@@ -22,21 +22,6 @@ public class ProductResource {
 	@Autowired
 	private ProductService productService;
 
-	@GetMapping ("/sortByMinimumStock")
-	public List<Product> sortMinimumStock(){
-		return productService.sortByMinimumStock();
-	}
-	
-	@GetMapping ("/sortByItemCode")
-	public List<Product> sortItemCode(){
-		return productService.sortByItemCode();
-	}
-	
-	@GetMapping ("/sortByDescription")
-	public List<Product> sortDescription(){
-		return productService.sortByDescription();
-	}
-
 	@GetMapping("/list")
 	public List<Product> findAll() {
 		return productService.findAll();
@@ -102,10 +87,5 @@ public class ProductResource {
 		return productService.searchByUnitOfMeasurement(unitOfMeasurement, isActive);
 	}
 
-	@GetMapping("/sortByName")
-	public List<Product> sortName() {
-		return productService.sortByName();
-	}
-	
 	
 }

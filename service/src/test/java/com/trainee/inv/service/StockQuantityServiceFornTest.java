@@ -33,6 +33,7 @@ public class StockQuantityServiceFornTest {
 	@Test
 	@Ignore
 	public void stockInGoodQuantityTest() {
+
 		int warehouseId = 14;
 		int productId = 4;
 		int quantity = 500;

@@ -14,7 +14,7 @@ import com.trainee.inv.repository.category.Category;
 import com.trainee.inv.repository.supplier.Supplier;
 
 @Entity
-public class Product implements Comparable<Product> {
+public class Product{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
@@ -34,8 +34,6 @@ public class Product implements Comparable<Product> {
 
 	@ManyToOne
 	private Supplier supplier;
-
-	
 
 	public String getName() {
 		return name;
@@ -176,10 +174,6 @@ public class Product implements Comparable<Product> {
 				+ ", supplier=" + supplier + ", name=" + name + "]";
 	}
 
-	@Override
-	public int compareTo(Product o) {
-		// TODO Auto-generated method stub
-		return name.compareTo(o.getName());
-	}
+	
 
 }

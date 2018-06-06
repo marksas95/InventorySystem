@@ -16,19 +16,18 @@ import com.trainee.inv.repository.product.ProductRepository;
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
-
 	ProductRepository productRepository;
 
 	@Override
 	public Product create(Product product) {
 		boolean existsById = productRepository.existsById(product.getId());
-		boolean exsistsByItemCode = productRepository.existsByItemCode(product.getItemCode());
-		boolean exsistsBySerialNumber = productRepository.existsBySerialNumber(product.getSerialNumber());
+		boolean existsByItemCode = productRepository.existsByItemCode(product.getItemCode());
+		boolean existsBySerialNumber = productRepository.existsBySerialNumber(product.getSerialNumber());
 		if (existsById) {
 			throw new IllegalArgumentException("Invalid field id");
-		} else if (exsistsByItemCode) {
+		} else if (existsByItemCode) {
 			throw new IllegalArgumentException("Invalid field, ItemCode already exists.");
-		} else if (exsistsBySerialNumber) {
+		} else if (existsBySerialNumber) {
 			throw new IllegalArgumentException("Invalid field, SerialNumer already exists.");
 		}
 		return productRepository.save(product);
@@ -58,6 +57,11 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> searchByItemCode(String itemCode, boolean isActive) {
 		List<Product> list = findByIsActive(isActive);
 		List<Product> returnList = null;
+		returnList = findAllProductsByItemCode(itemCode, list, returnList);
+		return returnList;
+	}
+
+	private List<Product> findAllProductsByItemCode(String itemCode, List<Product> list, List<Product> returnList) {
 		for (Product o : list) {
 			if (o.getItemCode().contains(itemCode)) {
 				if (returnList == null) {
@@ -73,6 +77,12 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> searchByUnitOfMeasurement(String unitOfMeasurement, boolean isActive) {
 		List<Product> list = findByIsActive(isActive);
 		List<Product> returnList = null;
+		returnList = findAllProductsByUnitOfMeasurement(unitOfMeasurement, list, returnList);
+		return returnList;
+	}
+
+	private List<Product> findAllProductsByUnitOfMeasurement(String unitOfMeasurement, List<Product> list,
+			List<Product> returnList) {
 		for (Product o : list) {
 			if (o.getUnitOfMeasurement().contains(unitOfMeasurement)) {
 				if (returnList == null) {
@@ -88,6 +98,12 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> searchByDescription(String description, boolean isActive) {
 		List<Product> list = findByIsActive(isActive);
 		List<Product> returnList = null;
+		returnList = findAllProductsByDescription(description, list, returnList);
+		return returnList;
+	}
+
+	private List<Product> findAllProductsByDescription(String description, List<Product> list,
+			List<Product> returnList) {
 		for (Product o : list) {
 			if (o.getDescription().contains(description)) {
 				if (returnList == null) {
@@ -120,11 +136,18 @@ public class ProductServiceImpl implements ProductService {
 		productRepository.deleteById(id);
 
 	}
-	
+
 	@Override
-	public List<Product> sortByName(){
+	public List<Product> sortByName() {
 		List<Product> products = productRepository.findAll();
-		Collections.sort(products);
+		Collections.sort(products, new Comparator<Product>() {
+
+			@Override
+			public int compare(Product product1, Product product2) {
+				return product1.getName().compareTo(product2.getName());
+			}
+
+		});
 		return products;
 	}
 
@@ -149,7 +172,6 @@ public class ProductServiceImpl implements ProductService {
 
 			@Override
 			public int compare(Product o, Product n) {
-				// TODO Auto-generated method stub
 				return o.getDescription().compareTo(n.getDescription());
 			}
 		});
@@ -169,18 +191,16 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> sortByMinimumStock() {
-		List<Product>products = productRepository.findAll();
+		List<Product> products = productRepository.findAll();
 		Collections.sort(products, new Comparator<Product>() {
 
 			@Override
 			public int compare(Product o1, Product o2) {
-				// TODO Auto-generated method stub
 				return o1.getMinimumStocks() - o2.getMinimumStocks();
 			}
-			
+
 		});
 		return products;
 	}
 
-		
 }
