@@ -194,7 +194,7 @@ public class StockQuantityServiceFornTest {
 	}
 
 	@Test
-//	@Ignore
+	@Ignore
 	public void reconcileProductTest() {
 		int warehouseId = 13;
 		int productId = 4;
