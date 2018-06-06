@@ -69,6 +69,7 @@ public class DamageQuantityProductServiceImpl implements DamageQuantityProductSe
 
 	@Override
 	public void delete(int id) {
+		
 		damageQuantityRepository.deleteById(id);
 		
 	}

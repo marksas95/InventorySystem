@@ -76,7 +76,7 @@ public class ProductServiceTest {
 		try {
 			 Product createdProduct = productService.create(product);
 		} catch (IllegalArgumentException e) {
-			Assert.isTrue(e.getMessage().equals("Invalid field, ItemCode already exists."));
+			Assert.isTrue(e.getMessage().equals("Invalid operation, ItemCode already exists."));
 		}
 	}
 	
@@ -102,7 +102,7 @@ public class ProductServiceTest {
 		try {
 			 Product createdProduct = productService.create(product);
 		} catch (IllegalArgumentException e) {
-			Assert.isTrue(e.getMessage().equals("Invalid field, SerialNumer already exists."));
+			Assert.isTrue(e.getMessage().equals("Invalid operation, Serial Number already exists."));
 		}
 	}
 	
@@ -125,6 +125,7 @@ public class ProductServiceTest {
 	public void sortByItemCode() {
 		List<Product>products = productService.sortByItemCode();
 		System.out.println(products);
+		Assert.notNull(products);
 	}
 	
 	@Test
@@ -132,6 +133,8 @@ public class ProductServiceTest {
 	public void sortByName() {
 		List<Product> products = productService.sortByName();
 		System.out.println(products);
+		Assert.notNull(products);
+		
 	}
 	
 
@@ -208,6 +211,7 @@ public class ProductServiceTest {
 	public void filterByNameTest() {
 		List<Product> results = productService.findAll();
 		System.out.println(results);
+		Assert.notNull(results);
 	}
 
 	@Test // working test

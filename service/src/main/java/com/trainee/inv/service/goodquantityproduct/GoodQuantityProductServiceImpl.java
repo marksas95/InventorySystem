@@ -69,6 +69,10 @@ class GoodQuantityProductServiceImpl implements GoodQuantityProductService {
 
 	@Override
 	public void delete(int id) {
+		boolean existsById = goodQuantityRepository.existsById(id);
+		if(!existsById) {
+			 throw new IllegalArgumentException("ID not found");
+		}
 		goodQuantityRepository.deleteById(id);
 	}
 

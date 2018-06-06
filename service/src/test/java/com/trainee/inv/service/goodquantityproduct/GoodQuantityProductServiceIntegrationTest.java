@@ -55,5 +55,8 @@ public class GoodQuantityProductServiceIntegrationTest {
 		System.out.println(goodQuantityProduct);
 	}
 	
-	
+	@Test
+	public void deleteTest() {
+		goodQuantityProductService.delete(1);
+	}
 }
