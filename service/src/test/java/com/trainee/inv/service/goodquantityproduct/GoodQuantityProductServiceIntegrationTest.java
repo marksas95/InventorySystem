@@ -13,7 +13,6 @@ import org.springframework.util.Assert;
 import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
 import com.trainee.inv.repository.product.Product;
 import com.trainee.inv.repository.product.ProductRepository;
-import com.trainee.inv.repository.warehouse.Warehouse;
 import com.trainee.inv.repository.warehouse.WarehouseRepository;
 
 @RunWith(SpringRunner.class)
@@ -38,22 +37,5 @@ public class GoodQuantityProductServiceIntegrationTest {
 		Assert.notNull(save, "Return object is null!");
 		System.out.println(save);
 	}
-	
-	@Test
-	@Ignore
-	public void stockInTest() {
-		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.stockIn(138, 150);
-		Assert.isTrue(goodQuantityProduct.getQuantity() == 450);
-		System.out.println(goodQuantityProduct);
-	}
-	
-	@Test
-	@Ignore
-	public void stockOutTest() {
-		GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.stockOut(138, 350);
-		Assert.isTrue(goodQuantityProduct.getQuantity() == 100);
-		System.out.println(goodQuantityProduct);
-	}
-	
 	
 }

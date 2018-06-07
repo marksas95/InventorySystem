@@ -41,22 +41,6 @@ class GoodQuantityProductServiceImpl implements GoodQuantityProductService {
 	}
 
 	@Override
-	public GoodQuantityProduct stockIn(int goodQuantityProductId, int quantity) {
-		GoodQuantityProduct goodQuantityProduct = findById(goodQuantityProductId);
-		int initialQuantity = goodQuantityProduct.getQuantity();
-		initialQuantity += quantity;
-		return updateQuantity(goodQuantityProductId, initialQuantity);
-	}
-
-	@Override
-	public GoodQuantityProduct stockOut(int goodQuantityProductId, int quantity) {
-		GoodQuantityProduct goodQuantityProduct = findById(goodQuantityProductId);
-		int initialQuantity = goodQuantityProduct.getQuantity();
-		initialQuantity -= quantity;
-		return updateQuantity(goodQuantityProductId, initialQuantity);
-	}
-
-	@Override
 	public List<GoodQuantityProduct> findByProductId(int id) {
 		return goodQuantityRepository.findByProductId(id);
 	}
@@ -68,7 +52,7 @@ class GoodQuantityProductServiceImpl implements GoodQuantityProductService {
 	}
 
 	@Override
-	public void delete(int id) {
+	public void deleteById(int id) {
 		goodQuantityRepository.deleteById(id);
 	}
 

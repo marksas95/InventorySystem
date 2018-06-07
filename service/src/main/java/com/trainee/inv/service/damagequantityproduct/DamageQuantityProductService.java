@@ -11,15 +11,11 @@ public interface DamageQuantityProductService {
 	
 	DamageQuantityProduct updateQuantity(int damageProductQuantityId, int quantity);
 	
-	DamageQuantityProduct stockIn(int damageProductQuantityId, int quantity);
-	
-	DamageQuantityProduct stockOut(int damageProductQuantityId, int quantity);
-	
 	List<DamageQuantityProduct> findByProductId(int id);
 	
 	DamageQuantityProduct findById(int id);
 	
 	List<DamageQuantityProduct> findAll();
 	
-	void delete(int id);
+	void deleteById(int id);
 }
