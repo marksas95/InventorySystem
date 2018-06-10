@@ -45,6 +45,18 @@ public class WarehouseServiceTest {
 		warehouseService.create(warehouse);
 	}
 	
+	@Test
+	public void createWarehouseOnlyTest() {
+		String warehouseName = "Mandur-ao";
+		String address = "Mandurriao District";
+		String description = "Somewhere in Mandurriao";
+		boolean isActive = true;
+		
+		
+		
+	}
+	
+	
 	
 	@Test 
 	@Ignore
