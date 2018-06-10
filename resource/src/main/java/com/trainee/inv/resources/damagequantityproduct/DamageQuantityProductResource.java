@@ -49,7 +49,7 @@ public class DamageQuantityProductResource {
 
 	@DeleteMapping("/delete")
 	public void delete(@RequestParam(value = "id", required = true) int id) {
-		damageQuantityProductService.delete(id);
+		damageQuantityProductService.deleteById(id);
 
 	}
 

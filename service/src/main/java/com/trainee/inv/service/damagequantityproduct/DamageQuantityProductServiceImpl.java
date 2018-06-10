@@ -34,22 +34,6 @@ public class DamageQuantityProductServiceImpl implements DamageQuantityProductSe
 	}
 
 	@Override
-	public DamageQuantityProduct stockIn(int damageProductQuantityId, int quantity) {
-		DamageQuantityProduct damageQuantityProduct = findById(damageProductQuantityId);
-		int initialQuantity = damageQuantityProduct.getQuantity();
-		initialQuantity += quantity;
-		return updateQuantity(damageProductQuantityId, initialQuantity);
-	}
-
-	@Override
-	public DamageQuantityProduct stockOut(int damageProductQuantityId, int quantity) {
-		DamageQuantityProduct damageQuantityProduct = findById(damageProductQuantityId);
-		int initialQuantity = damageQuantityProduct.getQuantity();
-		initialQuantity -= quantity;
-		return updateQuantity(damageProductQuantityId, initialQuantity);
-	}
-
-	@Override
 	public List<DamageQuantityProduct> findByProductId(int id) {
 		
 		return damageQuantityRepository.findByProductId(id);
@@ -68,11 +52,7 @@ public class DamageQuantityProductServiceImpl implements DamageQuantityProductSe
 	}
 
 	@Override
-	public void delete(int id) {
-		boolean existsById = damageQuantityRepository.existsById(id);
-		if(!existsById) {
-			throw new IllegalArgumentException("ID does not exist");
-		}
+	public void deleteById(int id) {
 		damageQuantityRepository.deleteById(id);
 		
 	}

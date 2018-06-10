@@ -11,15 +11,11 @@ public interface GoodQuantityProductService {
 	
 	GoodQuantityProduct updateQuantity(int goodQuantityProductId, int quantity);
 	
-	GoodQuantityProduct stockIn(int goodQuantityProductId, int quantity);
-	
-	GoodQuantityProduct stockOut(int goodQuantityProductId, int quantity);
-	
 	List<GoodQuantityProduct> findByProductId(int id);
 	
 	GoodQuantityProduct findById(int id);
 	
 	List<GoodQuantityProduct> findAll();
 	
-	void delete(int id);
+	void deleteById(int id);
 }

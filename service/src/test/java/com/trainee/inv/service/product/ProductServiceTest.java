@@ -1,7 +1,5 @@
 package com.trainee.inv.service.product;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.Ignore;
@@ -14,7 +12,6 @@ import org.springframework.util.Assert;
 
 import com.trainee.inv.repository.category.Category;
 import com.trainee.inv.repository.product.Product;
-import com.trainee.inv.repository.supplier.Supplier;
 import com.trainee.inv.service.category.CategoryService;
 import com.trainee.inv.service.supplier.SupplierService;
 
@@ -33,24 +30,30 @@ public class ProductServiceTest {
 	@Ignore
 	public void createProductTest() {
 		Category category = categoryService.findByName("Electronics");
-//		Supplier supplier = supplierService.findByName("Clothing1 Trading");
 		Product product = new Product();
 
+		String name = "Laptop";
+		String description = "i7 Gaming Laptop";
+		String itemCode = "000";
+		String remarks = "brand new";
+		String serialNumber = "111";
+		boolean isActive = true;
+		String unitOfMeasurement = "PCS";
+		boolean isVatable = false;
 
-		product.setName("Laptop");
+		product.setName(name);
 		product.setCategory(category);
-//		product.setSupplier(supplier);
-		product.setDescription("i7 Gaming Laptop");
-		product.setItemCode("000");
+		product.setDescription(description);
+		product.setItemCode(itemCode);
 		product.setMinimumStocks(15);
-		product.setRemarks("brand new");
-		product.setSerialNumber("111");
-		product.setActive(true);
-		product.setUnitOfMeasurement("PCS");
-		product.setVatable(false);
+		product.setRemarks(remarks);
+		product.setSerialNumber(serialNumber);
+		product.setActive(isActive);
+		product.setUnitOfMeasurement(unitOfMeasurement);
+		product.setVatable(isVatable);
 
 		Product createdProduct = productService.create(product);
-		Assert.isTrue(createdProduct.getId()!=0);
+		Assert.isTrue(createdProduct.getId() != 0);
 		System.out.println(createdProduct);
 	}
 
@@ -58,13 +61,10 @@ public class ProductServiceTest {
 	@Ignore
 	public void createProductTestWithExsistingItemCode() {
 		Category category = categoryService.findByName("Electronics");
-//		Supplier supplier = supplierService.findByName("Clothing1 Trading");
 		Product product = new Product();
-
 
 		product.setName("Laptop");
 		product.setCategory(category);
-//		product.setSupplier(supplier);
 		product.setDescription("i7 Gaming Laptop");
 		product.setItemCode("000");
 		product.setMinimumStocks(15);
@@ -74,23 +74,20 @@ public class ProductServiceTest {
 		product.setUnitOfMeasurement("PCS");
 		product.setVatable(false);
 		try {
-			 Product createdProduct = productService.create(product);
+			Product createdProduct = productService.create(product);
 		} catch (IllegalArgumentException e) {
 			Assert.isTrue(e.getMessage().equals("Invalid operation, ItemCode already exists."));
 		}
 	}
-	
+
 	@Test
 	@Ignore
 	public void createProductTestWithExsistingSerialNumber() {
 		Category category = categoryService.findByName("Electronics");
-//		Supplier supplier = supplierService.findByName("Clothing1 Trading");
 		Product product = new Product();
-
 
 		product.setName("Laptop");
 		product.setCategory(category);
-//		product.setSupplier(supplier);
 		product.setDescription("i7 Gaming Laptop");
 		product.setItemCode("001");
 		product.setMinimumStocks(15);
@@ -100,34 +97,34 @@ public class ProductServiceTest {
 		product.setUnitOfMeasurement("PCS");
 		product.setVatable(false);
 		try {
-			 Product createdProduct = productService.create(product);
+			Product createdProduct = productService.create(product);
 		} catch (IllegalArgumentException e) {
 			Assert.isTrue(e.getMessage().equals("Invalid operation, Serial Number already exists."));
 		}
 	}
-	
+
 	@Test
 	@Ignore
 	public void sortByMinimumStock() {
 		List<Product> products = productService.sortByMinimumStock();
 		System.out.println(products);
 	}
-	
+
 	@Test
 	@Ignore
 	public void sortByDescription() {
-		List<Product>products = productService.sortByDescription();
+		List<Product> products = productService.sortByDescription();
 		System.out.println(products);
 	}
-	
+
 	@Test
 	@Ignore
 	public void sortByItemCode() {
-		List<Product>products = productService.sortByItemCode();
+		List<Product> products = productService.sortByItemCode();
 		System.out.println(products);
 		Assert.notNull(products);
 	}
-	
+
 	@Test
 //	@Ignore
 	public void sortByName() {
@@ -136,59 +133,75 @@ public class ProductServiceTest {
 		Assert.notNull(products);
 		
 	}
-	
-
-	@Test
-	@Ignore
-	public void createProductThatAlreadyExistsTest() {
-		Category category = categoryService.findByName("blossb");
-		Supplier supplier = supplierService.findByName("jigs");
-		Product product = new Product();
-
-		product.setCategory(category);
-		product.setSupplier(supplier);
-		product.setDescription("Cannot be determineds");
-		product.setItemCode("0002222s");
-		product.setMinimumStocks(20);
-		product.setRemarks("wala langs");
-		product.setSerialNumber("0000000000000s");
-		product.setActive(false);
-
-		product.setUnitOfMeasurement("PCSs");
-		product.setVatable(false);
-
-		Product createdProduct = productService.create(product);
-		System.out.println(createdProduct);
-	}
 
 	@Test
 	@Ignore
 	public void updateProductTest() {
+		int id = 6;
 
-		Product product = new Product();
-		product.setId(134);
-		product.setName("www");
-		product.setDescription("Whole System");
-		product.setItemCode("pppp");
-		product.setMinimumStocks(30);
-		product.setRemarks("wala lang");
-		product.setSerialNumber("0000000000000s");
-		product.setUnitOfMeasurement("PCSs");
-		product.setVatable(false);
-		productService.update(product);
+		Product product = productService.findById(id);
+		String name = "www";
+		String description = "Whole System";
+		String itemCode = "pppp";
+		int minimumStocks = 30;
+		String remarks = "wala lang";
+		String serialNumber = "0000000000000s";
+		String unitOfMeasurement = "PCSs";
+		boolean isVatable = false;
+
+		product.setName(name);
+		product.setDescription(description);
+		product.setItemCode(itemCode);
+		product.setMinimumStocks(minimumStocks);
+		product.setRemarks(remarks);
+		product.setSerialNumber(serialNumber);
+		product.setUnitOfMeasurement(unitOfMeasurement);
+		product.setVatable(isVatable);
+		Product updatedProduct = productService.update(product);
+
+		Assert.isTrue(product.equals(updatedProduct));
+	}
+
+	@Test
+	// @Ignore
+	public void searchByItemCodeTest() {
+		String itemCode = "001";
+		boolean isActive = true;
+		List<Product> list = productService.searchByItemCode(itemCode, isActive);
+		Assert.notNull(list);
+		list.forEach(o -> Assert.isTrue(o.getItemCode().contains(itemCode)));
+		System.out.println(list);
 	}
 
 	@Test
 	@Ignore
-	public void searchByItemCodeTest() {
-		List<Product> list = productService.searchByItemCode("0002222ss", true);
-		Assert.notNull(list);
+	public void searchByItemCodeFalseTest() {
+		String itemCode = "wesfr";
+		boolean isActive = true;
+		List<Product> list = productService.searchByItemCode(itemCode, isActive);
+		Assert.isNull(list);
 		System.out.println(list);
 	}
 
-	public void searchByItemCodeFalseTest() {
-		List<Product> list = productService.searchByItemCode("wesfr", true);
+	@Test
+	@Ignore
+	public void searchByUnitOfMeasurementTest() {
+		String unitOfMeasurement = "PCS";
+		boolean isActive = true;
+		List<Product> list = productService.searchByUnitOfMeasurement(unitOfMeasurement, isActive);
 		Assert.isNull(list);
+		list.forEach(o -> Assert.isTrue(o.getUnitOfMeasurement().contains(unitOfMeasurement)));
+		System.out.println(list);
+	}
+
+	@Test
+	@Ignore
+	public void searchByDescriptionTest() {
+		String description = "PCS";
+		boolean isActive = true;
+		List<Product> list = productService.searchByDescription(description, isActive);
+		Assert.isNull(list);
+		list.forEach(o -> Assert.isTrue(o.getDescription().contains(description)));
 		System.out.println(list);
 	}
 
@@ -202,22 +215,29 @@ public class ProductServiceTest {
 	@Test
 	@Ignore
 	public void findByName() {
-		Product findByNameProduct = productService.findByName("Howie");
+		String name = "Howie";
+		Product findByNameProduct = productService.findByName(name);
 		Assert.notNull(findByNameProduct);
+		Assert.isTrue(findByNameProduct.getName().equals(name));
 	}
 
 	@Test
 	@Ignore
-	public void filterByNameTest() {
-		List<Product> results = productService.findAll();
-		System.out.println(results);
-		Assert.notNull(results);
+
+	public void findById() {
+		int id = 4;
+		Product findByNameProduct = productService.findById(id);
+		Assert.notNull(findByNameProduct);
+		Assert.isTrue(findByNameProduct.getId()==id);
+
 	}
 
-	@Test // working test
+	@Test
 	@Ignore
 	public void deleteTest() {
-		productService.delete(1);
+		int id = 2;
+		productService.delete(id);
+		Assert.isNull(productService.findById(id));
 	}
 
 }
