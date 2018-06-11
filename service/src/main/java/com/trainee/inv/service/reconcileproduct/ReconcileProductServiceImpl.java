@@ -26,7 +26,7 @@ public class ReconcileProductServiceImpl implements ReconcileProductService {
 	}
 
 	@Override
-	public void delete(int id) {
+	public void deleteById(int id) {
 		reconcileProductRepository.deleteById(id);
 	}
 

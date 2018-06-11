@@ -10,7 +10,7 @@ public interface ReconcileProductService {
 
 	ReconcileProduct update(ReconcileProduct reconcileProduct);
 
-	void delete(int id);
+	void deleteById(int id);
 
 	ReconcileProduct findById(int id);
 

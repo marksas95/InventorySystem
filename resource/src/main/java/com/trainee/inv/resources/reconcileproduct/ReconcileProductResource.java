@@ -33,7 +33,7 @@ public class ReconcileProductResource {
 
 	@DeleteMapping("/delete")
 	public void delete(@RequestParam(value = "id", required = true) int id) {
-		ReconcileProductService.delete(id);
+		ReconcileProductService.deleteById(id);
 
 	}
 

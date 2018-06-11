@@ -131,7 +131,7 @@ public class ProductServiceImpl implements ProductService {
 	public void delete(int id) {
 		boolean existsById = productRepository.existsById(id);
 		if (!existsById) {
-			throw new IllegalArgumentException("Invalid delete field id not exists.");
+			throw new IllegalArgumentException("Invalid deleteById field id not exists.");
 		}
 		productRepository.deleteById(id);
 
