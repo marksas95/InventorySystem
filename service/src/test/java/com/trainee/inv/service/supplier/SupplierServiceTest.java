@@ -85,14 +85,18 @@ public class SupplierServiceTest {
 	@Test
 	@Ignore
 	public void updateTest() {
-		Supplier updatedService = supplierService.update(7, "Worthwhile");
-		Assert.isTrue(updatedService.getName().equals("Worthwhile"));
+		
+		String name = "Worthwhile";
+		int id = 7;
+		Supplier oldSupplier = supplierService.findById(id);
+		Supplier updatedService = supplierService.update(id, name);
+		Assert.isTrue(updatedService.getName().equals(name));
 		System.out.println(updatedService);
 	}
 
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void supplierNameExistUpdateTest() {
 		try {
 			Supplier update = supplierService.update(7, "Worthwhile");
@@ -105,10 +109,9 @@ public class SupplierServiceTest {
 	@Test
 	@Ignore
 	public void deleteTest() {
-		supplierService.delete(1);
-		Assert.isNull(supplierService.findByName("holly"));
-
-		Assert.isNull(supplierService.findByName("Sexy"));
+		int id = 30;
+		supplierService.delete(id);
+		Assert.isNull(supplierService.findByName("Benchan"));
 		
 	}
 	
@@ -120,7 +123,7 @@ public class SupplierServiceTest {
 		try {
 			supplierService.delete(2);
 		} catch (IllegalArgumentException e) {
-			Assert.isTrue(e.getMessage().equals("cannot find id"));
+			Assert.isTrue(e.getMessage().equals("Invalid operation, ID does not exist!"));
 		}
 		
 	}

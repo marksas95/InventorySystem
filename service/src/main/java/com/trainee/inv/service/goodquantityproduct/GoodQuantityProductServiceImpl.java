@@ -52,6 +52,7 @@ class GoodQuantityProductServiceImpl implements GoodQuantityProductService {
 	}
 
 	@Override
+
 	public void deleteById(int id) {
 		goodQuantityRepository.deleteById(id);
 	}

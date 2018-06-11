@@ -55,7 +55,7 @@ public class SupplierServiceImpl implements SupplierService {
 	public void delete(int id) {
 		boolean existsById = supplierRepository.existsById(id);
 		if (!existsById) {
-			throw new IllegalArgumentException("cannot find id");
+			throw new IllegalArgumentException("Invalid operation, ID does not exist!");
 		}
 		supplierRepository.deleteById(id);
 	}

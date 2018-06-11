@@ -23,21 +23,25 @@ public class ProductServiceImpl implements ProductService {
 		boolean existsById = productRepository.existsById(product.getId());
 		boolean existsByItemCode = productRepository.existsByItemCode(product.getItemCode());
 		boolean existsBySerialNumber = productRepository.existsBySerialNumber(product.getSerialNumber());
-		if (existsById) {
-			throw new IllegalArgumentException("Invalid field id");
-		} else if (existsByItemCode) {
-			throw new IllegalArgumentException("Invalid field, ItemCode already exists.");
-		} else if (existsBySerialNumber) {
-			throw new IllegalArgumentException("Invalid field, SerialNumer already exists.");
-		}
+		checkIfIdExists(existsById, existsByItemCode, existsBySerialNumber);
 		return productRepository.save(product);
+	}
+
+	private void checkIfIdExists(boolean existsById, boolean existsByItemCode, boolean existsBySerialNumber) {
+		if (existsById) {
+			throw new IllegalArgumentException("Invalid ID");
+		} else if (existsByItemCode) {
+			throw new IllegalArgumentException("Invalid operation, ItemCode already exists.");
+		} else if (existsBySerialNumber) {
+			throw new IllegalArgumentException("Invalid operation, Serial Number already exists.");
+		}
 	}
 
 	@Override
 	public Product update(Product product) {
 		boolean existsById = productRepository.existsById(product.getId());
 		if (!existsById) {
-			throw new IllegalArgumentException("Invalid update field id not exists.");
+			throw new IllegalArgumentException("Invalid operation, ID does not exists.");
 		}
 		return productRepository.save(product);
 	}
@@ -131,7 +135,7 @@ public class ProductServiceImpl implements ProductService {
 	public void delete(int id) {
 		boolean existsById = productRepository.existsById(id);
 		if (!existsById) {
-			throw new IllegalArgumentException("Invalid deleteById field id not exists.");
+			throw new IllegalArgumentException("Invalid operation, ID does not exists!");
 		}
 		productRepository.deleteById(id);
 
@@ -158,7 +162,6 @@ public class ProductServiceImpl implements ProductService {
 
 			@Override
 			public int compare(Product o, Product n) {
-				// TODO Auto-generated method stub
 				return o.getItemCode().compareTo(n.getItemCode());
 			}
 		});
