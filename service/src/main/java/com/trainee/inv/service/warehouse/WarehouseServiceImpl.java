@@ -20,8 +20,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 
 	@Override
 	public Warehouse create(Warehouse warehouse) {
-		boolean existsByName = warehouseRepository.existsByName(warehouse.getName());
-		if (existsByName) {
+		if (warehouseRepository.existsByName(warehouse.getName())) {
 			throw new IllegalArgumentException("Warehouse Name Already Exist.");
 		}
 		return warehouseRepository.save(warehouse);
@@ -29,15 +28,10 @@ public class WarehouseServiceImpl implements WarehouseService {
 
 	@Override
 	public Warehouse update(Warehouse warehouse) {
-//		boolean existsByName = warehouseRepository.existsByName(warehouse.getName());
-//		boolean existsByAddress = warehouseRepository.existsByAddress(warehouse.getAddress());
-//		boolean existsByDescription = warehouseRepository.existsByDescription(warehouse.getDescription());
-		boolean existsById = warehouseRepository.existsById(warehouse.getId());
-//		if (existsByName&existsByAddress&existsByDescription) {
-//			throw new IllegalArgumentException("Warehouse Already added.");
-//		} else
-		if (!existsById) {
-			throw new IllegalArgumentException("Id must be in database.");
+		if (warehouseRepository.existsByName(warehouse.getName())) {
+			if (warehouseRepository.findByName(warehouse.getName()).getId() != warehouse.getId()) {
+				throw new IllegalArgumentException("Warehouse Name Already Exist.");
+			}
 		}
 		return warehouseRepository.save(warehouse);
 	}

@@ -2,25 +2,23 @@ package com.trainee.inv.repository.reconcileproduct;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import org.springframework.data.annotation.CreatedDate;
 
 import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
 import com.trainee.inv.repository.warehouse.Warehouse;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class ReconcileProduct {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	@CreatedDate
-	private Date createdDate;
+	private long createdDate;
 
 	@ManyToOne
 	private GoodQuantityProduct goodQuantityProduct;
@@ -48,11 +46,11 @@ public class ReconcileProduct {
 		this.id = id;
 	}
 
-	public Date getCreatedDate() {
+	public long getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(long createdDate) {
 		this.createdDate = createdDate;
 	}
 

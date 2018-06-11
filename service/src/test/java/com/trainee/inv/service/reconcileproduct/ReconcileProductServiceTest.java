@@ -5,6 +5,7 @@ import com.trainee.inv.repository.reconcileproduct.ReconcileProduct;
 import com.trainee.inv.repository.warehouse.Warehouse;
 import com.trainee.inv.service.goodquantityproduct.GoodQuantityProductService;
 import com.trainee.inv.service.warehouse.WarehouseService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,7 @@ public class ReconcileProductServiceTest {
     }
 
     @Test
+    @Ignore
     public void update() {
         int id = 24;
         int physicalCount = 20;
@@ -65,6 +67,7 @@ public class ReconcileProductServiceTest {
     }
 
     @Test
+    @Ignore
     public void deleteById() {
         int id = 24;
         reconcileProductService.deleteById(id);
@@ -72,6 +75,7 @@ public class ReconcileProductServiceTest {
     }
 
     @Test
+    @Ignore
     public void findById() {
         int id = 24;
         ReconcileProduct reconcileProduct = reconcileProductService.findById(id);
@@ -79,12 +83,14 @@ public class ReconcileProductServiceTest {
     }
 
     @Test
+    @Ignore
     public void findAll() {
         List<ReconcileProduct> reconcileProducts = reconcileProductService.findAll();
         Assert.notNull(reconcileProducts);
     }
 
     @Test
+    @Ignore
     public void findByGoodQuantityProductId() {
         int id = 25;
         List<ReconcileProduct> reconcileProducts = reconcileProductService.findByGoodQuantityProductId(id);
@@ -92,6 +98,7 @@ public class ReconcileProductServiceTest {
     }
 
     @Test
+    @Ignore
     public void findByWarehouseId() {
         int id = 10;
         List<ReconcileProduct> reconcileProducts = reconcileProductService.findByWarehouseId(id);
