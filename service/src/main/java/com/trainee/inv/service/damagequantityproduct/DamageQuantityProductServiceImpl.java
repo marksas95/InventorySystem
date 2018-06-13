@@ -27,22 +27,19 @@ public class DamageQuantityProductServiceImpl implements DamageQuantityProductSe
 
 	@Override
 	public DamageQuantityProduct updateQuantity(int damageQuantityProductId, int quantity) {
-		Optional<DamageQuantityProduct> optional = damageQuantityRepository.findById(damageQuantityProductId);
-		DamageQuantityProduct damageQuantityProduct = optional.get();
-		damageQuantityProduct.setQuantity(quantity);
-		return damageQuantityRepository.save(damageQuantityProduct);
+		Optional<DamageQuantityProduct> damageQuantityProduct = damageQuantityRepository.findById(damageQuantityProductId);
+		damageQuantityProduct.get().setQuantity(quantity);
+		return damageQuantityRepository.save(damageQuantityProduct.get());
 	}
 
 	@Override
 	public List<DamageQuantityProduct> findByProductId(int id) {
-		
 		return damageQuantityRepository.findByProductId(id);
 	}
 
 	@Override
 	public DamageQuantityProduct findById(int id) {
-		Optional<DamageQuantityProduct> findById = damageQuantityRepository.findById(id);
-		return findById.get();
+		return damageQuantityRepository.findById(id).get();
 	}
 
 

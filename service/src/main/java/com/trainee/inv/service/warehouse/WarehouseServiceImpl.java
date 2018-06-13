@@ -3,6 +3,7 @@ package com.trainee.inv.service.warehouse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,13 +21,18 @@ public class WarehouseServiceImpl implements WarehouseService {
 
 	@Override
 	public Warehouse create(Warehouse warehouse) {
-		if (warehouseRepository.existsByName(warehouse.getName())) {
-			throw new IllegalArgumentException("Warehouse Name Already Exist.");
-		}
+		checkIfNameExists(warehouse);
 		return warehouseRepository.save(warehouse);
 	}
 
+	private void checkIfNameExists(Warehouse warehouse) {
+		if (warehouseRepository.existsByName(warehouse.getName())) {
+			throw new IllegalArgumentException("Warehouse Name Already Exist.");
+		}
+	}
+
 	@Override
+	//to be edit
 	public Warehouse update(Warehouse warehouse) {
 		if (warehouseRepository.existsByName(warehouse.getName())) {
 			if (warehouseRepository.findByName(warehouse.getName()).getId() != warehouse.getId()) {
@@ -38,8 +44,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 
 	@Override
 	public Warehouse findByName(String name) {
-		Warehouse warehouse = warehouseRepository.findByName(name);
-		return warehouse != null ? warehouse : null;
+		return warehouseRepository.findByName(name);
 	}
 
 	@Override
@@ -55,45 +60,39 @@ public class WarehouseServiceImpl implements WarehouseService {
 
 	@Override
 	public Warehouse findById(int id) {
-		Optional<Warehouse> optionalWarehouse = warehouseRepository.findById(id);
-		Warehouse warehouse = optionalWarehouse.get();
-		return warehouse != null ? warehouse : null;
+		return warehouseRepository.findById(id).get();
+
 	}
 
 	@Override
 	public List<Warehouse> searchByName(String name, boolean isActive) {
-		List<Warehouse> list = findByIsActive(isActive);
-		List<Warehouse> returnList = null;
-		returnList = findingAllWarehousesByName(name, list, returnList);
-		return returnList;
+		List<Warehouse> warehouses = findByIsActive(isActive);
+		return findingAllWarehousesByName(name, warehouses);
+
 	}
 
-	private List<Warehouse> findingAllWarehousesByName(String name, List<Warehouse> list, List<Warehouse> returnList) {
-		for (Warehouse o : list) {
-			if (o.getDescription().contains(name)) {
-				if (returnList == null) {
-					returnList = new ArrayList<Warehouse>();
-				}
-				returnList.add(o);
-			}
-		}
-		return returnList;
+	private List<Warehouse> findingAllWarehousesByName(String name, List<Warehouse> warehouses) {
+		return warehouses.stream().filter(o -> o.getName().contains(name)).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<Warehouse> searchByAddress(String address, boolean isActive) {
 		List<Warehouse> list = findByIsActive(isActive);
-		List<Warehouse> returnList = null;
-		returnList = findingAllWarehousesByName(address, list, returnList);
-		return returnList;
+		return findingAllWarehousesByAddress(address, list);
+	}
+
+	private List<Warehouse> findingAllWarehousesByAddress(String address, List<Warehouse> warehouses) {
+		return warehouses.stream().filter(o -> o.getAddress().contains(address)).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<Warehouse> searchByDescription(String description, boolean isActive) {
-		List<Warehouse> list = findByIsActive(isActive);
-		List<Warehouse> returnList = null;
-		returnList = findingAllWarehousesByName(description, list, returnList);
-		return returnList;
+		List<Warehouse> warehouses = findByIsActive(isActive);
+		return findingAllWarehousesByDescription(description, warehouses);
+	}
+
+	private List<Warehouse> findingAllWarehousesByDescription(String description, List<Warehouse> warehouses) {
+		return warehouses.stream().filter(o -> o.getAddress().contains(description)).collect(Collectors.toList());
 	}
 
 	@Override

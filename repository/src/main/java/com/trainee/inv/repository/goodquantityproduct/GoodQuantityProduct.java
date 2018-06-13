@@ -20,7 +20,6 @@ public class GoodQuantityProduct {
 	private int id;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-//	@Fetch(value = FetchMode.SUBSELECT)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Product product;
 	private int quantity;

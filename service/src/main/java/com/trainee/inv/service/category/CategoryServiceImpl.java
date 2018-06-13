@@ -17,28 +17,28 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public Category create(String name) {
-		boolean existsByName = categoryRepository.existsByName(name);
-		if (existsByName) {
-			throw new IllegalArgumentException("Category Name Already Exists.");
-		}
+		checkIfNameExists(name);
 		Category category = new Category();
 		category.setName(name);
 		return categoryRepository.save(category);
 
 	}
 
-	@Override
-	public Category findByName(String name) {
-		Category category = categoryRepository.findByName(name);
-		return category != null ? category : null;
+	private void checkIfNameExists(String name) {
+		if (categoryRepository.existsByName(name)) {
+			throw new IllegalArgumentException("Category Name Already Exists.");
+		}
 	}
 
 	@Override
+	public Category findByName(String name) {
+		return categoryRepository.findByName(name);
+	}
+
+	@Override
+	//to be edit
 	public Category update(int id, String name) {
-		boolean existsById = categoryRepository.existsById(id);
-		if (!existsById) {
-			throw new IllegalArgumentException("Id must be in database.");
-		} else if(categoryRepository.existsByName(name)) {
+		if(categoryRepository.existsByName(name)) {
 			throw new IllegalArgumentException("Category Name Already Exists.");
 		}
 		Optional<Category> optionalCategory = categoryRepository.findById(id);
@@ -49,10 +49,6 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public void delete(int id) {
-		boolean existsById = categoryRepository.existsById(id);
-		if (!existsById) {
-			throw new IllegalArgumentException("No id in that category.");
-		}
 		categoryRepository.deleteById(id);
 	}
 
@@ -63,7 +59,6 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	public Category findById(int id) {
-		Optional<Category> optionalCategory = categoryRepository.findById(id);
-		return optionalCategory.get();
+		return categoryRepository.findById(id).get();
 	}
 }

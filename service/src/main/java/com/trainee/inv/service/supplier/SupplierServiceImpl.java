@@ -12,58 +12,53 @@ import com.trainee.inv.repository.supplier.SupplierRepository;
 
 @Service
 public class SupplierServiceImpl implements SupplierService {
-	@Autowired
-	private SupplierRepository supplierRepository;
+    @Autowired
+    private SupplierRepository supplierRepository;
 
-	@Override
-	public Supplier update(int id, String name) {
-		boolean existsById = supplierRepository.existsById(id);
-		if (!existsById) {
-			throw new IllegalArgumentException("Id must be in database");
-		}  else if (supplierRepository.existsByName(name)){
-			throw new IllegalArgumentException("Supplier Name Already Exists");
-		}
-		Optional<Supplier> optionalSupplier = supplierRepository.findById(id);
-		Supplier supplier = optionalSupplier.get();
-		supplier.setName(name);
-		return supplierRepository.save(supplier);
-	}
+    @Override
+    //to be edit
+    public Supplier update(int id, String name) {
+        if (supplierRepository.existsByName(name)) {
+            throw new IllegalArgumentException("Supplier Name Already Exists");
+        }
+        Optional<Supplier> optionalSupplier = supplierRepository.findById(id);
+        Supplier supplier = optionalSupplier.get();
+        supplier.setName(name);
+        return supplierRepository.save(supplier);
+    }
 
-	@Override
-	public Supplier create(String name) {
-		boolean existsByName = supplierRepository.existsByName(name);
-		if (existsByName) {
-			throw new IllegalArgumentException("Supplier Name Already Exist");
-		}
-		Supplier supplier = new Supplier();
-		supplier.setName(name);
-		return supplierRepository.save(supplier);
-	}
+    @Override
+    public Supplier create(String name) {
+        checkIfNameExists(name);
+        Supplier supplier = new Supplier();
+        supplier.setName(name);
+        return supplierRepository.save(supplier);
+    }
 
-	@Override
-	public Supplier findByName(String name) {
-		Supplier supplier = supplierRepository.findByName(name);
-		return supplier != null ? supplier : null;
-	}
+    private void checkIfNameExists(String name) {
+        if (supplierRepository.existsByName(name)) {
+            throw new IllegalArgumentException("Supplier Name Already Exist");
+        }
+    }
 
-	@Override
-	public List<Supplier> findAll() {
-		return supplierRepository.findAll();
-	}
+    @Override
+    public Supplier findByName(String name) {
+        return supplierRepository.findByName(name);
+    }
 
-	@Override
-	public void delete(int id) {
-		boolean existsById = supplierRepository.existsById(id);
-		if (!existsById) {
-			throw new IllegalArgumentException("Invalid operation, ID does not exist!");
-		}
-		supplierRepository.deleteById(id);
-	}
+    @Override
+    public List<Supplier> findAll() {
+        return supplierRepository.findAll();
+    }
 
-	@Override
-	public Supplier findById(int id) {
-		Optional<Supplier> optional = supplierRepository.findById(id);
-		return optional.get();
-	}
+    @Override
+    public void delete(int id) {
+        supplierRepository.deleteById(id);
+    }
+
+    @Override
+    public Supplier findById(int id) {
+        return supplierRepository.findById(id).get();
+    }
 
 }

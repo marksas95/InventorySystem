@@ -35,9 +35,9 @@ class GoodQuantityProductServiceImpl implements GoodQuantityProductService {
 
 	@Override
 	public GoodQuantityProduct updateQuantity(int goodQuantityProductId, int quantity) {
-		GoodQuantityProduct goodQuantityProduct = findById(goodQuantityProductId);
-		goodQuantityProduct.setQuantity(quantity);
-		return goodQuantityRepository.save(goodQuantityProduct);
+		Optional<GoodQuantityProduct> goodQuantityProduct = goodQuantityRepository.findById(goodQuantityProductId);
+		goodQuantityProduct.get().setQuantity(quantity);
+		return goodQuantityRepository.save(goodQuantityProduct.get());
 	}
 
 	@Override
@@ -47,8 +47,7 @@ class GoodQuantityProductServiceImpl implements GoodQuantityProductService {
 
 	@Override
 	public GoodQuantityProduct findById(int id) {
-		Optional<GoodQuantityProduct> optional = goodQuantityRepository.findById(id);
-		return optional.get();
+		return goodQuantityRepository.findById(id).get();
 	}
 
 	@Override

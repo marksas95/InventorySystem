@@ -32,8 +32,7 @@ public class ReconcileProductServiceImpl implements ReconcileProductService {
 
 	@Override
 	public ReconcileProduct findById(int id) {
-		Optional<ReconcileProduct> optional = reconcileProductRepository.findById(id);
-		return optional.get();
+		return reconcileProductRepository.findById(id).get();
 	}
 
 	@Override

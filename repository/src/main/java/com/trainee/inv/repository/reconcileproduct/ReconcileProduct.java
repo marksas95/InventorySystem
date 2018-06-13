@@ -1,6 +1,5 @@
 package com.trainee.inv.repository.reconcileproduct;
 
-import java.util.Date;
 
 import javax.persistence.*;
 
@@ -13,106 +12,107 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class ReconcileProduct {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
 
-	@CreatedDate
-	private long createdDate;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-	@ManyToOne
-	private GoodQuantityProduct goodQuantityProduct;
+    @CreatedDate
+    private long createdDate;
 
-	@ManyToOne
-	private Warehouse warehouse;
+    @ManyToOne
+    private GoodQuantityProduct goodQuantityProduct;
 
-	private String remarks;
-	private int physicalCount;
-	private int systemCount;
+    @ManyToOne
+    private Warehouse warehouse;
 
-	public String getRemarks() {
-		return remarks;
-	}
+    private String remarks;
+    private int physicalCount;
+    private int systemCount;
 
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
+    public String getRemarks() {
+        return remarks;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public long getCreatedDate() {
-		return createdDate;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setCreatedDate(long createdDate) {
-		this.createdDate = createdDate;
-	}
+    public long getCreatedDate() {
+        return createdDate;
+    }
 
-	public GoodQuantityProduct getGoodQuantityProduct() {
-		return goodQuantityProduct;
-	}
+    public void setCreatedDate(long createdDate) {
+        this.createdDate = createdDate;
+    }
 
-	public void setGoodQuantityProduct(GoodQuantityProduct goodQuantityProduct) {
-		this.goodQuantityProduct = goodQuantityProduct;
-	}
+    public GoodQuantityProduct getGoodQuantityProduct() {
+        return goodQuantityProduct;
+    }
 
-	public int getPhysicalCount() {
-		return physicalCount;
-	}
+    public void setGoodQuantityProduct(GoodQuantityProduct goodQuantityProduct) {
+        this.goodQuantityProduct = goodQuantityProduct;
+    }
 
-	public void setPhysicalCount(int physicalCount) {
-		this.physicalCount = physicalCount;
-	}
+    public int getPhysicalCount() {
+        return physicalCount;
+    }
 
-	public int getSystemCount() {
-		return systemCount;
-	}
+    public void setPhysicalCount(int physicalCount) {
+        this.physicalCount = physicalCount;
+    }
 
-	public void setSystemCount(int systemCount) {
-		this.systemCount = systemCount;
-	}
+    public int getSystemCount() {
+        return systemCount;
+    }
 
-	public Warehouse getWarehouse() {
-		return warehouse;
-	}
+    public void setSystemCount(int systemCount) {
+        this.systemCount = systemCount;
+    }
 
-	public void setWarehouse(Warehouse warehouse) {
-		this.warehouse = warehouse;
-	}
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
-	}
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ReconcileProduct other = (ReconcileProduct) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id;
+        return result;
+    }
 
-	@Override
-	public String toString() {
-		return "ReconcileProduct [id=" + id + ", creationDate=" + createdDate + ", goodQuantityProduct="
-				+ goodQuantityProduct + ", physicalCount=" + physicalCount + ", systemCount=" + systemCount
-				+ ", warehouse=" + warehouse + ", remarks=" + remarks + "]";
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ReconcileProduct other = (ReconcileProduct) obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ReconcileProduct [id=" + id + ", creationDate=" + createdDate + ", goodQuantityProduct="
+                + goodQuantityProduct + ", physicalCount=" + physicalCount + ", systemCount=" + systemCount
+                + ", warehouse=" + warehouse + ", remarks=" + remarks + "]";
+    }
 
 }
