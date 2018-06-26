@@ -1,17 +1,16 @@
 package com.trainee.inv.repository.product;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.*;
 
 import com.trainee.inv.repository.category.Category;
+import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
 import com.trainee.inv.repository.supplier.Supplier;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import java.util.List;
 
 @Entity
 public class Product{
@@ -29,7 +28,19 @@ public class Product{
 	private int minimumStocks;
 	private boolean isVatable;
 
+//	@OneToMany(fetch=FetchType.LAZY,cascade = {CascadeType.MERGE,CascadeType.DETACH, CascadeType.REMOVE},orphanRemoval = true,mappedBy = "id")
+//	private List<GoodQuantityProduct> goodQuantityProduct;
+//
+//	public List<GoodQuantityProduct> getGoodQuantityProduct() {
+//		return goodQuantityProduct;
+//	}
+//
+//	public void setGoodQuantityProduct(List<GoodQuantityProduct> goodQuantityProduct) {
+//		this.goodQuantityProduct = goodQuantityProduct;
+//	}
+
 	@ManyToOne
+
 	private Category category;
 
 	@ManyToOne

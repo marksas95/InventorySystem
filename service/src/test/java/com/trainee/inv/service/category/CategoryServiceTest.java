@@ -61,7 +61,7 @@ public class CategoryServiceTest {
 	}
 
 	@Test
-//	@Ignore
+	@Ignore
 	public void updateTest() {
 		String name = "Shirt";
 		int id = 5;

@@ -1,9 +1,9 @@
 package com.trainee.inv.repository.warehouse;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
+import com.trainee.inv.repository.damagequantityproduct.DamageQuantityProduct;
+import com.trainee.inv.repository.damagequantityproduct.DamageQuantityProductRepository;
+import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
+import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProductRepository;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,10 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.trainee.inv.repository.damagequantityproduct.DamageQuantityProduct;
-import com.trainee.inv.repository.damagequantityproduct.DamageQuantityProductRepository;
-import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
-import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProductRepository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -51,7 +50,7 @@ public class WarehouseRepositoryTest {
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void updateTest() {
 		Optional<Warehouse> warehouseOptional = warehouseRepository.findById(13);
 		Warehouse warehouse = warehouseOptional.get();
@@ -61,5 +60,11 @@ public class WarehouseRepositoryTest {
 		DamageQuantityProduct damageQuantityProduct = optional.get();
 		damageQuantityProducts.add(damageQuantityProduct);
 		warehouseRepository.save(warehouse);
+	}
+
+	@Test
+	public void findByGoodQuantityProductIdTest(){
+		System.out.println(warehouseRepository.findByGoodQuantityProductsId(104));
+
 	}
 }

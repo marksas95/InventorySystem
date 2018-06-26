@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
 import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProductRepository;
 import com.trainee.inv.repository.product.Product;
-import com.trainee.inv.repository.warehouse.Warehouse;
 
 @Service
 class GoodQuantityProductServiceImpl implements GoodQuantityProductService {
@@ -42,7 +41,7 @@ class GoodQuantityProductServiceImpl implements GoodQuantityProductService {
 
 	@Override
 	public List<GoodQuantityProduct> findByProductId(int id) {
-		return goodQuantityRepository.findByProductId(id);
+		return goodQuantityRepository.findAllByProductId(id);
 	}
 
 	@Override

@@ -23,206 +23,221 @@ import com.trainee.inv.service.warehouse.WarehouseService;
 @SpringBootTest
 public class StockQuantityServiceTest {
 
-	@Autowired
-	private StockQuantityService stockQuantityServiceForm;
-	@Autowired
-	private WarehouseService warehouseService;
-	@Autowired
-	private ReconcileProductService reconcileProductService;
+    @Autowired
+    private StockQuantityService stockQuantityServiceForm;
+    @Autowired
+    private WarehouseService warehouseService;
+    @Autowired
+    private ReconcileProductService reconcileProductService;
 
-	@Test
+    @Test
+	@Ignore
+    public void stockInGoodQuantityTest() {
+
+        int warehouseId = 13;
+        int productId = 80;
+        int quantity = 10;
+
+        int initialGoodQuantityOfWarehouse = getGoodQuantityOfWarehouse(warehouseId, productId);
+        stockQuantityServiceForm.stockInGoodQuantityProduct(warehouseId, productId, quantity);
+        int finalGoodQuantityOfWarehouse = getGoodQuantityOfWarehouse(warehouseId, productId);
+
+        Assert.isTrue((initialGoodQuantityOfWarehouse + quantity) == finalGoodQuantityOfWarehouse);
+    }
+
+    @Test
 //	@Ignore
-	public void stockInGoodQuantityTest() {
+    public void stockInGoodQuantityWithNoInitialQuantityTest() {
 
-		int warehouseId = 14;
-		int productId = 4;
-		int quantity = 500;
+        int warehouseId = 14;
+        int productId = 71;
+        int quantity = 10;
 
-		int initialGoodQuantityOfWarehouse = getGoodQuantityOfWarehouse(warehouseId, productId);
-		stockQuantityServiceForm.stockInGoodQuantityProduct(warehouseId, productId, quantity);
-		int finalGoodQuantityOfWarehouse = getGoodQuantityOfWarehouse(warehouseId, productId);
+        stockQuantityServiceForm.stockInGoodQuantityProduct(warehouseId, productId, quantity);
+        int finalGoodQuantityOfWarehouse = getGoodQuantityOfWarehouse(warehouseId, productId);
 
-		Assert.isTrue((initialGoodQuantityOfWarehouse + quantity) == finalGoodQuantityOfWarehouse);
-	}
+        Assert.isTrue(quantity == finalGoodQuantityOfWarehouse);
+    }
 
-	@Test
-	@Ignore
-	public void stockOutGoodQuantityTest() {
+    @Test
+    @Ignore
+    public void stockOutGoodQuantityTest() {
 
-		int warehouseId = 14;
-		int productId = 4;
-		int quantity = 500;
+        int warehouseId = 14;
+        int productId = 4;
+        int quantity = 10;
 
-		int initialGoodQuantityOfWarehouse = getGoodQuantityOfWarehouse(warehouseId, productId);
-		stockQuantityServiceForm.stockOutGoodQuantityProduct(warehouseId, productId, quantity);
-		int finalGoodQuantityOfWarehouse = getGoodQuantityOfWarehouse(warehouseId, productId);
-		Assert.isTrue((initialGoodQuantityOfWarehouse - quantity) == finalGoodQuantityOfWarehouse);
-	}
+        int initialGoodQuantityOfWarehouse = getGoodQuantityOfWarehouse(warehouseId, productId);
+        stockQuantityServiceForm.stockOutGoodQuantityProduct(warehouseId, productId, quantity);
+        int finalGoodQuantityOfWarehouse = getGoodQuantityOfWarehouse(warehouseId, productId);
+        Assert.isTrue((initialGoodQuantityOfWarehouse - quantity) == finalGoodQuantityOfWarehouse);
+    }
 
-	private int getGoodQuantityOfWarehouse(int warehouseId, int productId) {
-		Warehouse warehouse1 = warehouseService.findById(warehouseId);
-		Optional<GoodQuantityProduct> optional1 = warehouse1.getGoodQuantityProducts().stream()
-				.filter(w -> w.getProduct().getId() == productId).findFirst();
-		return optional1.get().getQuantity();
-	}
+    private int getGoodQuantityOfWarehouse(int warehouseId, int productId) {
+        Warehouse warehouse1 = warehouseService.findById(warehouseId);
+        Optional<GoodQuantityProduct> optiona1 = warehouse1.getGoodQuantityProducts().stream()
+                .filter(w -> w.getProduct().getId() == productId).findFirst();
 
-	@Test
-	@Ignore
-	public void stockOutTestWithInvalidQuantityGreaterThanPresentQuantity() {
+        return optiona1.get().getQuantity();
+    }
 
-		int warehouseId = 14;
-		int productId = 4;
-		int quantity = 50000;
+    @Test
+    @Ignore
+    public void stockOutTestWithInvalidQuantityGreaterThanPresentQuantity() {
 
-		try {
-			stockQuantityServiceForm.stockOutGoodQuantityProduct(warehouseId, productId, quantity);
-		} catch (IllegalArgumentException e) {
-			Assert.isTrue(e.getMessage().equals("Stock out quantity is greater than the available number of items"));
-		}
+        int warehouseId = 14;
+        int productId = 4;
+        int quantity = 50000;
 
-	}
+        try {
+            stockQuantityServiceForm.stockOutGoodQuantityProduct(warehouseId, productId, quantity);
+        } catch (IllegalArgumentException e) {
+            Assert.isTrue(e.getMessage().equals("Stock out quantity is greater than the available number of items"));
+        }
 
-	@Test
-	@Ignore
-	public void transferStockTest() {
+    }
 
-		int warehouseIdFrom = 13;
-		int warehouseIdTo = 14;
-		int productId = 4;
-		int quantity = 50;
+    @Test
+    @Ignore
+    public void transferStockTest() {
 
-		int initialQuantityFrom = getGoodQuantityOfWarehouse(warehouseIdFrom, productId);
-		int initialQuantityTo = getGoodQuantityOfWarehouse(warehouseIdTo, productId);
+        int warehouseIdFrom = 13;
+        int warehouseIdTo = 14;
+        int productId = 4;
+        int quantity = 50;
 
-		stockQuantityServiceForm.transferStocks(warehouseIdFrom, warehouseIdTo, productId, quantity);
+        int initialQuantityFrom = getGoodQuantityOfWarehouse(warehouseIdFrom, productId);
+        int initialQuantityTo = getGoodQuantityOfWarehouse(warehouseIdTo, productId);
 
-		int finalQuantityFrom = getGoodQuantityOfWarehouse(warehouseIdFrom, productId);
-		int finalQuantityTo = getGoodQuantityOfWarehouse(warehouseIdTo, productId);
+        stockQuantityServiceForm.transferStocks(warehouseIdFrom, warehouseIdTo, productId, quantity);
 
-		Assert.isTrue((initialQuantityFrom - quantity) == finalQuantityFrom);
-		Assert.isTrue((initialQuantityTo + quantity) == finalQuantityTo);
-	}
+        int finalQuantityFrom = getGoodQuantityOfWarehouse(warehouseIdFrom, productId);
+        int finalQuantityTo = getGoodQuantityOfWarehouse(warehouseIdTo, productId);
 
-	@Test
-	@Ignore
-	public void transferStockTestWithGreaterAmountOfQuantityToTransfer() {
+        Assert.isTrue((initialQuantityFrom - quantity) == finalQuantityFrom);
+        Assert.isTrue((initialQuantityTo + quantity) == finalQuantityTo);
+    }
 
-		int warehouseIdFrom = 13;
-		int warehouseIdTo = 14;
-		int productId = 4;
-		int quantity = 5000000;
+    @Test
+    @Ignore
+    public void transferStockTestWithGreaterAmountOfQuantityToTransfer() {
 
-		try {
-			stockQuantityServiceForm.transferStocks(warehouseIdFrom, warehouseIdTo, productId, quantity);
-		} catch (IllegalArgumentException e) {
-			Assert.isTrue(e.getMessage().equals("Stock out quantity is greater than the available number of items"));
-		}
+        int warehouseIdFrom = 13;
+        int warehouseIdTo = 14;
+        int productId = 4;
+        int quantity = 5000000;
 
-	}
+        try {
+            stockQuantityServiceForm.transferStocks(warehouseIdFrom, warehouseIdTo, productId, quantity);
+        } catch (IllegalArgumentException e) {
+            Assert.isTrue(e.getMessage().equals("Stock out quantity is greater than the available number of items"));
+        }
 
-	@Test
-	@Ignore
-	public void stockInDamageQuantityProduct() {
+    }
 
-		int warehouseIdFrom = 13;
-		int warehouseIdTo = 14;
-		int productId = 4;
-		int quantity = 60;
+    @Test
+    @Ignore
+    public void stockInDamageQuantityProduct() {
 
-		int initialGoodQuantityOfWarehouseFrom = getGoodQuantityOfWarehouse(warehouseIdFrom, productId);
-		int initialDamageQuantityOfWarehouseTo = getDamageQuantityOfWarehouse(warehouseIdTo, productId);
+        int warehouseIdFrom = 13;
+        int warehouseIdTo = 14;
+        int productId = 4;
+        int quantity = 60;
 
-		stockQuantityServiceForm.stockInDamageQuantityProduct(warehouseIdFrom, warehouseIdTo, productId, quantity);
+        int initialGoodQuantityOfWarehouseFrom = getGoodQuantityOfWarehouse(warehouseIdFrom, productId);
+        int initialDamageQuantityOfWarehouseTo = getDamageQuantityOfWarehouse(warehouseIdTo, productId);
 
-		int finalGoodQuantityOfWarehouseFrom = getGoodQuantityOfWarehouse(warehouseIdFrom, productId);
-		int finalDamageQuantityOfWarehouseTo = getDamageQuantityOfWarehouse(warehouseIdTo, productId);
+        stockQuantityServiceForm.stockInDamageQuantityProduct(warehouseIdFrom, warehouseIdTo, productId, quantity);
 
-		Assert.isTrue((initialGoodQuantityOfWarehouseFrom - quantity) == finalGoodQuantityOfWarehouseFrom);
-		Assert.isTrue((initialDamageQuantityOfWarehouseTo + quantity) == finalDamageQuantityOfWarehouseTo);
-	}
+        int finalGoodQuantityOfWarehouseFrom = getGoodQuantityOfWarehouse(warehouseIdFrom, productId);
+        int finalDamageQuantityOfWarehouseTo = getDamageQuantityOfWarehouse(warehouseIdTo, productId);
 
-	@Test
-	@Ignore
-	public void stockInDamageQuantityProductWithLargerAmountOfQuantityThanGoodStock() {
+        Assert.isTrue((initialGoodQuantityOfWarehouseFrom - quantity) == finalGoodQuantityOfWarehouseFrom);
+        Assert.isTrue((initialDamageQuantityOfWarehouseTo + quantity) == finalDamageQuantityOfWarehouseTo);
+    }
 
-		int warehouseIdFrom = 13;
-		int warehouseIdTo = 14;
-		int productId = 4;
-		int quantity = 100000;
+    @Test
+    @Ignore
+    public void stockInDamageQuantityProductWithLargerAmountOfQuantityThanGoodStock() {
 
-		try {
-			stockQuantityServiceForm.stockInDamageQuantityProduct(warehouseIdFrom, warehouseIdTo, productId, quantity);
-		} catch (IllegalArgumentException e) {
-			Assert.isTrue(e.getMessage().equals("Stock out quantity is greater than the available number of items"));
-		}
-	}
+        int warehouseIdFrom = 13;
+        int warehouseIdTo = 14;
+        int productId = 4;
+        int quantity = 100000;
 
-	private int getDamageQuantityOfWarehouse(int warehouseId, int productId) {
-		Warehouse warehouse1 = warehouseService.findById(warehouseId);
-		Optional<DamageQuantityProduct> optional1 = warehouse1.getDamageQuantityProducts().stream()
-				.filter(w -> w.getProduct().getId() == productId).findFirst();
-		return optional1.get().getQuantity();
-	}
+        try {
+            stockQuantityServiceForm.stockInDamageQuantityProduct(warehouseIdFrom, warehouseIdTo, productId, quantity);
+        } catch (IllegalArgumentException e) {
+            Assert.isTrue(e.getMessage().equals("Stock out quantity is greater than the available number of items"));
+        }
+    }
 
-	@Test
-	@Ignore
-	public void stockOutDamageQuantityProduct() {
+    private int getDamageQuantityOfWarehouse(int warehouseId, int productId) {
+        Warehouse warehouse1 = warehouseService.findById(warehouseId);
+        Optional<DamageQuantityProduct> optional1 = warehouse1.getDamageQuantityProducts().stream()
+                .filter(w -> w.getProduct().getId() == productId).findFirst();
+        return optional1.get().getQuantity();
+    }
 
-		int warehouseId = 14;
-		int productId = 4;
-		int quantity = 50;
+    @Test
+    @Ignore
+    public void stockOutDamageQuantityProduct() {
 
-		int initialDamageQuantityOfWarehouse = getDamageQuantityOfWarehouse(warehouseId, productId);
-		stockQuantityServiceForm.stockOutDamageQuantityProduct(warehouseId, productId, quantity);
-		int finalDamageQuantityOfWarehouseTo = getDamageQuantityOfWarehouse(warehouseId, productId);
+        int warehouseId = 14;
+        int productId = 4;
+        int quantity = 50;
 
-		Assert.isTrue((initialDamageQuantityOfWarehouse - quantity) == finalDamageQuantityOfWarehouseTo);
-	}
+        int initialDamageQuantityOfWarehouse = getDamageQuantityOfWarehouse(warehouseId, productId);
+        stockQuantityServiceForm.stockOutDamageQuantityProduct(warehouseId, productId, quantity);
+        int finalDamageQuantityOfWarehouseTo = getDamageQuantityOfWarehouse(warehouseId, productId);
 
-	@Test
-	 @Ignore
-	public void stockOutDamageQuantityProductWithGreaterAmountOfQuantityThatPresent() {
+        Assert.isTrue((initialDamageQuantityOfWarehouse - quantity) == finalDamageQuantityOfWarehouseTo);
+    }
 
-		int warehouseId = 14;
-		int productId = 4;
-		int quantity = 50000000;
-		try {
-			stockQuantityServiceForm.stockOutDamageQuantityProduct(warehouseId, productId, quantity);
-		} catch (IllegalArgumentException e) {
-			Assert.isTrue(e.getMessage().equals("Stock out quantity is greater than the available number of items"));
-		}
-	}
+    @Test
+    @Ignore
+    public void stockOutDamageQuantityProductWithGreaterAmountOfQuantityThatPresent() {
 
-	@Test
-//	@Ignore
-	public void reconcileProductTest() {
-		int warehouseId = 13;
-		int productId = 4;
-		int physicalQuantity = 120;
+        int warehouseId = 14;
+        int productId = 4;
+        int quantity = 50000000;
+        try {
+            stockQuantityServiceForm.stockOutDamageQuantityProduct(warehouseId, productId, quantity);
+        } catch (IllegalArgumentException e) {
+            Assert.isTrue(e.getMessage().equals("Stock out quantity is greater than the available number of items"));
+        }
+    }
 
-		int initialGoodQuantity = getGoodQuantityOfWarehouse(warehouseId, productId);
-		stockQuantityServiceForm.reconcileProduct(warehouseId, productId, physicalQuantity);
-		int finalGopodQuantity = getGoodQuantityOfWarehouse(warehouseId, productId);
-		int systemCount = getSystemCountOfReconcileProduct(warehouseId);
+    @Test
+    @Ignore
+    public void reconcileProductTest() {
+        int warehouseId = 13;
+        int productId = 4;
+        int physicalQuantity = 120;
 
-		Assert.isTrue(finalGopodQuantity == physicalQuantity);
-		Assert.isTrue(initialGoodQuantity == systemCount);
-	}
+        int initialGoodQuantity = getGoodQuantityOfWarehouse(warehouseId, productId);
+        stockQuantityServiceForm.reconcileProduct(warehouseId, productId, physicalQuantity);
+        int finalGopodQuantity = getGoodQuantityOfWarehouse(warehouseId, productId);
+        int systemCount = getSystemCountOfReconcileProduct(warehouseId);
 
-	private int getSystemCountOfReconcileProduct(int warehouseId) {
-		List<ReconcileProduct> reconciledProducts = reconcileProductService.findByWarehouseId(warehouseId);
-		int size = reconciledProducts.size();
-		ReconcileProduct reconcileProduct = reconciledProducts.get(size-1);
-		int systemCount = reconcileProduct.getSystemCount();
-		return systemCount;
-	}
+        Assert.isTrue(finalGopodQuantity == physicalQuantity);
+        Assert.isTrue(initialGoodQuantity == systemCount);
+    }
 
-	@Test
-	@Ignore
-	public void sortMinimumStockByDescription() {
-		List<GoodQuantityProduct> sortMinimumStockByProductDescription = stockQuantityServiceForm
-				.sortMinimumStockByProductDescription();
-		System.out.println(sortMinimumStockByProductDescription);
-	}
+    private int getSystemCountOfReconcileProduct(int warehouseId) {
+        List<ReconcileProduct> reconciledProducts = reconcileProductService.findByWarehouseId(warehouseId);
+        int size = reconciledProducts.size();
+        ReconcileProduct reconcileProduct = reconciledProducts.get(size - 1);
+        int systemCount = reconcileProduct.getSystemCount();
+        return systemCount;
+    }
+
+    @Test
+    @Ignore
+    public void sortMinimumStockByDescription() {
+        List<GoodQuantityProduct> sortMinimumStockByProductDescription = stockQuantityServiceForm
+                .sortMinimumStockByProductDescription();
+        System.out.println(sortMinimumStockByProductDescription);
+    }
 
 }

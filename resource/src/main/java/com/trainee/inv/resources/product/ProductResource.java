@@ -59,32 +59,29 @@ public class ProductResource {
 	}
 
 	@GetMapping("/findByName")
-	public Product findByName(@RequestParam(name = "name", required = true) String name) {
+	public Product findByName(@RequestParam(name = "name") String name) {
 		return productService.findByName(name);
 	}
 
 	@GetMapping("/findByIsActive")
-	public List<Product> findByisActive(@RequestParam(name = "isActive", required = true) boolean isActive) {
+	public List<Product> findByisActive(@RequestParam(name = "isActive") boolean isActive) {
 		return productService.findByIsActive(isActive);
 	}
 
 	@GetMapping("/searchByItemCode")
-	public List<Product> searchByItemCode(@RequestParam(name = "itemCode", required = true) String itemCode,
-			@RequestParam(required = true) boolean isActive) {
-		return productService.searchByItemCode(itemCode, isActive);
+	public List<Product> searchByItemCode(@RequestParam(name = "itemCode") String itemCode) {
+		return productService.searchByItemCode(itemCode);
 	}
 
 	@GetMapping("/searchByDescription")
-	public List<Product> searchByDescription(@RequestParam(name = "description", required = true) String description,
-			@RequestParam(required = true) boolean isActive) {
-		return productService.searchByDescription(description, isActive);
+	public List<Product> searchByDescription(@RequestParam(name = "description") String description) {
+		return productService.searchByDescription(description);
 	}
 
 	@GetMapping("/searchByUnitOfMeasurement")
 	public List<Product> unitOfMeasurement(
-			@RequestParam(name = "unitOfMeasurements", required = true) String unitOfMeasurement,
-			@RequestParam(required = true) boolean isActive) {
-		return productService.searchByUnitOfMeasurement(unitOfMeasurement, isActive);
+			@RequestParam(name = "unitOfMeasurement") String unitOfMeasurement) {
+		return productService.searchByUnitOfMeasurement(unitOfMeasurement);
 	}
 
 	

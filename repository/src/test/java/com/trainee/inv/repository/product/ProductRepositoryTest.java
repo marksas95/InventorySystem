@@ -57,7 +57,7 @@ public class ProductRepositoryTest {
 	@Test
 //	@Ignore
 	public void deleteProductTest() {
-		productRepository.deleteById(37);
+		productRepository.deleteById(7);
 	}
 	
 	@Test

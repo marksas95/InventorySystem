@@ -1,6 +1,7 @@
 package com.trainee.inv.service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.trainee.inv.repository.damagequantityproduct.DamageQuantityProduct;
 import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
 import com.trainee.inv.repository.product.Product;
-import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProductRepository;
 import com.trainee.inv.repository.reconcileproduct.ReconcileProduct;
 import com.trainee.inv.repository.warehouse.Warehouse;
 import com.trainee.inv.service.damagequantityproduct.DamageQuantityProductService;
@@ -37,7 +37,7 @@ public class StockQuantityServiceImpl implements StockQuantityService {
         Warehouse warehouse = checkIfWarehouseAndProductIstActive(warehouseId, productId);
         Optional<GoodQuantityProduct> goodQuantityProduct = getGoodQuantityProductOfProductInWarehouse(productId, warehouse);
         ifNotPresentCreateNewGoodQuantityProduct(productId, quantity, warehouse, goodQuantityProduct);
-        ifPresentAddQuantity(quantity, goodQuantityProduct);
+        ifPresentAddGoodQuantity(quantity, goodQuantityProduct);
     }
 
     private Optional<GoodQuantityProduct> getGoodQuantityProductOfProductInWarehouse(int productId, Warehouse warehouse) {
@@ -47,8 +47,8 @@ public class StockQuantityServiceImpl implements StockQuantityService {
                 .findFirst();
     }
 
-    private void ifPresentAddQuantity(int quantity, Optional<GoodQuantityProduct> goodQuantityProduct) {
-        goodQuantityProduct.ifPresent(o -> goodQuantityProductService.updateQuantity(o.getId(), o.getQuantity()+quantity));
+    private void ifPresentAddGoodQuantity(int quantity, Optional<GoodQuantityProduct> goodQuantityProduct) {
+        goodQuantityProduct.ifPresent(o -> goodQuantityProductService.updateQuantity(o.getId(), o.getQuantity() + quantity));
     }
 
     private void ifNotPresentCreateNewGoodQuantityProduct(int productId, int quantity, Warehouse warehouse, Optional<GoodQuantityProduct> goodQuantityProduct) {
@@ -73,9 +73,9 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 
     private void ifPresentSubtractQuantity(int quantity, Optional<GoodQuantityProduct> goodQuantityProduct) {
         goodQuantityProduct.ifPresent(o -> {
-                    checkIfQuantityIsValid(quantity,o.getQuantity());
-                    goodQuantityProductService.updateQuantity(o.getId(),o.getQuantity()-quantity);
-                });
+            checkIfQuantityIsValid(quantity, o.getQuantity());
+            goodQuantityProductService.updateQuantity(o.getId(), o.getQuantity() - quantity);
+        });
     }
 
     private void checkIfQuantityIsValid(int quantity, int initialQuantity) {
@@ -98,140 +98,100 @@ public class StockQuantityServiceImpl implements StockQuantityService {
 
     @Override
     public void transferStocks(int warehouseIdFrom, int warehouseIdTo, int productId, int quantity) {
-        stockOutFromWarehouse(warehouseIdFrom, productId, quantity);
-        stockInToWarehouse(warehouseIdTo, productId, quantity);
+        Warehouse warehouseFrom = checkIfWarehouseAndProductIstActive(warehouseIdFrom, productId);
+        stockOutFromWarehouse(productId, quantity, warehouseFrom);
+        Warehouse warehouseTo = checkIfWarehouseAndProductIstActive(warehouseIdTo, productId);
+        stockInToWarehouse(productId, quantity, warehouseTo);
+
     }
 
-    private void stockInToWarehouse(int warehouseIdTo, int productId, int quantity) {
-        Warehouse warehouseTo = checkIfWarehouseAndProductIstActive(warehouseIdTo, productId);
+    private void stockInToWarehouse(int productId, int quantity, Warehouse warehouseTo) {
         Optional<GoodQuantityProduct> goodQuantityProductTo = getGoodQuantityProductOfProductInWarehouse(productId, warehouseTo);
         ifNotPresentCreateNewGoodQuantityProduct(productId, quantity, warehouseTo, goodQuantityProductTo);
-        ifPresentAddQuantity(quantity, goodQuantityProductTo);
+        ifPresentAddGoodQuantity(quantity, goodQuantityProductTo);
     }
 
-    private void stockOutFromWarehouse(int warehouseIdFrom, int productId, int quantity) {
-        Warehouse warehouseFrom = checkIfWarehouseAndProductIstActive(warehouseIdFrom, productId);
+    private void stockOutFromWarehouse(int productId, int quantity, Warehouse warehouseFrom) {
         Optional<GoodQuantityProduct> goodQuantityProductFrom = getGoodQuantityProductOfProductInWarehouse(productId, warehouseFrom);
         ifPresentSubtractQuantity(quantity, goodQuantityProductFrom);
         ifNotPresentThrowIllegalArgumentException(goodQuantityProductFrom);
     }
 
+
     //for change
     @Override
-    public void reconcileProduct(int warehouseId, int ProductId, int physicalQuantity) {
+    public void reconcileProduct(int warehouseId, int productId, int physicalQuantity) {
         Warehouse warehouse = warehouseService.findById(warehouseId);
-        List<GoodQuantityProduct> goodQuantityProductsWithProductId = goodQuantityProductService.findByProductId(ProductId);
-        List<GoodQuantityProduct> goodQuantityProducts = warehouse.getGoodQuantityProducts();
-        for (GoodQuantityProduct o : goodQuantityProductsWithProductId) {
-            if (goodQuantityProducts.contains(o)) {
-                int systemQuantity = o.getQuantity();
-                ReconcileProduct reconcileProduct = new ReconcileProduct();
-                reconcileProduct.setGoodQuantityProduct(o);
-                reconcileProduct.setWarehouse(warehouse);
-                reconcileProduct.setPhysicalCount(physicalQuantity);
-                reconcileProduct.setSystemCount(systemQuantity);
-                GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.updateQuantity(o.getId(),
-                        physicalQuantity);
-                ReconcileProduct newReconcileProduct = reconcileProductService.create(reconcileProduct);
-                break;
-            }
-        }
+        warehouse.getGoodQuantityProducts().stream()
+                .filter(o -> o.getProduct().getId() == productId)
+                .findFirst().ifPresent(o -> {
+            createReconcileProduct(physicalQuantity, warehouse, o);
+            goodQuantityProductService.updateQuantity(o.getId(), physicalQuantity);
+        });
+
+    }
+
+    private void createReconcileProduct(int physicalQuantity, Warehouse warehouse, GoodQuantityProduct o) {
+        ReconcileProduct reconcileProduct = new ReconcileProduct();
+        reconcileProduct.setGoodQuantityProduct(o);
+        reconcileProduct.setWarehouse(warehouse);
+        reconcileProduct.setPhysicalCount(physicalQuantity);
+        reconcileProduct.setSystemCount(o.getQuantity());
+        reconcileProductService.create(reconcileProduct);
     }
 
     @Override
     public void stockInDamageQuantityProduct(int warehouseIdFrom, int warehouseIdTo, int productId, int quantity) {
-        Warehouse warehouseTo = warehouseService.findById(warehouseIdTo);
+        Warehouse warehouseFrom = checkIfWarehouseAndProductIstActive(warehouseIdFrom, productId);
+        stockOutFromWarehouse(productId, quantity, warehouseFrom);
 
-        if (!warehouseTo.isActive()) {
-            throw new IllegalArgumentException("Invalid warehouseTo because it is inactive");
-        }
+        Warehouse warehouseTo = checkIfWarehouseAndProductIstActive(warehouseIdTo, productId);
+        Optional<DamageQuantityProduct> damageQuantityProduct = getDamageQuantityProductInWarehouse(productId, warehouseTo);
+        ifNotPresentCreateNewDamageQuantityProduct(productId, quantity, warehouseTo, damageQuantityProduct);
+        ifPresentAddDamageQuantity(quantity, damageQuantityProduct);
 
-        stockOutGoodQuantityProduct(warehouseIdFrom, productId, quantity);
+    }
 
-        Integer value = null;
-        List<DamageQuantityProduct> damageQuantityProducts = warehouseTo.getDamageQuantityProducts();
-        for (DamageQuantityProduct o : damageQuantityProducts) {
-            if (o.getProduct().getId() == productId) {
-                value = o.getQuantity();
-                value += quantity;
-                checkIfQuantityIsValid(quantity, value);
-                DamageQuantityProduct newDamageQuantityProduct = damageQuantityProductService.updateQuantity(o.getId(),
-                        value);
-                break;
-            }
-        }
-        if (value == null || damageQuantityProducts == null) {
-            Product product = productService.findById(productId);
-            DamageQuantityProduct newDamageQuantityProduct = damageQuantityProductService.create(product, quantity);
-            damageQuantityProducts.add(newDamageQuantityProduct);
-            // Apply warehouse service a add damageproduct and goodproduct
-            warehouseTo.setDamageQuantityProducts(damageQuantityProducts);
+    private void ifNotPresentCreateNewDamageQuantityProduct(int productId, int quantity, Warehouse warehouseTo, Optional<DamageQuantityProduct> damageQuantityProduct) {
+        if (!damageQuantityProduct.isPresent()) {
+            warehouseTo.getDamageQuantityProducts().add(damageQuantityProductService
+                    .create(productService.findById(productId), quantity));
             warehouseService.update(warehouseTo);
         }
+    }
+
+    private void ifPresentAddDamageQuantity(int quantity, Optional<DamageQuantityProduct> damageQuantityProductInWarehouseTo) {
+        damageQuantityProductInWarehouseTo.ifPresent(o ->
+                damageQuantityProductService.updateQuantity(o.getId(), o.getQuantity() + quantity));
+    }
+
+    private Optional<DamageQuantityProduct> getDamageQuantityProductInWarehouse(int productId, Warehouse warehouseTo) {
+        return warehouseTo.getDamageQuantityProducts().stream().filter(o -> o.getProduct().getId() == productId).findFirst();
     }
 
     //for change
     @Override
     public void stockOutDamageQuantityProduct(int warehouseId, int productId, int quantity) {
 
-        Product product = productService.findById(productId);
-
         Warehouse warehouse = checkIfWarehouseAndProductIstActive(warehouseId, productId);
-        List<DamageQuantityProduct> damageQuantityProducts = warehouse.getDamageQuantityProducts();
-        List<DamageQuantityProduct> damageQuantityProductsWithProductId = damageQuantityProductService
-                .findByProductId(productId);
-        Integer value = null;
-        for (DamageQuantityProduct o : damageQuantityProductsWithProductId) {
-            if (damageQuantityProducts.contains(o)) {
-                value = o.getQuantity();
-                value -= quantity;
-                checkIfQuantityIsValid(quantity, value);
-                DamageQuantityProduct newDamageQuantityProduct = damageQuantityProductService.updateQuantity(o.getId(),
-                        value);
-                break;
-            }
-        }
-        if (value == null) {
-            throw new IllegalArgumentException("Invalid product no stocks in designated warehouse");
-        }
+        Optional<DamageQuantityProduct> damageQuantityProductInWarehouse = getDamageQuantityProductInWarehouse(productId, warehouse);
 
-//		Warehouse warehouse = warehouseService.findById(warehouseId);
-//		if (!warehouse.isActive()) {
-//			throw new IllegalArgumentException("Invalid warehouse because it is inactive");
-//		}
-//		DamageQuantityProduct damageQuantityProduct = damageQuantityProductService.findById(damageQuantityProductId);
-//		if (!damageQuantityProduct.getProduct().isActive()) {
-//			throw new IllegalArgumentException("Invalid product because it is inactive");
-//		}
-//		List<DamageQuantityProduct> damageQuantityProducts = warehouse.getDamageQuantityProduct();
-//		for (DamageQuantityProduct o : damageQuantityProducts) {
-//			if (o.getId() == damageQuantityProductId) {
-//				int initialQuantity = o.getQuantity();
-//				checkIfQuantityIsValid(quantity, initialQuantity);
-//				initialQuantity -= quantity;
-//				GoodQuantityProduct newGoodQuantityProduct = goodQuantityProductService.updateQuantity(o.getId(),
-//						initialQuantity);
-//				break;
-//			}
-//		}
+        damageQuantityProductInWarehouse.ifPresent(o -> {
+                    checkIfQuantityIsValid(quantity, o.getQuantity());
+                    damageQuantityProductService.updateQuantity(o.getId(), o.getQuantity() - quantity);
+                });
+
+        damageQuantityProductInWarehouse.orElseThrow(() -> new IllegalArgumentException("Invalid product no stocks in designated warehouse"));
     }
 
     @Override
     public List<GoodQuantityProduct> findByGoodQuantityProductThatReachedMinimumStocks() {
         List<Warehouse> warehouses = warehouseService.findAll();
-        List<GoodQuantityProduct> goodQuantityProductsThatReachedMinimumStocks = null;
-        for (Warehouse o : warehouses) {
-            List<GoodQuantityProduct> goodQuantityProducts = o.getGoodQuantityProducts();
-            for (GoodQuantityProduct u : goodQuantityProducts) {
-                if (u.getQuantity() <= u.getProduct().getMinimumStocks()) {
-                    if (goodQuantityProductsThatReachedMinimumStocks == null) {
-                        goodQuantityProductsThatReachedMinimumStocks = new ArrayList<>();
-                    }
-                    goodQuantityProductsThatReachedMinimumStocks.add(u);
-                }
-            }
+        List<GoodQuantityProduct> goodQuantityProducts = null;
+        for(Warehouse o : warehouses){
+            o.getGoodQuantityProducts().stream().filter(w -> (w.getQuantity() <= w.getProduct().getMinimumStocks())).collect(Collectors.toList());
         }
-        return goodQuantityProductsThatReachedMinimumStocks;
+       return goodQuantityProducts;
     }
 
     @Override
@@ -248,25 +208,5 @@ public class StockQuantityServiceImpl implements StockQuantityService {
         });
         return sortMinimumByProductDescription;
     }
-
-    // @Override
-    // public void stockOutGoodQuantityProduct(int warehouseId, int
-    // goodQuantityProductId, int quantity) {
-    // Warehouse warehouse = checkIfWarehouseAndProductIstActive(warehouseId,
-    // goodQuantityProductId);
-    // List<GoodQuantityProduct> goodQuantityProducts =
-    // warehouse.getGoodQuantityProducts();
-    // for (GoodQuantityProduct o : goodQuantityProducts) {
-    // if (o.getId() == goodQuantityProductId) {
-    // int initialQuantity = o.getQuantity();
-    // checkIfQuantityIsValid(quantity, initialQuantity);
-    // initialQuantity -= quantity;
-    // GoodQuantityProduct newGoodQuantityProduct =
-    // goodQuantityProductService.updateQuantity(o.getId(),
-    // initialQuantity);
-    // break;
-    // }
-    // }
-    // }
 
 }

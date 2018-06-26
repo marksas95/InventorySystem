@@ -20,11 +20,11 @@ public interface ProductService {
 
 	List<Product> findAll();
 
-	List<Product> searchByItemCode(String itemCode, boolean isActive);
+	List<Product> searchByItemCode(String itemCode);
 
-	List<Product> searchByUnitOfMeasurement(String unitOfMeasurement, boolean isActive);
+	List<Product> searchByUnitOfMeasurement(String unitOfMeasurement);
 
-	List<Product> searchByDescription(String description, boolean isActive);
+	List<Product> searchByDescription(String description);
 
 	Product findByName(String name);
 

@@ -26,8 +26,6 @@ public class GoodQuantityProductServiceIntegrationTest {
     private GoodQuantityProductService goodQuantityProductService;
     @Autowired
     private ProductRepository productRepository;
-    @Autowired
-    private WarehouseRepository warehouseRepository;
 
     @Test
     @Ignore
@@ -41,6 +39,7 @@ public class GoodQuantityProductServiceIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void updateQuantity() {
         int id = 13;
         int quantity = 500;
@@ -49,6 +48,7 @@ public class GoodQuantityProductServiceIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void findByProductId() {
         int id = 13;
         List<GoodQuantityProduct> goodQuantityProducts = goodQuantityProductService.findByProductId(id);
@@ -56,6 +56,7 @@ public class GoodQuantityProductServiceIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void findById() {
         int id = 13;
         GoodQuantityProduct goodQuantityProduct = goodQuantityProductService.findById(id);
@@ -63,14 +64,16 @@ public class GoodQuantityProductServiceIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void findAll() {
         List<GoodQuantityProduct> goodQuantityProducts = goodQuantityProductService.findAll();
         org.junit.Assert.assertNotNull(goodQuantityProducts);
     }
 
     @Test
+//    @Ignore
     public void deleteById() {
-        int id = 13;
+        int id = 46;
         goodQuantityProductService.deleteById(id);
         org.junit.Assert.assertNull(goodQuantityProductService.findById(id));
     }

@@ -2,13 +2,7 @@ package com.trainee.inv.repository.warehouse;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -30,7 +24,7 @@ public class Warehouse {
     private String description;
     private boolean isActive;
 
-    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @OneToMany(cascade = {CascadeType.MERGE,CascadeType.DETACH}, fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<GoodQuantityProduct> goodQuantityProducts;

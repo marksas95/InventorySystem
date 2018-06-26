@@ -21,7 +21,6 @@ public class CategoryServiceImpl implements CategoryService {
 		Category category = new Category();
 		category.setName(name);
 		return categoryRepository.save(category);
-
 	}
 
 	private void checkIfNameExists(String name) {

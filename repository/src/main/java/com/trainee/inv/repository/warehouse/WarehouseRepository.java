@@ -10,6 +10,8 @@ public interface WarehouseRepository extends JpaRepository<Warehouse, Integer> {
 
     List<Warehouse> findByIsActive(boolean isActive);
 
+    Warehouse findByGoodQuantityProductsId(int id);
+
     boolean existsByName(String name);
 
     boolean existsByAddress(String address);

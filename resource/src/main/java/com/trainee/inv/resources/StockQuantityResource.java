@@ -51,7 +51,7 @@ public class StockQuantityResource {
 	@PostMapping("/transferStocks")
 	public void transferStocks(@RequestParam(name = "warehouseIdFrom", required = true) int warehouseIdFrom,
 			@RequestParam(name = "warehouseIdTo", required = true) int warehouseIdTo,
-			@RequestParam(name = "goodQuantityProductIdFrom", required = true) int productId,
+			@RequestParam(name = "productId", required = true) int productId,
 			@RequestParam(name = "quantity", required = true) int quantity) {
 		stockQuantityService.transferStocks(warehouseIdFrom, warehouseIdTo, productId, quantity);;
 	}

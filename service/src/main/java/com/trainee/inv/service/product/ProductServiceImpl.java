@@ -5,6 +5,11 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProduct;
+import com.trainee.inv.repository.goodquantityproduct.GoodQuantityProductRepository;
+import com.trainee.inv.repository.warehouse.Warehouse;
+import com.trainee.inv.repository.warehouse.WarehouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +21,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    GoodQuantityProductRepository goodQuantityProductRepository;
+    @Autowired
+    WarehouseRepository warehouseRepository;
 
     @Override
     public Product create(Product product) {
@@ -50,33 +59,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> searchByItemCode(String itemCode, boolean isActive) {
-        List<Product> list = findByIsActive(isActive);
-        return findAllProductsByItemCode(itemCode, list);
-    }
-
-    private List<Product> findAllProductsByItemCode( String itemCode, List<Product> products) {
-        return products.stream().filter(o -> o.getItemCode().contains(itemCode)).collect(Collectors.toList());
+    public List<Product> searchByItemCode(String itemCode) {
+        return productRepository.findAll().stream().filter(o -> o.getItemCode().toLowerCase().contains(itemCode)).collect(Collectors.toList());
     }
 
     @Override
-    public List<Product> searchByUnitOfMeasurement(String unitOfMeasurement, boolean isActive) {
-        List<Product> list = findByIsActive(isActive);
-        return findAllProductsByUnitOfMeasurement(unitOfMeasurement, list);
+    public List<Product> searchByUnitOfMeasurement(String unitOfMeasurement) {
+        return productRepository.findAll().stream().filter(o -> o.getUnitOfMeasurement().toLowerCase().contains(unitOfMeasurement)).collect(Collectors.toList());
     }
 
-    private List<Product> findAllProductsByUnitOfMeasurement(String unitOfMeasurement, List<Product> products) {
-        return products.stream().filter(o -> o.getUnitOfMeasurement().contains(unitOfMeasurement)).collect(Collectors.toList());
-    }
 
     @Override
-    public List<Product> searchByDescription(String description, boolean isActive) {
-        List<Product> list = findByIsActive(isActive);
-        return findAllProductsByDescription(description, list);
-    }
-
-    private List<Product> findAllProductsByDescription(String description, List<Product> products) {
-        return products.stream().filter(o -> o.getDescription().contains(description)).collect(Collectors.toList());
+    public List<Product> searchByDescription(String description) {
+        return productRepository.findAll().stream().filter(o -> o.getDescription().toLowerCase().contains(description)).collect(Collectors.toList());
     }
 
     @Override
@@ -103,6 +98,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void delete(int id) {
+       goodQuantityProductRepository.findAllByProductId(id).stream().forEach(o ->  goodQuantityProductRepository.deleteById(o.getId()));
         productRepository.deleteById(id);
     }
 
